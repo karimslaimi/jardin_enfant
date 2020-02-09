@@ -1,3 +1,28 @@
+raed:
+    resource: "@RaedBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+emna:
+    resource: "@EmnaBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+dorrq:
+    resource: "@DorraBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+sami:
+    resource: "@SamiBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+karim:
+    resource: "@KarimBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
