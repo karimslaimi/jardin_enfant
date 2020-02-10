@@ -1,3 +1,8 @@
+ferid:
+    resource: "@FeridBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 raed:
     resource: "@RaedBundle/Controller/"
     type:     annotation

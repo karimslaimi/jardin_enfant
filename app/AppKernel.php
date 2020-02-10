@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new DorraBundle\DorraBundle(),
             new EmnaBundle\EmnaBundle(),
             new RaedBundle\RaedBundle(),
+            new FeridBundle\FeridBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
