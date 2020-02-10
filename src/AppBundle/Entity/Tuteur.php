@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Trajet
+ * Tuteur
  *
- * @ORM\Table(name="trajet")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\TrajetRepository")
+ * @ORM\Table(name="tuteur")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\TuteurRepository")
  */
-class Trajet
+class Tuteur
 {
     /**
      * @var int
@@ -24,9 +24,9 @@ class Trajet
     /**
      * @var string
      *
-     * @ORM\Column(name="checkpoint", type="string", length=255)
+     * @ORM\Column(name="nom", type="string", length=255)
      */
-    private $checkpoint;
+    private $nom;
 
 
     /**
@@ -40,27 +40,27 @@ class Trajet
     }
 
     /**
-     * Set checkpoint
+     * Set nom
      *
-     * @param string $checkpoint
+     * @param string $nom
      *
-     * @return Trajet
+     * @return Tuteur
      */
-    public function setCheckpoint($checkpoint)
+    public function setNom($nom)
     {
-        $this->checkpoint = $checkpoint;
+        $this->nom = $nom;
 
         return $this;
     }
 
     /**
-     * Get checkpoint
+     * Get nom
      *
      * @return string
      */
-    public function getCheckpoint()
+    public function getNom()
     {
-        return $this->checkpoint;
+        return $this->nom;
     }
 }
 

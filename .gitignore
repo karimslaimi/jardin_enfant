@@ -15,5 +15,6 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
-/.idea/commandlinetools/Symfony_2_10_20__11_46_AM_s
-/.idea/commandlinetools/Composer_2_10_20__11_46_AM_c
+/.idea/commandlinetools/*
+/.idea/commandlinetools/*
+

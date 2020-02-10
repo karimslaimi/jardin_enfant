@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Presence
+ * Pointage
  *
- * @ORM\Table(name="presence")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\PresenceRepository")
+ * @ORM\Table(name="Pointage")
+ * @ORM\Entity(repositoryClass="PointageRepository")
  */
-class Presence
+class Pointage
 {
     /**
      * @var int
@@ -51,7 +51,7 @@ class Presence
      *
      * @param \DateTime $date
      *
-     * @return Presence
+     * @return Pointage
      */
     public function setDate($date)
     {
@@ -75,7 +75,7 @@ class Presence
      *
      * @param string $type
      *
-     * @return Presence
+     * @return Pointage
      */
     public function setType($type)
     {
