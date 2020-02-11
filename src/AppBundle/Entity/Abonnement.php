@@ -51,11 +51,53 @@ class Abonnement
     private $montant;
 
     /**
-     * Many features have one product. This is the owning side.
      * @ORM\ManyToOne(targetEntity="Jardin", inversedBy="abonnements")
      * @ORM\JoinColumn(name="jardin_id", referencedColumnName="id")
      */
     private $jardin;
+
+    /**
+     * @OneToMany(targetEntity="Remarque", mappedBy="abonnement")
+     */
+    private $remarques;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Enfant", inversedBy="abonnements")
+     * @ORM\JoinColumn(name="enfant_id", referencedColumnName="id")
+     */
+    private $enfant;
+
+    /**
+     * @return mixed
+     */
+    public function getRemarques()
+    {
+        return $this->remarques;
+    }
+
+    /**
+     * @param mixed $remarques
+     */
+    public function setRemarques($remarques)
+    {
+        $this->remarques = $remarques;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEnfant()
+    {
+        return $this->enfant;
+    }
+
+    /**
+     * @param mixed $enfant
+     */
+    public function setEnfant($enfant)
+    {
+        $this->enfant = $enfant;
+    }
 
 
     /**
@@ -163,5 +205,24 @@ class Abonnement
     {
         return $this->montant;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getJardin()
+    {
+        return $this->jardin;
+    }
+
+    /**
+     * @param mixed $jardin
+     */
+    public function setJardin($jardin)
+    {
+        $this->jardin = $jardin;
+    }
+
+
+
 }
 

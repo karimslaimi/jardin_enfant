@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OneToMany;
 
 /**
  * Chauffeur
@@ -48,6 +49,53 @@ class Chauffeur
      * @ORM\Column(name="sexe", type="string", length=255)
      */
     private $sexe;
+
+    /**
+     * @OneToMany(targetEntity="Pointage", mappedBy="chauffeur")
+     */
+    private $pointage;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Jardin", inversedBy="chauffeurs")
+     * @ORM\JoinColumn(name="jardin_id", referencedColumnName="id")
+     */
+    private $jardin;
+
+    /**
+     * @return mixed
+     */
+    public function getJardin()
+    {
+        return $this->jardin;
+    }
+
+    /**
+     * @param mixed $jardin
+     */
+    public function setJardin($jardin)
+    {
+        $this->jardin = $jardin;
+    }
+
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getPointage()
+    {
+        return $this->pointage;
+    }
+
+    /**
+     * @param mixed $pointage
+     */
+    public function setPointage($pointage)
+    {
+        $this->pointage = $pointage;
+    }
 
 
     /**

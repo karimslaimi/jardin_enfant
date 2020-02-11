@@ -57,25 +57,71 @@ class Parents
     private $sexe;
 
     /**
-     * @ORM\OneToOne(targetEntity="Responsable", mappedBy="jardin")
+     * @ORM\OneToMany(targetEntity="Enfant", mappedBy="parent")
      */
-    private $responsable;
+    private $enfants;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Messages", mappedBy="parent")
+     */
+    private $messages;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Reclamation", mappedBy="parent")
+     */
+    private $reclamations;
 
     /**
      * @return mixed
      */
-    public function getResponsable()
+    public function getReclamations()
     {
-        return $this->responsable;
+        return $this->reclamations;
     }
 
     /**
-     * @param mixed $responsable
+     * @param mixed $reclamations
      */
-    public function setResponsable($responsable)
+    public function setReclamations($reclamations)
     {
-        $this->responsable = $responsable;
+        $this->reclamations = $reclamations;
     }
+
+
+    /**
+     * @return mixed
+     */
+    public function getMessages()
+    {
+        return $this->messages;
+    }
+
+    /**
+     * @param mixed $messages
+     */
+    public function setMessages($messages)
+    {
+        $this->messages = $messages;
+    }
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getEnfants()
+    {
+        return $this->enfants;
+    }
+
+    /**
+     * @param mixed $enfants
+     */
+    public function setEnfants($enfants)
+    {
+        $this->enfants = $enfants;
+    }
+
 
 
 
@@ -96,7 +142,7 @@ class Parents
      *
      * @param string $nom
      *
-     * @return Parent
+     * @return Parents
      */
     public function setNom($nom)
     {
@@ -120,7 +166,7 @@ class Parents
      *
      * @param string $prenom
      *
-     * @return Parent
+     * @return Parents
      */
     public function setPrenom($prenom)
     {
@@ -144,7 +190,7 @@ class Parents
      *
      * @param string $numtel
      *
-     * @return Parent
+     * @return Parents
      */
     public function setNumtel($numtel)
     {
@@ -168,7 +214,7 @@ class Parents
      *
      * @param string $adresse
      *
-     * @return Parent
+     * @return Parents
      */
     public function setAdresse($adresse)
     {
@@ -192,7 +238,7 @@ class Parents
      *
      * @param string $sexe
      *
-     * @return Parent
+     * @return Parents
      */
     public function setSexe($sexe)
     {

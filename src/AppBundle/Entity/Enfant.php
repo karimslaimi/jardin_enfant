@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OneToMany;
 
 /**
  * Enfant
@@ -48,6 +49,51 @@ class Enfant
      * @ORM\Column(name="sexe", type="string", length=255)
      */
     private $sexe;
+
+
+    /**
+     * @OneToMany(targetEntity="Abonnement", mappedBy="enfant")
+     */
+    private $abonnements;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Parents", inversedBy="enfants")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     */
+    private $parent;
+
+    /**
+     * @return mixed
+     */
+    public function getAbonnements()
+    {
+        return $this->abonnements;
+    }
+
+    /**
+     * @param mixed $abonnements
+     */
+    public function setAbonnements($abonnements)
+    {
+        $this->abonnements = $abonnements;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * @param mixed $parent
+     */
+    public function setParent($parent)
+    {
+        $this->parent = $parent;
+    }
+
 
 
     /**

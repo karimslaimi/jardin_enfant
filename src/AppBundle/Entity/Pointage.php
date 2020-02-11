@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
  * Pointage
@@ -34,6 +35,29 @@ class Pointage
      * @ORM\Column(name="type", type="string", length=255)
      */
     private $type;
+    /**
+     * @ORM\ManyToOne(targetEntity="Chauffeur", inversedBy="pointage")
+     * @JoinColumn(name="chauffeur_id", referencedColumnName="id")
+     */
+    private $chauffeur;
+
+    /**
+     * @return mixed
+     */
+    public function getChauffeur()
+    {
+        return $this->chauffeur;
+    }
+
+    /**
+     * @param mixed $chauffeur
+     */
+    public function setChauffeur($chauffeur)
+    {
+        $this->chauffeur = $chauffeur;
+    }
+
+
 
 
     /**

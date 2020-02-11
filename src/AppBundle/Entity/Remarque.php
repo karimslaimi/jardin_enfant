@@ -35,6 +35,52 @@ class Remarque
      */
     private $date;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Abonnement", inversedBy="remarques")
+     * @ORM\JoinColumn(name="abonnement_id", referencedColumnName="id")
+     */
+    private $abonnement;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Tuteur", inversedBy="remarques")
+     * @ORM\JoinColumn(name="tuteur_id", referencedColumnName="id")
+     */
+    private $tuteur;
+
+    /**
+     * @return mixed
+     */
+    public function getAbonnement()
+    {
+        return $this->abonnement;
+    }
+
+    /**
+     * @param mixed $abonnement
+     */
+    public function setAbonnement($abonnement)
+    {
+        $this->abonnement = $abonnement;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTuteur()
+    {
+        return $this->tuteur;
+    }
+
+    /**
+     * @param mixed $tuteur
+     */
+    public function setTuteur($tuteur)
+    {
+        $this->tuteur = $tuteur;
+    }
+
+
+
 
     /**
      * Get id

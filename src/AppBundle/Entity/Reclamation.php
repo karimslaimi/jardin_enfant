@@ -42,6 +42,28 @@ class Reclamation
      */
     private $titre;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Parents", inversedBy="reclamations")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     */
+    private $parent;
+
+    /**
+     * @return mixed
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * @param mixed $parent
+     */
+    public function setParent($parent)
+    {
+        $this->parent = $parent;
+    }
+
 
     /**
      * Get id

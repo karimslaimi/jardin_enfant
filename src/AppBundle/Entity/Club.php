@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OneToMany;
 
 /**
  * Club
@@ -34,6 +35,50 @@ class Club
      * @ORM\Column(name="Description", type="string", length=255)
      */
     private $description;
+
+    /**
+     * @OneToMany(targetEntity="Activite", mappedBy="club")
+     */
+    private $activites;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Jardin", inversedBy="clubs")
+     * @ORM\JoinColumn(name="jardin_id", referencedColumnName="id")
+     */
+    private $jardin;
+
+    /**
+     * @return mixed
+     */
+    public function getActivites()
+    {
+        return $this->activites;
+    }
+
+    /**
+     * @param mixed $activites
+     */
+    public function setActivites($activites)
+    {
+        $this->activites = $activites;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getJardin()
+    {
+        return $this->jardin;
+    }
+
+    /**
+     * @param mixed $jardin
+     */
+    public function setJardin($jardin)
+    {
+        $this->jardin = $jardin;
+    }
+
 
 
     /**

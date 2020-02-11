@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OneToMany;
 
 /**
  * Jardin
@@ -54,6 +55,175 @@ class Jardin
      * @ORM\Column(name="Etat", type="string", length=255)
      */
     private $etat;
+
+    /**
+     * @OneToMany(targetEntity="Abonnement", mappedBy="jardin")
+     */
+    private $abonnements;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Responsable", mappedBy="jardin")
+     */
+    private $responsable;
+
+    /**
+     * @OneToMany(targetEntity="Paiement", mappedBy="jardin")
+     */
+    private $paiements;
+
+    /**
+     * @OneToMany(targetEntity="Messages", mappedBy="jardin")
+     */
+    private $messages;
+
+    /**
+     * @OneToMany(targetEntity="Club", mappedBy="jardin")
+     */
+    private $clubs;
+
+    /**
+     * @OneToMany(targetEntity="Tuteur", mappedBy="jardin")
+     */
+    private $tureurs;
+    /**
+     * @OneToMany(targetEntity="Evenement", mappedBy="jardin")
+     */
+    private $evenements;
+
+    /**
+     * @OneToMany(targetEntity="Chauffeur", mappedBy="jardin")
+     */
+    private $chauffeurs;
+
+    /**
+     * @return mixed
+     */
+    public function getPaiements()
+    {
+        return $this->paiements;
+    }
+
+    /**
+     * @param mixed $paiements
+     */
+    public function setPaiements($paiements)
+    {
+        $this->paiements = $paiements;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMessages()
+    {
+        return $this->messages;
+    }
+
+    /**
+     * @param mixed $messages
+     */
+    public function setMessages($messages)
+    {
+        $this->messages = $messages;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getClubs()
+    {
+        return $this->clubs;
+    }
+
+    /**
+     * @param mixed $clubs
+     */
+    public function setClubs($clubs)
+    {
+        $this->clubs = $clubs;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTureurs()
+    {
+        return $this->tureurs;
+    }
+
+    /**
+     * @param mixed $tureurs
+     */
+    public function setTureurs($tureurs)
+    {
+        $this->tureurs = $tureurs;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEvenements()
+    {
+        return $this->evenements;
+    }
+
+    /**
+     * @param mixed $evenements
+     */
+    public function setEvenements($evenements)
+    {
+        $this->evenements = $evenements;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getChauffeurs()
+    {
+        return $this->chauffeurs;
+    }
+
+    /**
+     * @param mixed $chauffeurs
+     */
+    public function setChauffeurs($chauffeurs)
+    {
+        $this->chauffeurs = $chauffeurs;
+    }
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getAbonnements()
+    {
+        return $this->abonnements;
+    }
+
+    /**
+     * @param mixed $abonnements
+     */
+    public function setAbonnements($abonnements)
+    {
+        $this->abonnements = $abonnements;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResponsable()
+    {
+        return $this->responsable;
+    }
+
+    /**
+     * @param mixed $responsable
+     */
+    public function setResponsable($responsable)
+    {
+        $this->responsable = $responsable;
+    }
 
     /**
      * @return string

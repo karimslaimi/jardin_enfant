@@ -35,6 +35,28 @@ class Paiement
      */
     private $montant;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Jardin", inversedBy="paiements")
+     * @ORM\JoinColumn(name="jardin_id", referencedColumnName="id")
+     */
+    private $jardin;
+
+    /**
+     * @return mixed
+     */
+    public function getJardin()
+    {
+        return $this->jardin;
+    }
+
+    /**
+     * @param mixed $jardin
+     */
+    public function setJardin($jardin)
+    {
+        $this->jardin = $jardin;
+    }
+
 
     /**
      * Get id

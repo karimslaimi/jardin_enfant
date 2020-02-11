@@ -35,6 +35,29 @@ class Activite
      */
     private $detailles;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Club", inversedBy="activites")
+     * @ORM\JoinColumn(name="club_id", referencedColumnName="id")
+     */
+    private $club;
+
+    /**
+     * @return mixed
+     */
+    public function getClub()
+    {
+        return $this->club;
+    }
+
+    /**
+     * @param mixed $club
+     */
+    public function setClub($club)
+    {
+        $this->club = $club;
+    }
+
+
 
     /**
      * Get id

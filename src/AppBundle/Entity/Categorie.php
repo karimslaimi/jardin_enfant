@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OneToMany;
 
 /**
  * Categorie
@@ -27,6 +28,27 @@ class Categorie
      * @ORM\Column(name="libelle", type="string", length=255)
      */
     private $libelle;
+
+    /**
+     * @OneToMany(targetEntity="Evenement", mappedBy="categorie")
+     */
+    private $evenements;
+
+    /**
+     * @return mixed
+     */
+    public function getEvenements()
+    {
+        return $this->evenements;
+    }
+
+    /**
+     * @param mixed $evenements
+     */
+    public function setEvenements($evenements)
+    {
+        $this->evenements = $evenements;
+    }
 
 
     /**

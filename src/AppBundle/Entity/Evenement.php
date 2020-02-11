@@ -42,6 +42,52 @@ class Evenement
      */
     private $description;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Categorie", inversedBy="evenements")
+     * @ORM\JoinColumn(name="categorie_id", referencedColumnName="id")
+     */
+    private $categorie;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Jardin", inversedBy="evenements")
+     * @ORM\JoinColumn(name="jardin_id", referencedColumnName="id")
+     */
+    private $jardin;
+
+    /**
+     * @return mixed
+     */
+    public function getCategorie()
+    {
+        return $this->categorie;
+    }
+
+    /**
+     * @param mixed $categorie
+     */
+    public function setCategorie($categorie)
+    {
+        $this->categorie = $categorie;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getJardin()
+    {
+        return $this->jardin;
+    }
+
+    /**
+     * @param mixed $jardin
+     */
+    public function setJardin($jardin)
+    {
+        $this->jardin = $jardin;
+    }
+
+
+
 
     /**
      * Get id
