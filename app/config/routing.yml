@@ -1,3 +1,11 @@
+app_abonnement:
+    resource: "@FeridBundle/Controller/AbonnementController.php"
+    type:     annotation
+
+app_enfant:
+    resource: "@FeridBundle/Controller/EnfantController.php"
+    type:     annotation
+
 app_reclamation:
     resource: "@KarimBundle/Controller/ReclamationController.php"
     type:     annotation
