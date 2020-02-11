@@ -1,3 +1,11 @@
+app_reclamation:
+    resource: "@KarimBundle/Controller/ReclamationController.php"
+    type:     annotation
+
+app_messages:
+    resource: "@KarimBundle/Controller/MessagesController.php"
+    type:     annotation
+
 ferid:
     resource: "@FeridBundle/Controller/"
     type:     annotation
