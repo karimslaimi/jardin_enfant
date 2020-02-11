@@ -1,11 +1,3 @@
-app_categorie:
-    resource: "@EmnaBundle/Controller/CategorieController.php"
-    type:     annotation
-
-app_evenement:
-    resource: "@EmnaBundle/Controller/EvenementController.php"
-    type:     annotation
-
 app_reclamation:
     resource: "@KarimBundle/Controller/ReclamationController.php"
     type:     annotation

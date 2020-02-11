@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Chauffeurs list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Cin</th>
+                <th>Nom</th>
+                <th>Tel</th>
+                <th>Sexe</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for chauffeur in chauffeurs %}
+            <tr>
+                <td><a href="{{ path('chauffeur_show', { 'id': chauffeur.id }) }}">{{ chauffeur.id }}</a></td>
+                <td>{{ chauffeur.cin }}</td>
+                <td>{{ chauffeur.nom }}</td>
+                <td>{{ chauffeur.tel }}</td>
+                <td>{{ chauffeur.sexe }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('chauffeur_show', { 'id': chauffeur.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('chauffeur_edit', { 'id': chauffeur.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('chauffeur_new') }}">Create a new chauffeur</a>
+        </li>
+    </ul>
+{% endblock %}
