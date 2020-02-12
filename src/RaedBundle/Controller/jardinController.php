@@ -2,7 +2,7 @@
 
 namespace RaedBundle\Controller;
 
-use AppBundle\Entity\jardin;
+use AppBundle\Entity\Jardin;
 use RaedBundle\Form\jardinType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -25,7 +25,7 @@ class jardinController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $jardins = $em->getRepository('AppBundle:jardin')->findAll();
+        $jardins = $em->getRepository('AppBundle:Jardin')->findAll();
 
         return $this->render('@Raed/jardin/index.html.twig', array(
             'jardins' => $jardins,
