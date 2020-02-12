@@ -19,7 +19,7 @@ app_chauffeur:
     type:     annotation
 
 app_tuteur:
-    resource: "@DorraBundle/Controller/TuteurController.php"
+    resource: "@SamiBundle/Controller/TuteurController.php"
     type:     annotation
 
 ferid:
