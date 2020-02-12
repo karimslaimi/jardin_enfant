@@ -40,7 +40,7 @@ raed:
 app_categorie:
     resource: "@EmnaBundle/Controller/CategorieController.php"
     type:     annotation
-    prefix:   /
+    prefix:   /cat
 
 app_evenement:
     resource: "@EmnaBundle/Controller/EvenementController.php"
