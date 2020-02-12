@@ -2,6 +2,14 @@ app_reclamation:
     resource: "@KarimBundle/Controller/ReclamationController.php"
     type:     annotation
 
+app_club:
+    resource: "@DorraBundle/Controller/ClubController.php"
+    type:     annotation
+
+app_activite:
+    resource: "@DorraBundle/Controller/ActiviteController.php"
+    type:     annotation
+
 app_messages:
     resource: "@KarimBundle/Controller/MessagesController.php"
     type:     annotation
@@ -24,7 +32,7 @@ emna:
 dorrq:
     resource: "@DorraBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /dorra
 
 sami:
     resource: "@SamiBundle/Controller/"
