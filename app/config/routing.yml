@@ -1,8 +1,4 @@
 app_tuteur:
-    resource: "@AppBundle/Controller/TuteurController.php"
-    type:     annotation
-
-app_tuteur:
     resource: "@SamiBundle/Controller/TuteurController.php"
     type:     annotation
 
