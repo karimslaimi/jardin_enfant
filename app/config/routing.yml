@@ -1,3 +1,11 @@
+app_paiement:
+    resource: "@RaedBundle/Controller/PaiementController.php"
+    type:     annotation
+
+app_jardin:
+    resource: "@RaedBundle/Controller/jardinController.php"
+    type:     annotation
+
 app_reclamation:
     resource: "@KarimBundle/Controller/ReclamationController.php"
     type:     annotation
@@ -37,8 +45,13 @@ raed:
     type:     annotation
     prefix:   /
 
-emna:
-    resource: "@EmnaBundle/Controller/"
+app_categorie:
+    resource: "@EmnaBundle/Controller/CategorieController.php"
+    type:     annotation
+    prefix:   /cat
+
+app_evenement:
+    resource: "@EmnaBundle/Controller/EvenementController.php"
     type:     annotation
     prefix:   /
 
