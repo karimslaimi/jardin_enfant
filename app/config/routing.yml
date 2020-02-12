@@ -14,6 +14,14 @@ app_messages:
     resource: "@KarimBundle/Controller/MessagesController.php"
     type:     annotation
 
+app_chauffeur:
+    resource: "@SamiBundle/Controller/ChauffeurController.php"
+    type:     annotation
+
+app_tuteur:
+    resource: "@DorraBundle/Controller/TuteurController.php"
+    type:     annotation
+
 ferid:
     resource: "@FeridBundle/Controller/"
     type:     annotation
