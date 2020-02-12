@@ -22,18 +22,36 @@ app_messages:
     resource: "@KarimBundle/Controller/MessagesController.php"
     type:     annotation
 
-ferid:
-    resource: "@FeridBundle/Controller/"
+app_chauffeur:
+    resource: "@SamiBundle/Controller/ChauffeurController.php"
+    type:     annotation
+
+app_tuteur:
+    resource: "@SamiBundle/Controller/TuteurController.php"
+    type:     annotation
+
+app_abonnement:
+    resource: "@FeridBundle/Controller/AbonnementController.php"
     type:     annotation
     prefix:   /
+
+app_enfant:
+        resource: "@FeridBundle/Controller/EnfantController.php"
+        type:     annotation
+        prefix:   /
 
 raed:
     resource: "@RaedBundle/Controller/"
     type:     annotation
     prefix:   /
 
-emna:
-    resource: "@EmnaBundle/Controller/"
+app_categorie:
+    resource: "@EmnaBundle/Controller/CategorieController.php"
+    type:     annotation
+    prefix:   /cat
+
+app_evenement:
+    resource: "@EmnaBundle/Controller/EvenementController.php"
     type:     annotation
     prefix:   /
 
@@ -45,7 +63,7 @@ dorrq:
 sami:
     resource: "@SamiBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /sami
 
 karim:
     resource: "@KarimBundle/Controller/"

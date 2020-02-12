@@ -18,7 +18,7 @@ class EnfantController extends Controller
     /**
      * Lists all enfant entities.
      *
-     * @Route("/", name="enfant_index",methods={"GET","HEAD"})
+     * @Route("/index", name="enfant_index",methods={"GET","HEAD"})
 
      */
     public function indexAction()

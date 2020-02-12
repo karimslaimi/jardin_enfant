@@ -1,9 +1,9 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace SamiBundle\Controller;
 
 use AppBundle\Entity\Tuteur;
-use AppBundle\Form\TuteurType;
+use SamiBundle\Form\TuteurType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
