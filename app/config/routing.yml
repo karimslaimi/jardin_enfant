@@ -45,7 +45,7 @@ dorrq:
 sami:
     resource: "@SamiBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /sami
 
 karim:
     resource: "@KarimBundle/Controller/"
