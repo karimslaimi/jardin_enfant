@@ -13,7 +13,7 @@ class EnfantType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nom')->add('prenom')->add('datenaiss')->add('sexe')->add('parent');
+        $builder->add('nom')->add('prenom')->add('datenaiss')->add('sexe');
     }/**
      * {@inheritdoc}
      */
