@@ -22,10 +22,15 @@ app_tuteur:
     resource: "@SamiBundle/Controller/TuteurController.php"
     type:     annotation
 
-ferid:
-    resource: "@FeridBundle/Controller/"
+app_abonnement:
+    resource: "@FeridBundle/Controller/AbonnementController.php"
     type:     annotation
     prefix:   /
+
+app_enfant:
+        resource: "@FeridBundle/Controller/EnfantController.php"
+        type:     annotation
+        prefix:   /
 
 raed:
     resource: "@RaedBundle/Controller/"
