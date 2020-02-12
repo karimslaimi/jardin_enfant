@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Jardins list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Tarif</th>
+                <th>Adresse</th>
+                <th>Etat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for jardin in jardins %}
+            <tr>
+                <td><a href="{{ path('jardin_show', { 'id': jardin.id }) }}">{{ jardin.id }}</a></td>
+                <td>{{ jardin.name }}</td>
+                <td>{{ jardin.description }}</td>
+                <td>{{ jardin.tarif }}</td>
+                <td>{{ jardin.adresse }}</td>
+                <td>{{ jardin.etat }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('jardin_show', { 'id': jardin.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('jardin_edit', { 'id': jardin.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('jardin_new') }}">Create a new jardin</a>
+        </li>
+    </ul>
+{% endblock %}
