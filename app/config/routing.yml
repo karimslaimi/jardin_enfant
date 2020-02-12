@@ -1,21 +1,13 @@
-app_tuteur:
-    resource: "@SamiBundle/Controller/TuteurController.php"
-    type:     annotation
-
-app_chauffeur:
-    resource: "@SamiBundle/Controller/ChauffeurController.php"
-    type:     annotation
-
-app_abonnement:
-    resource: "@FeridBundle/Controller/AbonnementController.php"
-    type:     annotation
-
-app_enfant:
-    resource: "@FeridBundle/Controller/EnfantController.php"
-    type:     annotation
-
 app_reclamation:
     resource: "@KarimBundle/Controller/ReclamationController.php"
+    type:     annotation
+
+app_club:
+    resource: "@DorraBundle/Controller/ClubController.php"
+    type:     annotation
+
+app_activite:
+    resource: "@DorraBundle/Controller/ActiviteController.php"
     type:     annotation
 
 app_messages:
@@ -40,12 +32,12 @@ emna:
 dorrq:
     resource: "@DorraBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /dorra
 
 sami:
     resource: "@SamiBundle/Controller/"
     type:     annotation
-    prefix:   /Sami
+    prefix:   /
 
 karim:
     resource: "@KarimBundle/Controller/"
