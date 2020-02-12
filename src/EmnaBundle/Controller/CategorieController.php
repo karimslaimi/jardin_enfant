@@ -19,7 +19,7 @@ class CategorieController extends Controller
     /**
      * Lists all categorie entities.
      *
-     * @Route("/", name="categorie_index",methods={"GET"})
+     * @Route("/index", name="categorie_index",methods={"GET"})
      */
     public function indexAction()
     {
