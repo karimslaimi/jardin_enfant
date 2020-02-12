@@ -84,7 +84,7 @@ class ChauffeurController extends Controller
     public function editAction(Request $request, Chauffeur $chauffeur)
     {
         $deleteForm = $this->createDeleteForm($chauffeur);
-        $editForm = $this->createForm('SamiBundle\Form\ChauffeurType', $chauffeur);
+        $editForm = $this->createForm(ChauffeurType::class, $chauffeur);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -93,7 +93,7 @@ class ChauffeurController extends Controller
             return $this->redirectToRoute('chauffeur_edit', array('id' => $chauffeur->getId()));
         }
 
-        return $this->render('chauffeur/edit.html.twig', array(
+        return $this->render('@Sami/chauffeur/edit.html.twig', array(
             'chauffeur' => $chauffeur,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

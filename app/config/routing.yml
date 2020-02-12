@@ -1,3 +1,15 @@
+app_tuteur:
+    resource: "@AppBundle/Controller/TuteurController.php"
+    type:     annotation
+
+app_tuteur:
+    resource: "@SamiBundle/Controller/TuteurController.php"
+    type:     annotation
+
+app_chauffeur:
+    resource: "@SamiBundle/Controller/ChauffeurController.php"
+    type:     annotation
+
 app_abonnement:
     resource: "@FeridBundle/Controller/AbonnementController.php"
     type:     annotation
@@ -37,7 +49,7 @@ dorrq:
 sami:
     resource: "@SamiBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /Sami
 
 karim:
     resource: "@KarimBundle/Controller/"
