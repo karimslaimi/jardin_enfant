@@ -37,8 +37,13 @@ raed:
     type:     annotation
     prefix:   /
 
-emna:
-    resource: "@EmnaBundle/Controller/"
+app_categorie:
+    resource: "@EmnaBundle/Controller/CategorieController.php"
+    type:     annotation
+    prefix:   /
+
+app_evenement:
+    resource: "@EmnaBundle/Controller/EvenementController.php"
     type:     annotation
     prefix:   /
 
