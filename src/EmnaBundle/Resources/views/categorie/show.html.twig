@@ -22,11 +22,11 @@
 
     <ul>
         <li>
-            <a class="btn btn-primary"  href={{ path('categorie_edit', { 'id': categorie.id }) }}">Modifier</a>
+            <a class="btn btn-success"  href={{ path('categorie_edit', { 'id': categorie.id }) }}">Modifier</a>
         </li>
         <li>
             {{ form_start(delete_form) }}
-                <input class="btn btn-primary", type="submit" value="supprimer">
+                <input class="btn btn-danger" type="submit" value="supprimer">
             {{ form_end(delete_form) }}
         </li>
     </ul>
