@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="tuteur")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TuteurRepository")
  */
-class Tuteur
+class Tuteur extends User
 {
     /**
      * @var int
@@ -19,7 +19,7 @@ class Tuteur
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
@@ -51,11 +51,7 @@ class Tuteur
      */
     private $remarques;
 
-    /**
-     * @ORM\OneToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     */
-    private $user;
+
 
     /**
      * @return mixed

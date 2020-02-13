@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping\OneToMany;
  * @ORM\Table(name="chauffeur")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ChauffeurRepository")
  */
-class Chauffeur
+class Chauffeur extends User
 {
     /**
      * @var int
@@ -20,7 +20,7 @@ class Chauffeur
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
@@ -62,27 +62,6 @@ class Chauffeur
      */
     private $jardin;
 
-    /**
-     * @ORM\OneToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     */
-    private $user;
-
-    /**
-     * @return mixed
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * @param mixed $user
-     */
-    public function setUser($user)
-    {
-        $this->user = $user;
-    }
 
 
 
@@ -227,5 +206,6 @@ class Chauffeur
     {
         return $this->sexe;
     }
+
 }
 

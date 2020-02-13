@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping\OneToOne;
  * @ORM\Table(name="responsable")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ResponsableRepository")
  */
-class Responsable
+class Responsable extends User
 {
     /**
      * @var int
@@ -21,7 +21,23 @@ class Responsable
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
+
+    /**
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * @param string $username
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    }
 
     /**
      * @var string
@@ -37,27 +53,7 @@ class Responsable
     private $jardin;
 
 
-    /**
-     * @ORM\OneToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     */
-    private $user;
 
-    /**
-     * @return mixed
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * @param mixed $user
-     */
-    public function setUser($user)
-    {
-        $this->user = $user;
-    }
 
 
     /**
