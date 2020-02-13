@@ -18,7 +18,7 @@ class EvenementController extends Controller
     /**
      * Lists all evenement entities.
      *
-     * @Route("/", name="evenement_index",methods={"GET"})
+     * @Route("/index", name="evenement_index",methods={"GET"})
      */
     public function indexAction()
     {

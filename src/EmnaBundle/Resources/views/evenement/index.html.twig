@@ -1,9 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Evenements list</h1>
+    <ul>
+        <li>
+            <a href="{{ path('evenement_new') }}">Créer un nouvel événement</a>
+        </li>
+    </ul>
 
-    <table>
+    <h1>liste des événements</h1>
+
+    <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
                 <th>Id</th>
@@ -23,10 +29,10 @@
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('evenement_show', { 'id': evenement.id }) }}">show</a>
+                            <a href="{{ path('evenement_show', { 'id': evenement.id }) }}">Afficher</a>
                         </li>
                         <li>
-                            <a href="{{ path('evenement_edit', { 'id': evenement.id }) }}">edit</a>
+                            <a href="{{ path('evenement_edit', { 'id': evenement.id }) }}">Editer</a>
                         </li>
                     </ul>
                 </td>
@@ -35,9 +41,5 @@
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('evenement_new') }}">Create a new evenement</a>
-        </li>
-    </ul>
+
 {% endblock %}

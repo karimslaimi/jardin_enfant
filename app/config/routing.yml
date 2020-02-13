@@ -53,7 +53,7 @@ app_categorie:
 app_evenement:
     resource: "@EmnaBundle/Controller/EvenementController.php"
     type:     annotation
-    prefix:   /
+    prefix:   /eve
 
 dorrq:
     resource: "@DorraBundle/Controller/"
