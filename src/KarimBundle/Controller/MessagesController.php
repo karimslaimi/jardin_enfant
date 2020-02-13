@@ -46,9 +46,16 @@ class MessagesController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $parent=new Parents();
-            $parent=$this->getDoctrine()->getRepository(ParentRepository::class)->find(1);
-            $message->setParent($parent);
+            $time=new \DateTime();
+            $message->setDate($time->format('Y-m-d H:i:s'));
+
+
+            $id=1;
+            $parent=$this->getDoctrine()->getManager()->getRepository(Parents::class)->findOneBy(["id"=>$id]);
+
+
+            $p=new Parents($parent);
+            $message->setParent($p);
             $em = $this->getDoctrine()->getManager();
             $em->persist($message);
             $em->flush();
