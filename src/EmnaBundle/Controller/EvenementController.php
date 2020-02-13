@@ -98,14 +98,14 @@ class EvenementController extends Controller
     /**
      * Deletes a evenement entity.
      *
-     * @Route("/{id}", name="evenement_delete",methods={"DELETE"})
+     * @Route("/delete/{id}", name="evenement_delete",methods={"DELETE"})
      */
     public function deleteAction(Request $request, Evenement $evenement)
     {
         $form = $this->createDeleteForm($evenement);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($evenement);
             $em->flush();

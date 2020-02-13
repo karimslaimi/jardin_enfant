@@ -43,7 +43,7 @@ class CategorieController extends Controller
         $form = $this->createForm(CategorieType::class, $categorie);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() ) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($categorie);
             $em->flush();
@@ -84,10 +84,10 @@ class CategorieController extends Controller
         $editForm = $this->createForm(CategorieType::class, $categorie);
         $editForm->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
+        if ($editForm->isSubmitted() ) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('categorie_edit', array('id' => $categorie->getId()));
+            return $this->redirectToRoute('categorie_show', array('id' => $categorie->getId()));
         }
 
         return $this->render('@Emna/categorie/edit.html.twig', array(
@@ -100,14 +100,14 @@ class CategorieController extends Controller
     /**
      * Deletes a categorie entity.
      *
-     * @Route("/{id}", name="categorie_delete",methods={"DELETE"})
+     * @Route("/delete/{id}", name="categorie_delete",methods={"DELETE"})
      */
     public function deleteAction(Request $request, Categorie $categorie)
     {
         $form = $this->createDeleteForm($categorie);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($categorie);
             $em->flush();
