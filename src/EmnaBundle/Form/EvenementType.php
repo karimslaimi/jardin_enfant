@@ -2,6 +2,9 @@
 
 namespace EmnaBundle\Form;
 
+use AppBundle\Entity\Categorie;
+use AppBundle\Entity\Jardin;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,7 +16,16 @@ class EvenementType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('titre')->add('date')->add('description')->add('categorie')->add('jardin');
+        $builder->add('titre')->add('date')->add('description')->add('categorie', EntityType::class,[
+            'class' => Categorie::class,
+            'choice_label' => 'libelle',
+            'expanded' => false,
+            'multiple' => false,])->add('jardin', EntityType::class,[
+            'class' => Jardin::class,
+            'choice_label' => 'name',
+            'expanded' => false,
+            'multiple' => false
+        ]);
     }/**
      * {@inheritdoc}
      */
