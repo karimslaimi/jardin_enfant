@@ -1,36 +1,42 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Jardins list</h1>
+    <h1 style="color: red">Jardins list</h1>
 
-    <table>
+    <table id="example" class="table table-striped table-bordered" style="width:50%" >
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Tarif</th>
-                <th>Adresse</th>
-                <th>Etat</th>
-                <th>Actions</th>
+                <th style="color:#d971f2"> <b>Id </b></th>
+
+                <th style="color: #1c7430"> <b>Name</b> </th>
+
+                <th style="color:#3b003b"> <b>Description </b></th>
+
+                <th style="color: #9c49fa"> <b>Tarif </b></th>
+
+                <th style="color: #00A8FF"> <b>Adresse </b></th>
+
+                <th style="color: red"> <b>Etat</b> </th>
+                
+                <th style="color: gold"><b> Actions</b> </th>
             </tr>
         </thead>
         <tbody>
         {% for jardin in jardins %}
             <tr>
-                <td><a href="{{ path('jardin_show', { 'id': jardin.id }) }}">{{ jardin.id }}</a></td>
-                <td>{{ jardin.name }}</td>
-                <td>{{ jardin.description }}</td>
-                <td>{{ jardin.tarif }}</td>
-                <td>{{ jardin.adresse }}</td>
-                <td>{{ jardin.etat }}</td>
+                <td  style="color:#d971f2"><a href="{{ path('jardin_show', { 'id': jardin.id }) }}">{{ jardin.id }}</a></td>
+                <td style="color: #1c7430">{{ jardin.name }}</td>
+                <td style="color: #3b003b">{{ jardin.description }}</td>
+                <td style="color: #9c49fa">{{ jardin.tarif }}</td>
+                <td style="color: #00A8FF">{{ jardin.adresse }}</td>
+                <td style="color: red">{{ jardin.etat }}</td>
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('jardin_show', { 'id': jardin.id }) }}">show</a>
+                            <a href="{{ path('jardin_show', { 'id': jardin.id }) }}" style="color: gold">show</a>
                         </li>
                         <li>
-                            <a href="{{ path('jardin_edit', { 'id': jardin.id }) }}">edit</a>
+                            <a href="{{ path('jardin_edit', { 'id': jardin.id }) }}" style="color: gold" >edit</a>
                         </li>
                     </ul>
                 </td>
@@ -39,9 +45,10 @@
         </tbody>
     </table>
 
+
     <ul>
         <li>
-            <a href="{{ path('jardin_new') }}">Create a new jardin</a>
+            <a href="{{ path('jardin_new') }}" style="color: red">Create a new jardin</a>
         </li>
     </ul>
 {% endblock %}
