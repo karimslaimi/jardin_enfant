@@ -3,6 +3,7 @@
 namespace DorraBundle\Controller;
 
 use AppBundle\Entity\Activite;
+use AppBundle\Entity\Club;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -45,6 +46,7 @@ class ActiviteController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $activite->setClub($em->getRepository(Club::class)->find(1 ));
             $em->persist($activite);
             $em->flush();
 
@@ -85,10 +87,13 @@ class ActiviteController extends Controller
         $editForm = $this->createForm('DorraBundle\Form\ActiviteType', $activite);
         $editForm->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
+        if ($editForm->isSubmitted() ) {
+            $em = $this->getDoctrine()->getManager();
+            //$activite->setClub($em->getRepository(Club::class)->find(1 ));
+           $em->merge($activite);
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('activite_edit', array('id' => $activite->getId()));
+            return $this->redirectToRoute('activite_show', array('id' => $activite->getId()));
         }
 
         return $this->render('@Dorra/activite/edit.html.twig', array(
@@ -101,15 +106,15 @@ class ActiviteController extends Controller
     /**
      * Deletes a activite entity.
      *
-     * @Route("/{id}", name="activite_delete")
-     * @Method("DELETE")
+     * @Route("/delete/{id}", name="activite_delete", methods="DELETE")
+
      */
     public function deleteAction(Request $request, Activite $activite)
     {
         $form = $this->createDeleteForm($activite);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() ) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($activite);
             $em->flush();
