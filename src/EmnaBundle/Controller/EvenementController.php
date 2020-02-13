@@ -42,7 +42,7 @@ class EvenementController extends Controller
         $form = $this->createForm(EvenementType::class, $evenement);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() ) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($evenement);
             $em->flush();
