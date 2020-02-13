@@ -1,16 +1,36 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Message creation</h1>
+    <h1>Contacter Votre jardin</h1>
 
     {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+
+
 
     <ul>
         <li>
             <a href="{{ path('messages_index') }}">Back to the list</a>
         </li>
     </ul>
+
+<div class="col-md-6 grid-margin stretch-card" bis_skin_checked="1">
+    <div class="card" bis_skin_checked="1">
+        <div class="card-body" bis_skin_checked="1">
+            <h4 class="card-title">Basic form</h4>
+            <p class="card-description"> Basic form elements </p>
+            <div class="form-group col-lg-12 col-md-12 col-sm-12 bis_skin_checked="1">
+
+                {{ form_widget(form.msg,{'attr': {'class': 'form-control'}})}}
+            </div>
+
+        </div>
+    </div>
+
+    <button type="submit" class="theme-btn btn-style-one">Submit</button>
+    <button class="btn btn-light">Cancel</button>
+    {{ form_end(form) }}
+</div>
+</div>
+</div>
+
 {% endblock %}

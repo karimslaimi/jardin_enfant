@@ -13,7 +13,7 @@ class MessagesType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('date')->add('msg')->add('jardin')->add('parent');
+        $builder->add('msg');
     }/**
      * {@inheritdoc}
      */
