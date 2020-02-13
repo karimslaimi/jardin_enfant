@@ -8,6 +8,9 @@ use FOS\UserBundle\Model\User as BaseUser;
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({"T" = "Tuteur", "R" = "Responsable","P"="Parents","C"="Chauffeur","U"="User"})
  */
 class User extends BaseUser
 {
@@ -19,6 +22,7 @@ class User extends BaseUser
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
 
 
     /**

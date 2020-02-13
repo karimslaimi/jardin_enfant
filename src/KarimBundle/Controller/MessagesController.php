@@ -3,6 +3,8 @@
 namespace KarimBundle\Controller;
 
 use AppBundle\Entity\Messages;
+use AppBundle\Entity\Parents;
+use AppBundle\Repository\ParentRepository;
 use KarimBundle\Form\MessagesType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
@@ -38,11 +40,22 @@ class MessagesController extends Controller
      */
     public function newAction(Request $request)
     {
+
         $message = new Messages();
         $form = $this->createForm(MessagesType::class, $message);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $time=new \DateTime();
+            $message->setDate($time->format('Y-m-d H:i:s'));
+
+
+            $id=1;
+            $parent=$this->getDoctrine()->getManager()->getRepository(Parents::class)->findOneBy(["id"=>$id]);
+
+
+            $p=new Parents($parent);
+            $message->setParent($p);
             $em = $this->getDoctrine()->getManager();
             $em->persist($message);
             $em->flush();
@@ -98,7 +111,7 @@ class MessagesController extends Controller
     /**
      * Deletes a message entity.
      *
-     * @Route("/{id}", name="messages_delete",methods={"DELETE"})
+     * @Route("Delete/{id}", name="messages_delete",methods={"DELETE"})
      */
     public function deleteAction(Request $request, Messages $message)
     {

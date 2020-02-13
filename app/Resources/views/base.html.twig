@@ -7,12 +7,11 @@
 
     <title>{% block title %}Welcome!{% endblock %}</title>
     {% block stylesheets %}
+       <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}">
         <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
         <link href="{{ asset('plugins/revolution/css/settings.css')}}" rel="stylesheet" type="text/css">
         <link href="{{ asset('plugins/revolution/css/layers.css')}}" rel="stylesheet" type="text/css">
         <link href="{{ asset('plugins/revolution/css/navigation.css')}}" rel="stylesheet" type="text/css">
-
-
         <link href="{{ asset('css/style.css') }}" rel="stylesheet">
         <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
     {% endblock stylesheets %}

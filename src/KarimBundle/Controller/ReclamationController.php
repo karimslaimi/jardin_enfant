@@ -99,7 +99,7 @@ class ReclamationController extends Controller
     /**
      * Deletes a reclamation entity.
      *
-     * @Route("/{id}", name="reclamation_delete",methods={"DELETE"})
+     * @Route("Delete/{id}", name="reclamation_delete",methods={"DELETE"})
      */
     public function deleteAction(Request $request, Reclamation $reclamation)
     {

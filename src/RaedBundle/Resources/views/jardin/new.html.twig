@@ -1,16 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Jardin creation</h1>
+    <h1 style="color: red">Jardin creation</h1>
 
-    {{ form_start(form) }}
+    {{ form_start(form)  }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+       <i> <input type="submit" value="Create" style="background-color: #7c1212" /></i>
     {{ form_end(form) }}
 
     <ul>
+        <ul>
         <li>
-            <a href="{{ path('jardin_index') }}">Back to the list</a>
+            <a href="{{ path('jardin_index') }}" style="background-color: green"><i>Back to the list</i></a>
         </li>
+    </ul>
     </ul>
 {% endblock %}
