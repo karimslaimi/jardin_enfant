@@ -44,7 +44,7 @@ class TuteurController extends Controller
         $form = $this->createForm(TuteurType::class, $tuteur);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($tuteur);
             $em->flush();
@@ -68,7 +68,7 @@ class TuteurController extends Controller
     {
         $deleteForm = $this->createDeleteForm($tuteur);
 
-        return $this->render('tuteur/show.html.twig', array(
+        return $this->render('@Sami/tuteur/show.html.twig', array(
             'tuteur' => $tuteur,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -86,7 +86,7 @@ class TuteurController extends Controller
         $editForm = $this->createForm(TuteurType::class, $tuteur);
         $editForm->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
+        if ($editForm->isSubmitted()) {
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('tuteur_edit', array('id' => $tuteur->getId()));
@@ -102,15 +102,15 @@ class TuteurController extends Controller
     /**
      * Deletes a tuteur entity.
      *
-     * @Route("/{id}", name="tuteur_delete")
-     * @Method("DELETE")
+     * @Route("/delete/{id}", name="tuteur_delete",methods={"DELETE"})
+
      */
     public function deleteAction(Request $request, Tuteur $tuteur)
     {
         $form = $this->createDeleteForm($tuteur);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($tuteur);
             $em->flush();
@@ -128,10 +128,10 @@ class TuteurController extends Controller
      */
     private function createDeleteForm(Tuteur $tuteur)
     {
-        return $this->createFormBuilder()
+        return ($this->createFormBuilder()
             ->setAction($this->generateUrl('tuteur_delete', array('id' => $tuteur->getId())))
             ->setMethod('DELETE')
-            ->getForm()
-        ;
+            ->getForm())  ;
+
     }
 }

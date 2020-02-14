@@ -1,9 +1,15 @@
-{% extends 'base.html.twig' %}
-
+{% extends 'back.html.twig' %}
+{% block nav %}
+    <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+        <div class="container-fluid">
+        </div></div>
+{% endblock nav %}
 {% block body %}
+
+<center>
     <h1>Chauffeur</h1>
 
-    <table>
+    <table id="example" class="table table-striped table-bordered" style="width:20%">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -28,17 +34,10 @@
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('chauffeur_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('chauffeur_edit', { 'id': chauffeur.id }) }}">Edit</a>
-        </li>
-        <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+            <a class="btn btn-info" href="{{ path('chauffeur_edit', { 'id': chauffeur.id }) }}">Edit</a>
+            <input class="btn btn-danger"type="submit" value="Delete">
+            <a class="btn btn-success" href="{{ path('chauffeur_index') }}">Back to the list</a>
             {{ form_end(delete_form) }}
-        </li>
-    </ul>
+</center>
 {% endblock %}
