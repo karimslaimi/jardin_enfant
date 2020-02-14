@@ -111,7 +111,7 @@ class ParentsController extends Controller
 
         $parents = $em->getRepository('AppBundle:Parents')->findAll();
 
-        return $this->render('@karim/parents/index.html.twig', array(
+        return $this->render('@Karim/parents/index.html.twig', array(
             'parents' => $parents,
         ));
     }

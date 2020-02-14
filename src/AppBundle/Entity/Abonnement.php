@@ -52,7 +52,7 @@ class Abonnement
 
     /**
      * @ORM\ManyToOne(targetEntity="Jardin", inversedBy="abonnements")
-     * @ORM\JoinColumn(name="jardin_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="jardin_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $jardin;
 
@@ -63,7 +63,7 @@ class Abonnement
 
     /**
      * @ORM\ManyToOne(targetEntity="Enfant", inversedBy="abonnements")
-     * @ORM\JoinColumn(name="enfant_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="enfant_id", referencedColumnName="id",onDelete="cascade")
      */
     private $enfant;
 
