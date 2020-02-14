@@ -11,7 +11,7 @@
                 <th>Prenom</th>
                 <th>Datenaiss</th>
                 <th>Sexe</th>
-                <th>Actions</th>
+
             </tr>
         </thead>
 
@@ -23,13 +23,13 @@
                 <td>{{ enfant.prenom }}</td>
                 <td>{% if enfant.datenaiss %}{{ enfant.datenaiss|date('Y-m-d') }}{% endif %}</td>
                 <td>{{ enfant.sexe }}</td>
-                <td>
+                <td style="background: white border-box" >
                     <ul>
                         <li>
-                            <a href="{{ path('enfant_show', { 'id': enfant.id }) }}">show</a>
+                            <a class="btn btn-dark" href="{{ path('enfant_show', { 'id': enfant.id }) }}">show</a>
                         </li>
                         <li>
-                            <a href="{{ path('enfant_edit', { 'id': enfant.id }) }}">edit</a>
+                            <a class="btn btn-primary" href="{{ path('enfant_edit', { 'id': enfant.id }) }}">edit </a>
                         </li>
                     </ul>
                 </td>
@@ -38,9 +38,11 @@
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('enfant_new') }}"><b>Create a new enfant</b></a>
-        </li>
-    </ul>
+
+<center>
+            <a class=" btn  btn-dark"  href="{{ path('enfant_new') }}"><b>Ajouter enfant</b>  </a>
+</center>
+    <br>
+
+
 {% endblock %}
