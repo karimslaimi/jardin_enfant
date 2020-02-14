@@ -1,3 +1,7 @@
+app_parents:
+    resource: "@KarimBundle/Controller/ParentsController.php"
+    type:     annotation
+
 app_paiement:
     resource: "@RaedBundle/Controller/PaiementController.php"
     type:     annotation

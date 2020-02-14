@@ -1,39 +1,52 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Reclamations list</h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Description</th>
-                <th>Date</th>
-                <th>Titre</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for reclamation in reclamations %}
-            <tr>
-                <td><a href="{{ path('reclamation_show', { 'id': reclamation.id }) }}">{{ reclamation.id }}</a></td>
-                <td>{{ reclamation.description }}</td>
-                <td>{% if reclamation.date %}{{ reclamation.date|date('Y-m-d') }}{% endif %}</td>
-                <td>{{ reclamation.titre }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('reclamation_show', { 'id': reclamation.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('reclamation_edit', { 'id': reclamation.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+
+    <section class="page-title" style="background-image:url({{ asset ('images/1.jpg')}});">
+        <div class="auto-container">
+            <div class="inner-container clearfix">
+
+                <h1>Reclamation List</h1>
+            </div>
+        </div>
+    </section>
+
+    <section class="program-section alternate">
+        <div class="auto-container">
+            <div class="row">
+                {% for reclamation in reclamations %}
+
+                    <!-- Program Block -->
+                    <div class="program-block col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="800ms">
+                        <div class="inner-box">
+
+                            <div class="lower-content">
+                                <h4><a href="{{ path('messages_show', { 'id': reclamation.id }) }}">{{ reclamation.titre }}</a></h4>
+                                <div class="text">{{ reclamation.description }}</div>
+                                <ul class="program-info">
+
+                                    <li><span>Time:</span> {{ reclamation.date|date('Y-m-d H:i:s') }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <div class="sec-title text-center">
+    <span class="title">Reclamations
+    </span>
+</div>
+
+
+
 
     <ul>
         <li>

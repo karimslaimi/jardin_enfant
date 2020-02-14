@@ -10,4 +10,5 @@ namespace AppBundle\Repository;
  */
 class MessagesRepository extends \Doctrine\ORM\EntityRepository
 {
+
 }

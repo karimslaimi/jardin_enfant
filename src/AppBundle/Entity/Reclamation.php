@@ -43,8 +43,8 @@ class Reclamation
     private $titre;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Parents", inversedBy="reclamations")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Parents", inversedBy="reclamations", fetch="EAGER")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id",nullable=true)
      */
     private $parent;
 

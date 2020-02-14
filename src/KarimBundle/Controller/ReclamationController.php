@@ -45,6 +45,8 @@ class ReclamationController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $time=new \DateTime();
+            $reclamation->setDate($time);
             $em->persist($reclamation);
             $em->flush();
 
@@ -66,7 +68,7 @@ class ReclamationController extends Controller
     {
         $deleteForm = $this->createDeleteForm($reclamation);
 
-        return $this->render('@KarimBundle/reclamation/show.html.twig', array(
+        return $this->render('@Karim/reclamation/show.html.twig', array(
             'reclamation' => $reclamation,
             'delete_form' => $deleteForm->createView(),
         ));
