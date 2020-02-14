@@ -48,7 +48,7 @@ class EnfantController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() ) {
-            $enfant->setParent(null);
+            $enfant->setParent($this->getDoctrine()->getManager()->getRepository(Parents::class)->find(4));
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($enfant);

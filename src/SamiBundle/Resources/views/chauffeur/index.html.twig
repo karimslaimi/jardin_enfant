@@ -1,45 +1,37 @@
-{% extends 'base.html.twig' %}
+{% extends 'back.html.twig' %}
 
+{% block nav %}
+    <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+        <div class="container-fluid">
+            <center><h1>Liste des chauffeurs</h1></center>
+        </div></div>
+{% endblock nav %}
 {% block body %}
-    <h1>Chauffeurs list</h1>
+    <br>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Cin</th>
-                <th>Nom</th>
-                <th>Tel</th>
-                <th>Sexe</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for chauffeur in chauffeurs %}
-            <tr>
-                <td><a href="{{ path('chauffeur_show', { 'id': chauffeur.id }) }}">{{ chauffeur.id }}</a></td>
-                <td>{{ chauffeur.cin }}</td>
-                <td>{{ chauffeur.nom }}</td>
-                <td>{{ chauffeur.tel }}</td>
-                <td>{{ chauffeur.sexe }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('chauffeur_show', { 'id': chauffeur.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('chauffeur_edit', { 'id': chauffeur.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+   <div class="form-row" style="margin-left: 50px">
+       <a class="btn btn-outline-success" href="{{ path('chauffeur_new') }}">Ajouter un chauffeur</a>
+   </div>
+    <br><br>
+<div class="form-row col-md-12">
+{% for chauffeur in chauffeurs %}
+       <div class="form-group col-md-4">
+    <div class="cardd" onclick="location.href='{{ path('chauffeur_show', { 'id': chauffeur.id }) }}'">
+       <center> <img src="{{ asset('argon/assets/img/theme/pngfuel.com.png') }}" alt="Avatar" style="width:50%">
+        </center>
+        <div class="container">
+           <center> <h4><b>{{ chauffeur.nom }}</b></h4></center>
+        <div class="form-row col-md-12">
+            <div class="form-group col-md-10">
+            </div>
+            <div class="form-group col-md-2 float-right">
+            <a class="btn  " style="background-color: #4432a8;color: white" href="{{ path('chauffeur_edit', { 'id': chauffeur.id }) }}">Edit</a>
+            </div>
+        </div>
+        </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 
-    <ul>
-        <li>
-            <a href="{{ path('chauffeur_new') }}">Create a new chauffeur</a>
-        </li>
-    </ul>
 {% endblock %}

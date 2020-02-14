@@ -1,9 +1,10 @@
-{% extends 'base.html.twig' %}
-
+{% extends 'back.html.twig' %}
+{% block nav %}
+{% endblock nav %}
 {% block body %}
-    <h1>Tuteur</h1>
 
-    <table>
+<center>
+    <table id="example" class="table table-striped table-bordered" style="width:20%">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -26,15 +27,15 @@
 
     <ul>
         <li>
-            <a href="{{ path('tuteur_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('tuteur_edit', { 'id': tuteur.id }) }}">Edit</a>
-        </li>
-        <li>
+
+
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+            <a class="btn btn-info" href="{{ path('tuteur_edit', { 'id': tuteur.id }) }}">Edit</a>
+             <input class="btn-danger" type="submit"  value="Delete">
+            <a class="btn btn-success" href="{{ path('tuteur_index') }}">Back to the list</a>
+
             {{ form_end(delete_form) }}
         </li>
     </ul>
+</center>
 {% endblock %}

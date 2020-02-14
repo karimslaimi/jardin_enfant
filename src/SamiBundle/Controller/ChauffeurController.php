@@ -45,11 +45,10 @@ class ChauffeurController extends Controller
         $form = $this->createForm(ChauffeurType::class, $chauffeur);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($chauffeur);
             $em->flush();
-
             return $this->redirectToRoute('chauffeur_show', array('id' => $chauffeur->getId()));
         }
 
@@ -87,7 +86,7 @@ class ChauffeurController extends Controller
         $editForm = $this->createForm(ChauffeurType::class, $chauffeur);
         $editForm->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
+        if ($editForm->isSubmitted() ) {
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('chauffeur_edit', array('id' => $chauffeur->getId()));
