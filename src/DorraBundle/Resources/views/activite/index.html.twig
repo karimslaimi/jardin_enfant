@@ -3,7 +3,7 @@
 {% block body %}
     <h1>Activites list</h1>
 
-    <table>
+    <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
                 <th>Id</th>
@@ -35,7 +35,10 @@
 
     <ul>
         <li>
-            <a href="{{ path('activite_new') }}">Create a new activite</a>
+            <div class="form-group col-lg-12 col-md-12 col-sm-12 text-center">
+                <a href="{{ path('activite_new') }}"  ><button class="theme-btn btn-style-one" type="submit" name="submit-form">create a new activite</button>
+
+            </a></div>
         </li>
     </ul>
 {% endblock %}

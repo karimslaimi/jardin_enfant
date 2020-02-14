@@ -18,7 +18,7 @@ class EvenementController extends Controller
     /**
      * Lists all evenement entities.
      *
-     * @Route("/", name="evenement_index",methods={"GET"})
+     * @Route("/index", name="evenement_index",methods={"GET"})
      */
     public function indexAction()
     {
@@ -42,7 +42,7 @@ class EvenementController extends Controller
         $form = $this->createForm(EvenementType::class, $evenement);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() ) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($evenement);
             $em->flush();
@@ -98,14 +98,14 @@ class EvenementController extends Controller
     /**
      * Deletes a evenement entity.
      *
-     * @Route("/{id}", name="evenement_delete",methods={"DELETE"})
+     * @Route("/delete/{id}", name="evenement_delete",methods={"DELETE"})
      */
     public function deleteAction(Request $request, Evenement $evenement)
     {
         $form = $this->createDeleteForm($evenement);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($evenement);
             $em->flush();

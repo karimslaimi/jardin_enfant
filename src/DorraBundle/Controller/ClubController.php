@@ -3,6 +3,7 @@
 namespace DorraBundle\Controller;
 
 use AppBundle\Entity\Club;
+use AppBundle\Entity\Jardin;
 use DorraBundle\Form\ClubType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -86,10 +87,12 @@ class ClubController extends Controller
         $editForm = $this->createForm(ClubType::class, $club);
         $editForm->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
+        if ($editForm->isSubmitted() ) {
+            $em = $this->getDoctrine()->getManager();
+            $club->setJardin($em->getRepository(Jardin::class)->find(1 ));
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('club_edit', array('id' => $club->getId()));
+            return $this->redirectToRoute('club_show', array('id' => $club->getId()));
         }
 
         return $this->render('@Dorra/club/edit.html.twig', array(
@@ -102,7 +105,7 @@ class ClubController extends Controller
     /**
      * Deletes a club entity.
      *
-     * @Route("/{id}", name="club_delete")
+     * @Route("/delete/{id}", name="club_delete" )
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Club $club)
@@ -110,7 +113,7 @@ class ClubController extends Controller
         $form = $this->createDeleteForm($club);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($club);
             $em->flush();

@@ -3,6 +3,21 @@
 {% block body %}
     <h1>Liste des catégories</h1>
 
+
+
+    <div class="form-group col-lg-3 col-md-3 col-sm-3 text-center"; style="float: right">
+
+    <ul>
+        <li>
+            <a  class="theme-btn btn-style-one" class="btn";  href="{{ path('categorie_new') }}">Créer une catégorie</a>
+        </li>
+    </ul>
+
+    </div>
+
+
+
+
     <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
@@ -19,10 +34,10 @@
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('categorie_show', { 'id': categorie.id }) }}">show</a>
+                            <a class="btn btn-primary" href="{{ path('categorie_show', { 'id': categorie.id }) }}">Afficher</a>
                         </li>
                         <li>
-                            <a href="{{ path('categorie_edit', { 'id': categorie.id }) }}">edit</a>
+                            <a class="btn btn-success" href="{{ path('categorie_edit', { 'id': categorie.id }) }}">Modifier</a>
                         </li>
                     </ul>
                 </td>
@@ -31,9 +46,4 @@
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('categorie_new') }}">Create a new categorie</a>
-        </li>
-    </ul>
 {% endblock %}

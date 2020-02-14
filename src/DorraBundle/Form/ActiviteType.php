@@ -2,6 +2,9 @@
 
 namespace DorraBundle\Form;
 
+use AppBundle\Entity\Club;
+use AppBundle\Entity\Jardin;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,7 +16,12 @@ class ActiviteType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('typeact')->add('detailles')->add('club');
+        $builder->add('typeact')->add('detailles')->add('club', EntityType::class,[
+            'class' => Club::class,
+            'choice_label' => 'name',
+            'expanded' => false,
+            'multiple' => false
+        ]);;
     }/**
      * {@inheritdoc}
      */
