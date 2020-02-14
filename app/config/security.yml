@@ -38,4 +38,5 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
         - { path: ^/parent/, role: ROLE_PARENT }
+        - { path: ^/messages/, role: ROLE_PARENT }
         - { path: ^/responsable/, role: ROLE_RESPONSABLE }

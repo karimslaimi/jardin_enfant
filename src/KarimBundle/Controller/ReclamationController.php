@@ -44,6 +44,11 @@ class ReclamationController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user = $this->container->get('security.token_storage')->getToken()->getUser();
+            if($user!=null){
+               $reclamation->setParent($user);
+            }
+
             $em = $this->getDoctrine()->getManager();
             $time=new \DateTime();
             $reclamation->setDate($time);
@@ -82,16 +87,16 @@ class ReclamationController extends Controller
     public function editAction(Request $request, Reclamation $reclamation)
     {
         $deleteForm = $this->createDeleteForm($reclamation);
-        $editForm = $this->createForm('KarimBundle\Form\ReclamationType', $reclamation);
+        $editForm = $this->createForm(ReclamationType::class, $reclamation);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('reclamation_edit', array('id' => $reclamation->getId()));
+            return $this->redirectToRoute('reclamation_show', array('id' => $reclamation->getId()));
         }
 
-        return $this->render('@KarimBundle/reclamation/edit.html.twig', array(
+        return $this->render('@Karim/reclamation/edit.html.twig', array(
             'reclamation' => $reclamation,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

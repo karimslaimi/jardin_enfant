@@ -54,8 +54,13 @@ class MessagesController extends Controller
             $id=1;
 
 
+            $user = $this->container->get('security.token_storage')->getToken()->getUser();
+            if($user!=null){
+                $message->setParent($user);
+            }else{
+                $message->setParent( $em->getRepository(Parents::class)->find($id));
+            }
 
-            $message->setParent( $em->getRepository(Parents::class)->find($id));
             $em = $this->getDoctrine()->getManager();
             $em->persist($message);
             $em->flush();
