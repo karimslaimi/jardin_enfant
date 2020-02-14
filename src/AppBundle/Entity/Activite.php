@@ -37,7 +37,7 @@ class Activite
 
     /**
      * @ORM\ManyToOne(targetEntity="Club", inversedBy="activites")
-     * @ORM\JoinColumn(name="club_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="club_id", referencedColumnName="id", onDelete="cascade")
      */
     private $club;
 

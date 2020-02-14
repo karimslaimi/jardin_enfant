@@ -37,7 +37,7 @@ class Club
     private $description;
 
     /**
-     * @OneToMany(targetEntity="Activite", mappedBy="club")
+     * @OneToMany(targetEntity="Activite", mappedBy="club" )
      */
     private $activites;
 
