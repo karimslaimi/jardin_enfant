@@ -41,6 +41,7 @@ class MessagesController extends Controller
     public function newAction(Request $request)
     {
 
+        $em=$this->getDoctrine()->getManager();
         $message = new Messages();
         $form = $this->createForm(MessagesType::class, $message);
         $form->handleRequest($request);
@@ -51,14 +52,14 @@ class MessagesController extends Controller
 
 
             $id=1;
-            $parent=$this->getDoctrine()->getManager()->getRepository(Parents::class)->findOneBy(["id"=>$id]);
 
 
-            $p=new Parents($parent);
-            $message->setParent($p);
+
+            $message->setParent( $em->getRepository(Parents::class)->find($id));
             $em = $this->getDoctrine()->getManager();
             $em->persist($message);
             $em->flush();
+
 
             return $this->redirectToRoute('messages_show', array('id' => $message->getId()));
         }
@@ -96,9 +97,10 @@ class MessagesController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $this->getDoctrine()->getManager()->merge($message);
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('messages_edit', array('id' => $message->getId()));
+            return $this->redirectToRoute('messages_show', array('id' => $message->getId()));
         }
 
         return $this->render('@Karim/messages/edit.html.twig', array(

@@ -1,36 +1,58 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Message</h1>
+<section class="page-title" style="background-image:url({{ asset ('images/1.jpg')}});">
+    <div class="auto-container">
+        <div class="inner-container clearfix">
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ message.id }}</td>
-            </tr>
-            <tr>
-                <th>Date</th>
-                <td>{{ message.date }}</td>
-            </tr>
-            <tr>
-                <th>Msg</th>
-                <td>{{ message.msg }}</td>
-            </tr>
-        </tbody>
-    </table>
+            <h1>Message</h1>
+        </div>
+    </div>
+</section>
 
-    <ul>
+
+   <!-- <ul>
         <li>
             <a href="{{ path('messages_index') }}">Back to the list</a>
         </li>
         <li>
             <a href="{{ path('messages_edit', { 'id': message.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+        </li>-->
+
+
+<section class="program-detail">
+    <div class="auto-container">
+        <div class="row">
+            <!-- Content Column -->
+            <div class="content-column col-lg-6 col-md-12 col-sm-12 order-2">
+                <div class="inner-column">
+                    <h3>{{ message.parent.nom ~" "~ message.parent.prenom}}</h3>
+                    <ul class="social-icon-colored">
+                        <li>
+                            {{ form_start(delete_form) }}
+                            <button type="submit" ><span style="color: red" class="fas fa-trash"></span></button>
+                            {{ form_end(delete_form) }}
+                        </li>
+                    </ul>
+                    <div class="text">{{ message.msg }}</div>
+                    <ul class="program-info">
+
+                        <li><span>Date</span> {{ message.date }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="image-column col-lg-6 col-md-12 col-sm-12">
+            <div class="image-box wow fadeIn">
+                <figure class="image"><a href= class="lightbox-image"><img alt=""></a></figure>
+            </div>
+        </div>
+    </div>
+    </div>
+  </section>
+
+
+
+
+
 {% endblock %}

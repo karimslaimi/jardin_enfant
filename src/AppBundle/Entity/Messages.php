@@ -36,12 +36,12 @@ class Messages
     private $msg;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Jardin", inversedBy="messages")
+     * @ORM\ManyToOne(targetEntity="Jardin", inversedBy="messages", fetch="EAGER")
      * @ORM\JoinColumn(name="jardin_id", referencedColumnName="id")
      */
     private $jardin;
     /**
-     * @ORM\ManyToOne(targetEntity="Parents", inversedBy="messages")
+     * @ORM\ManyToOne(targetEntity="Parents", inversedBy="messages", fetch="EAGER")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
     private $parent;
