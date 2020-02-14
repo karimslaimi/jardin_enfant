@@ -3,19 +3,36 @@
 {% block body %}
     <h1>Activite edit</h1>
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
+<div class="col-md-6 grid-margin stretch-card" bis_skin_checked="1">
+    <div class="card" bis_skin_checked="1">
+        <div class="card-body" bis_skin_checked="1">
+            <h4 class="card-title">Modifier une activité </h4>
 
+            {{ form_start(edit_form) }}
+            <form method="POST" class="forms-sample">
+                <div class="form-group" bis_skin_checked="1">
+                    <label for="exampleInputName1">Type d'activité</label>
+                    {{ form_widget(edit_form.typeact,{'attr': {'class': 'form-control'}})}}                    </div>
+                <div class="form-group" bis_skin_checked="1">
+                    <label for="exampleInputEmail3">details</label>
+
+                    {{ form_widget(edit_form.detailles,{'attr': {'class': 'form-control'}})}}
+                </div>
+                <div class="form-group" bis_skin_checked="1">
+                    <label for="exampleInputCity1">Club</label>
+                    {{ form_widget(edit_form.club,{'attr': {'class': 'form-control'}})}}
+                </div>
+
+                    <button type="submit" class="btn btn-success mr-2">Editer</button>
+
+            </form>
+        </div>
+    </div>
+</div>
     <ul>
         <li>
             <a href="{{ path('activite_index') }}">Back to the list</a>
         </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
+
     </ul>
 {% endblock %}

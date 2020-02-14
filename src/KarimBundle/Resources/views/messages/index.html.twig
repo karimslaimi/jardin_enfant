@@ -1,37 +1,39 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Messages listddd</h1>
+    <section class="page-title" style="background-image:url({{ asset ('images/1.jpg')}});">
+        <div class="auto-container">
+            <div class="inner-container clearfix">
 
-    <table class="table table-striped table-bordered">
-        <thead>
-            <tr>
-                <th>Expéditeur</th>
-                <th>Date</th>
-                <th>Msg</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
+                <h1>Messages List</h1>
+            </div>
+        </div>
+    </section>
+
+<section class="program-section alternate">
+    <div class="auto-container">
+        <div class="row">
         {% for message in messages %}
-            <tr>
-                <td><a href="{{ path('messages_show', { 'id': message.id }) }}">{{ message.parent ~" "~ message.parent}}</a></td>
-                <td>{{ message.date }}</td>
-                <td>{{ message.msg }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('messages_show', { 'id': message.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('messages_edit', { 'id': message.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
+
+            <!-- Program Block -->
+            <div class="program-block col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="800ms">
+                <div class="inner-box">
+
+                    <div class="lower-content">
+                        <h4><a href="{{ path('messages_show', { 'id': message.id }) }}">{{ message.parent.nom ~" "~ message.parent.prenom}}</a></h4>
+                        <div class="text">{{ message.msg }}</div>
+                        <ul class="program-info">
+
+                            <li><span>Time:</span> {{ message.date|date('Y-m-d H:i:s') }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
         {% endfor %}
-        </tbody>
-    </table>
+    </div>
+    </div>
+    </section>
 
     <ul>
         <li>

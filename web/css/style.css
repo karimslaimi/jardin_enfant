@@ -3769,7 +3769,7 @@ img{
 	position:relative;
 	margin-bottom:10px;	
 }
-
+.contact-form .form-group input[type="password"],
 .contact-form .form-group input[type="text"],
 .contact-form .form-group input[type="email"],
 .contact-form .form-group input[type="url"],
@@ -4839,7 +4839,7 @@ img{
 	padding: 0 10px;
 	margin-bottom:20px;	
 }
-
+.contact-form-section .contact-form .form-group input[type="password"],
 .contact-form-section .contact-form .form-group input[type="text"],
 .contact-form-section .contact-form .form-group input[type="email"],
 .contact-form-section .contact-form .form-group input[type="url"],

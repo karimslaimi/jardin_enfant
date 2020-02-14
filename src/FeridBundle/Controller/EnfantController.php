@@ -2,7 +2,10 @@
 
 namespace FeridBundle\Controller;
 
+use AppBundle\Entity\Abonnement;
 use AppBundle\Entity\Enfant;
+use AppBundle\Entity\Parents;
+use AppBundle\Entity\User;
 use FeridBundle\Form\EnfantType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -44,7 +47,9 @@ class EnfantController extends Controller
         $form = $this->createForm(EnfantType::class, $enfant);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() ) {
+            $enfant->setParent(null);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($enfant);
             $em->flush();
@@ -86,10 +91,11 @@ class EnfantController extends Controller
         $editForm = $this->createForm(EnfantType::class, $enfant);
         $editForm->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
+        if ($editForm->isSubmitted()) {
+            $enfant->setParent($this->getDoctrine()->getManager()->getRepository(Parents::class)->find(1));
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('enfant_edit', array('id' => $enfant->getId()));
+            return $this->redirectToRoute('enfant_show', array('id' => $enfant->getId()));
         }
 
         return $this->render('@Ferid/enfant/edit.html.twig', array(
@@ -102,7 +108,7 @@ class EnfantController extends Controller
     /**
      * Deletes a enfant entity.
      *
-     * @Route("/{id}", name="enfant_delete",methods={"DELETE"})
+     * @Route("/delete/{id}", name="enfant_delete",methods={"DELETE"})
 
      */
     public function deleteAction(Request $request, Enfant $enfant)

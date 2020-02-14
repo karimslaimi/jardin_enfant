@@ -44,7 +44,7 @@ class AbonnementController extends Controller
         $form = $this->createForm(AbonnementType::class, $abonnement);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($abonnement);
             $em->flush();
@@ -86,10 +86,10 @@ class AbonnementController extends Controller
         $editForm = $this->createForm(AbonnementType::class, $abonnement);
         $editForm->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
+        if ($editForm->isSubmitted() ) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('abonnement_edit', array('id' => $abonnement->getId()));
+            return $this->redirectToRoute('abonnement_show', array('id' => $abonnement->getId()));
         }
 
         return $this->render('@Ferid/abonnement/edit.html.twig', array(
