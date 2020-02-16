@@ -55,6 +55,10 @@ class Chauffeur extends User
      */
     private $pointage;
 
+    /**
+     * @OneToMany(targetEntity="Trajet", mappedBy="chauffeur")
+     */
+    private $trajet;
 
     /**
      * @ORM\ManyToOne(targetEntity="Jardin", inversedBy="chauffeurs")
@@ -205,6 +209,22 @@ class Chauffeur extends User
     public function getSexe()
     {
         return $this->sexe;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTrajet()
+    {
+        return $this->trajet;
+    }
+
+    /**
+     * @param mixed $trajet
+     */
+    public function setTrajet($trajet)
+    {
+        $this->trajet = $trajet;
     }
 
 }

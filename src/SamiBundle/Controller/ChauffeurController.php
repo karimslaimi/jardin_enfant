@@ -46,6 +46,7 @@ class ChauffeurController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
+            $chauffeur->addRole("ROLE_Chauffeur");
             $em = $this->getDoctrine()->getManager();
             $em->persist($chauffeur);
             $em->flush();
@@ -102,7 +103,7 @@ class ChauffeurController extends Controller
     /**
      * Deletes a chauffeur entity.
      *
-     * @Route("/{id}", name="chauffeur_delete")
+     * @Route("/delete/{id}", name="chauffeur_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Chauffeur $chauffeur)
