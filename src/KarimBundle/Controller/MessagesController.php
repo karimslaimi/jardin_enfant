@@ -61,13 +61,14 @@ class MessagesController extends Controller
             $user = $this->container->get('security.token_storage')->getToken()->getUser();
             if($user!=null){
                 $message->setParent($user);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($message);
+                $em->flush();
             }else{
                 $message->setParent( $em->getRepository(Parents::class)->find($id));
             }
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($message);
-            $em->flush();
+
 
 
             return $this->redirectToRoute('messages_show', array('id' => $message->getId()));

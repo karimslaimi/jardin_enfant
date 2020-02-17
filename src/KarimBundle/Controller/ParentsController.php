@@ -131,6 +131,7 @@ class ParentsController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
 
             $parent->addRole("ROLE_Parent");
+            $parent->setEnabled(true);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($parent);
