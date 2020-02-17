@@ -1,3 +1,7 @@
+app_trajet:
+    resource: "@SamiBundle/Controller/TrajetController.php"
+    type:     annotation
+
 app_parents:
     resource: "@KarimBundle/Controller/ParentsController.php"
     type:     annotation
