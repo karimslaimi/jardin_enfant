@@ -1,43 +1,94 @@
 {% extends 'base.html.twig' %}
 
+
+
 {% block body %}
-    <section class="page-title" style="background-image:url({{ asset ('images/1.jpg')}});">
-        <div class="auto-container">
-            <div class="inner-container clearfix">
+    <link href="{{ asset('css/msgcss.css') }}" rel="stylesheet">
+<link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" id="bootstrap-css">
+<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('js/jquery.js') }}"></script>
+<!------ Include the above in your HEAD tag ---------->
 
-                <h1>Messages List</h1>
+
+<html>
+<head>
+
+    <link href="{{ asset('css/fontawesome-all.css') }}" type="text/css" rel="stylesheet">
+
+</head>
+<body>
+<div class="container">
+    <h3 class=" text-center">Messaging</h3>
+    <div class="messaging">
+        <div class="inbox_msg">
+            <div class="inbox_people">
+                <div class="headind_srch">
+                    <div class="recent_heading">
+                        <h4>Recent</h4>
+                    </div>
+                    <div class="srch_bar">
+                        <div class="stylish-input-group">
+                            <input type="text" class="search-bar"  placeholder="Search" >
+                            <span class="input-group-addon">
+                <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                </span> </div>
+                    </div>
+                </div>
+                <div class="inbox_chat">
+                    {% set msgg="" %}
+                    {% for message in messages %}
+                   {% set msgg=message %}
+                    <div class="chat_list ">
+                        <div class="chat_people">
+                            <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                            <div class="chat_ib">
+                                <h5>{{ message.parent.nom ~" "~ message.parent.prenom}}<span class="chat_date">{{message.date|date('Y-m-d ') }}</span></h5>
+                                <p>{{message.msg}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
-        </div>
-    </section>
+            <div class="mesgs">
+                <div class="msg_history">
+                    <div class="incoming_msg">
+                        <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
 
-<section class="program-section alternate">
-    <div class="auto-container">
-        <div class="row">
-        {% for message in messages %}
-
-            <!-- Program Block -->
-            <div class="program-block col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="800ms">
-                <div class="inner-box">
-
-                    <div class="lower-content">
-                        <h4><a href="{{ path('messages_show', { 'id': message.id }) }}">{{ message.parent.nom ~" "~ message.parent.prenom}}</a></h4>
-                        <div class="text">{{ message.msg }}</div>
-                        <ul class="program-info">
-
-                            <li><span>Time:</span> {{ message.date|date('Y-m-d H:i:s') }}</li>
-                        </ul>
+                        <div class="received_msg">
+                            <div class="received_withd_msg">
+                                <p>{{msgg.msg}}</p>
+                                <span class="time_date"> {{msgg.date|date('Y-m-d | H:i:s') }}</span></div>
+                        </div>
+                    </div>
+                    {% for message in messages %}
+                    <div class="outgoing_msg">
+                        <div class="sent_msg">
+                            <p>{{ message.msg }}</p>
+                            <span class="time_date">  {{message.date|date('Y-m-d | H:i:s') }}</span> </div>
+                    </div>
+                    <div class="incoming_msg">
+                        <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                        <div class="received_msg">
+                            <div class="received_withd_msg">
+                                <p>{{ message.msg }}</p>
+                                <span class="time_date">  {{message.date|date('Y-m-d | H:i:s') }}</span></div>
+                        </div>
+                    </div>
+                 {% endfor %}
+                </div>
+                <div class="type_msg">
+                    <div class="input_msg_write">
+                        <input type="text" class="write_msg" placeholder="Type a message" />
+                        <button class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
                     </div>
                 </div>
             </div>
+        </div>
 
-        {% endfor %}
-    </div>
-    </div>
-    </section>
 
-    <ul>
-        <li>
-            <a href="{{ path('messages_new') }}">Create a new message</a>
-        </li>
-    </ul>
+
+    </div></div>
+</body>
+</html>
 {% endblock %}

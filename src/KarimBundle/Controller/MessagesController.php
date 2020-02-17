@@ -24,9 +24,13 @@ class MessagesController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
 
-        $messages = $em->getRepository('AppBundle:Messages')->findAll();
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        if($user!=null){
+        $messages=$this->getDoctrine()->getManager()->getRepository(Messages::class)->getmessages($user->getId());
+        }else{
+           return $this->redirectToRoute("login");
+        }
 
         return $this->render('@Karim/messages/index.html.twig', array(
             'messages' => $messages,

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Remarques list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for remarque in remarques %}
+            <tr>
+                <td><a href="{{ path('remarque_show', { 'id': remarque.id }) }}">{{ remarque.id }}</a></td>
+                <td>{{ remarque.description }}</td>
+                <td>{% if remarque.date %}{{ remarque.date|date('Y-m-d') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('remarque_show', { 'id': remarque.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('remarque_edit', { 'id': remarque.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('remarque_new') }}">Create a new remarque</a>
+        </li>
+    </ul>
+{% endblock %}

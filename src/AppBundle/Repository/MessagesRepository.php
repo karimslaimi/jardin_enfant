@@ -10,5 +10,12 @@ namespace AppBundle\Repository;
  */
 class MessagesRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getmessages($id)
+    {
+        $q=$this->getEntityManager()->createQuery("SELECT p from AppBundle:Messages p JOIN p.jardin b where b.responsable.id=:id 
+        GROUP BY p.parent")
+            ->setParameter('id',$id);
+        return $query=$q->getResult();
 
+    }
 }
