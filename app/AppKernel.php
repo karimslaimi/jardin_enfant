@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new RaedBundle\RaedBundle(),
             new FeridBundle\FeridBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

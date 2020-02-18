@@ -7,6 +7,7 @@ use FeridBundle\Form\AbonnementType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Abonnement controller.
@@ -118,6 +119,29 @@ class AbonnementController extends Controller
 
         return $this->redirectToRoute('abonnement_index');
     }
+
+    /**
+
+     *
+     * @Route("/pdf", name="pdfread",methods={"GET","HEAD"})
+
+     */
+    public function pdfAction(Request $request)
+    {
+ $snappy=$this->get("knp_snappy.pdf");
+ $html=$this->render('@Ferid/abonnement/pdf.html.twig',array("title"=>"Awesome PDF Title"));
+  $filname="custom_pdf_form_twig";
+   return new Response(
+       $snappy->getOutputFormHtml($html),
+       200,
+       array(
+           'Content-Type'=>'application/pdf',
+           'Content-Disposition'=>'inline; filename="'.$filname.'.pdf"'
+       )
+   );
+    }
+
+
 
     /**
      * Creates a form to delete a abonnement entity.
