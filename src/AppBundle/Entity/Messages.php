@@ -47,6 +47,30 @@ class Messages
     private $parent;
 
     /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="messages", fetch="EAGER")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $sender;
+
+    /**
+     * @return mixed
+     */
+    public function getSender()
+    {
+        return $this->sender;
+    }
+
+    /**
+     * @param mixed $sender
+     */
+    public function setSender($sender)
+    {
+        $this->sender = $sender;
+    }
+
+
+
+    /**
      * @return mixed
      */
     public function getParent()

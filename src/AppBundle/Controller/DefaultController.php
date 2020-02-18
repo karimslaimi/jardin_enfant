@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/index", name="homepage")
+     * @Route("/", name="homepage")
      */
     public function indexAction(Request $request)
     {
@@ -18,4 +18,12 @@ class DefaultController extends Controller
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ]);
     }
+    /**
+     * @Route("/about", name="aboutus")
+     */
+    public function aboutAction(){
+
+    }
+
+
 }
