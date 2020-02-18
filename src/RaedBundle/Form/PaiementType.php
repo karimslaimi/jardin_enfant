@@ -13,7 +13,7 @@ class PaiementType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('date')->add('montant')->add('jardin');
+        $builder->add('date')->add('montant');
     }/**
      * {@inheritdoc}
      */
