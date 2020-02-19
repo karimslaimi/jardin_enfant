@@ -33,7 +33,7 @@ class ParentsController extends Controller
         $password=$request->get('password');
 
         if($request->isMethod("GET")){
-            return $this->render("@Karim/parents/login.html.twig");
+            return $this->render("@Karim/parents/login.html.twig",array("msg"=>""));
         }else{
 
         // Retrieve the security encoder of symfony
@@ -49,11 +49,7 @@ class ParentsController extends Controller
 
         // Check if the user exists !
         if(!$user){
-            return new Response(
-                'Username doesnt exists',
-                Response::HTTP_UNAUTHORIZED,
-                array('Content-type' => 'application/json')
-            );
+             return $this->render("@Karim/parents/login.html.twig",array("msg"=>"user does not exist"));
             }
 
         /// Start verification
@@ -61,11 +57,7 @@ class ParentsController extends Controller
         $salt = $user->getSalt();
 
         if(!$encoder->isPasswordValid($user->getPassword(), $password, $salt)) {
-            return new Response(
-                'Username or Password not valid.',
-                Response::HTTP_UNAUTHORIZED,
-                array('Content-type' => 'application/json')
-            );
+            return $this->render("@Karim/parents/login.html.twig",array("msg"=>"username or password are incorrect"));
         }
         /// End Verification
 
@@ -88,11 +80,8 @@ class ParentsController extends Controller
          * Now the user is authenticated !!!!
          * Do what you need to do now, like render a view, redirect to route etc.
          */
-        return new Response(
-            'Welcome '. $user->getUsername(),
-            Response::HTTP_OK,
-            array('Content-type' => 'application/json')
-        );}
+        return $this->redirectToRoute("homepage");
+        }
     }
 
 
