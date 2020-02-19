@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * Chauffeur

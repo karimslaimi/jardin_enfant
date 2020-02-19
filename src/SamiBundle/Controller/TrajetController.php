@@ -2,11 +2,22 @@
 
 namespace SamiBundle\Controller;
 
+use AppBundle\Entity\Chauffeur;
+use AppBundle\Entity\Jardin;
 use AppBundle\Entity\Trajet;
 use SamiBundle\Form\TrajetType;
+use SamiBundle\Models\MapModel;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+
 
 /**
  * Trajet controller.
@@ -31,7 +42,48 @@ class TrajetController extends Controller
             'trajets' => $trajets,
         ));
     }
+    /**
+     * @Route(
+     *      "/map/",
+     *      name="getMap"
+     * )
+     * @Method("GET")
+     */
+  public function mapJson()
+  {
+      $liste_trajets= array();
+      $user = $this->container->get('security.token_storage')->getToken()->getUser();
+      $liste=$this->getDoctrine()->getManager()->getRepository(Chauffeur::class)->findBy(array('jardin'=>1));
 
+
+
+      foreach ($liste as $ls)
+      {
+        foreach ($ls->getTrajet() as $l)
+          array_push($liste_trajets,$l);
+
+      }
+
+      $finallist=array();
+      foreach ($liste_trajets as $ls)
+      {
+          $json = file_get_contents('https://geocoder.ls.hereapi.com/6.2/geocode.json?searchtext='.$ls->getAdresse().'&gen=9&apiKey=CxxCHigH6e2itFdUuYEJdiNCKYOFT2wwtIF2QxxIjiw');
+          $obj = json_decode($json);
+          $map = new MapModel();
+          $map->setLatitude($obj->Response->View[0]->Result[0]->Location->DisplayPosition->Latitude);
+          $map->setLongitude($obj->Response->View[0]->Result[0]->Location->DisplayPosition->Longitude);
+          $map->setAdresse($ls->getAdresse());
+          $map->setHeure($ls->getHeure());
+          array_push($finallist, $map);
+
+      }
+
+      $serializer = new Serializer([new ObjectNormalizer()]);
+
+      $dataJson = $serializer->normalize($finallist);
+
+      return new JsonResponse($dataJson);
+  }
     /**
      * Creates a new trajet entity.
      *
@@ -69,7 +121,7 @@ class TrajetController extends Controller
     {
         $deleteForm = $this->createDeleteForm($trajet);
 
-        return $this->render('trajet/show.html.twig', array(
+        return $this->render('@Sami/trajet/show.html.twig', array(
             'trajet' => $trajet,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -135,4 +187,5 @@ class TrajetController extends Controller
             ->getForm()
         ;
     }
+
 }
