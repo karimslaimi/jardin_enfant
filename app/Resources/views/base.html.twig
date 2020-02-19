@@ -47,7 +47,7 @@
                             <div class="link-box"><a href="{{ path('fos_user_security_logout') }}">Logout</a></div>
                         {% else %}
                             <div class="link-box"><a href="{{ path('parents_new') }}">S'inscrire</a></div>
-                            <div class="link-box"><a href="{{ path('parents_login') }}">Login</a></div>
+                            <div class="link-box"><a href="{{ path('user_login') }}">Login</a></div>
                         {% endif %}
 
                     </div>
@@ -77,7 +77,7 @@
 
                         <div class="collapse navbar-collapse clearfix" id="navbarSupportedContent">
                             <ul class="navigation clearfix">
-                                <li class="current "><a href="{{ path('homepage') }}">Home</a>
+                                <li class="current "><a href="{{ path('homepage') }}">Accueil</a>
                                     <!--<ul>
                                         <li><a href="index-2.html">Home page 01</a></li>
                                         <li><a href="index-3.html">Home page 02</a></li>
@@ -89,7 +89,7 @@
                                         </li>
                                     </ul>-->
                                 </li>
-                                <li><a href="{{ path('aboutus') }}">About Us</a></li>
+                                <li><a href="{{ path('aboutus') }}">A propos</a></li>
                                 <li class=""><a href="{{ path('evenement_index') }}">Evenements</a>
                                    <!-- <ul>
                                         <li><a href="events.html">Events</a></li>
@@ -123,8 +123,8 @@
                     <div class="outer-box clearfix">
                         <ul class="social-icon-colored">
                             <li><a href="#"><span class="fab fa-facebook-f"></span></a></li>
-                            <li><a href="#"><span class="fab fa-twitter"></span></a></li>
-                            <li><a href="#"><span class="fab fa-youtube"></span></a></li>
+
+                            <li><a href="#"><span class="fab fa-instagram"></span></a></li>
                         </ul>
                     </div>
                 </div>
@@ -260,7 +260,7 @@
                                     <h4 class="widget-title">Links</h4>
                                     <div class="widget-content">
                                         <ul class="list">
-                                            <li><a href="{{ path('aboutus') }}">About</a></li>
+                                            <li><a href="{{ path('aboutus') }}">A Propos</a></li>
                                             <li><a href="#{{ path('reclamation_new') }}">Contact</a></li>
                                             <li><a href="{{ path('jardin_new') }}">rejoindre</a></li>
                                             <li><a href="{{path('activite_index')}}">Activite</a></li>
