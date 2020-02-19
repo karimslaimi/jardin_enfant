@@ -5,21 +5,20 @@ namespace KarimBundle\Controller;
 use AppBundle\Entity\Remarque;
 use KarimBundle\Form\RemarqueType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Remarque controller.
  *
- * @Route("remarque")
+ * @\Symfony\Component\Routing\Annotation\Route("remarque")
  */
 class RemarqueController extends Controller
 {
     /**
      * Lists all remarque entities.
      *
-     * @Route("/", name="remarque_index")
-     * @Method("GET")
+     * @Route("/", name="remarque_index",methods={"GET"})
      */
     public function indexAction()
     {
@@ -35,8 +34,7 @@ class RemarqueController extends Controller
     /**
      * Creates a new remarque entity.
      *
-     * @Route("/new", name="remarque_new")
-     * @Method({"GET", "POST"})
+     * @Route("/new", name="remarque_new",methods={"GET","POST"})
      */
     public function newAction(Request $request)
     {
@@ -61,8 +59,7 @@ class RemarqueController extends Controller
     /**
      * Finds and displays a remarque entity.
      *
-     * @Route("/{id}", name="remarque_show")
-     * @Method("GET")
+     * @Route("/{id}", name="remarque_show",methods={"GET"})
      */
     public function showAction(Remarque $remarque)
     {
@@ -77,8 +74,7 @@ class RemarqueController extends Controller
     /**
      * Displays a form to edit an existing remarque entity.
      *
-     * @Route("/{id}/edit", name="remarque_edit")
-     * @Method({"GET", "POST"})
+     * @Route("/{id}/edit", name="remarque_edit",methods={"GET", "POST"})
      */
     public function editAction(Request $request, Remarque $remarque)
     {
@@ -102,8 +98,7 @@ class RemarqueController extends Controller
     /**
      * Deletes a remarque entity.
      *
-     * @Route("/{id}", name="remarque_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="remarque_delete",methods={"DELETE"})
      */
     public function deleteAction(Request $request, Remarque $remarque)
     {

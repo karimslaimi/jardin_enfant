@@ -8,11 +8,5 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
-    /**
-     * @\Symfony\Component\Routing\Annotation\Route("/karim")
-     */
-    public function indexAction()
-    {
-        return $this->render('@Karim/Default/index.html.twig');
-    }
+
 }
