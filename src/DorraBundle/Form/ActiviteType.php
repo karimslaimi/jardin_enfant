@@ -6,6 +6,7 @@ use AppBundle\Entity\Club;
 use AppBundle\Entity\Jardin;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -21,7 +22,7 @@ class ActiviteType extends AbstractType
             'choice_label' => 'name',
             'expanded' => false,
             'multiple' => false
-        ]);;
+        ])->add('photo', FileType::class, array('label'=>'insert image','data_class' => null,'required' => false));
     }/**
      * {@inheritdoc}
      */
