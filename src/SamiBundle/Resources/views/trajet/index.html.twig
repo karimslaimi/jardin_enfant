@@ -1,41 +1,31 @@
-{% extends 'base.html.twig' %}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
 
-{% block body %}
-    <h1>Trajets list</h1>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Adresse</th>
-                <th>Heure</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for trajet in trajets %}
-            <tr>
-                <td><a href="{{ path('trajet_show', { 'id': trajet.id }) }}">{{ trajet.id }}</a></td>
-                <td>{{ trajet.adresse }}</td>
-                <td>{{ trajet.heure }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('trajet_show', { 'id': trajet.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('trajet_edit', { 'id': trajet.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('trajet_new') }}">Create a new trajet</a>
-        </li>
-    </ul>
-{% endblock %}
+    <title>Map at a specified location</title>
+    <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('demo.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('styles.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('template.css') }}" />
+    <script type="text/javascript" src='{{asset('test-credentials.js')}}'></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
+    <script type="text/javascript" src='../js-examples-rendering-helpers/iframe-height.js'></script></head>
+<body id="markers-on-the-map">
+<div class="page-header">
+    <h1>Map at a specified location</h1>
+    <p>Display a map at a specified location and zoom level</p>
+</div>
+<p>This example displays a movable map initially centered on the <b>Brandenburg Gate</b> in the centre of Berlin <i>(52.5159°N, 13.3777°E)</i></p>
+<div id="map"></div>
+<h3>Code</h3>
+<p>
+    The <code>map.setCenter()</code> method and <code>map.setZoom() </code>method are able to control the location of the map.<br>
+</p>
+<script type="text/javascript" src='{{ asset('demo.js') }}'></script>
+<script src="{{ asset('argon/assets/js/jquery-3.3.1.js') }}"></script>
+</body>
+</html>

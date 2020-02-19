@@ -2,11 +2,19 @@
 
 namespace SamiBundle\Controller;
 
+use AppBundle\Entity\Chauffeur;
+use AppBundle\Entity\Jardin;
 use AppBundle\Entity\Trajet;
 use SamiBundle\Form\TrajetType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * Trajet controller.
@@ -31,7 +39,31 @@ class TrajetController extends Controller
             'trajets' => $trajets,
         ));
     }
+    /**
+     * @Route(
+     *      "/map/",
+     *      name="getMap"
+     * )
+     * @Method("GET")
+     */
+  public function mapJson()
+  {
+      $liste_trajets= array("");
+      $user = $this->container->get('security.token_storage')->getToken()->getUser();
+      $liste=$this->getDoctrine()->getManager()->getRepository(Chauffeur::class)->findBy(array('jardin'=>1));
+      foreach ($liste as $ls)
+      {
+          array_push($liste_trajets,$ls->getTrajet());
+      }
+      $normalizer = new GetSetMethodNormalizer();
+      $normalizer->setIgnoredAttributes(array('chauffeur'));
+      $encoder = new JsonEncoder();
+      $serializer = new Serializer(array($normalizer),array($encoder));
 
+      $bedroomJson = $serializer->serialize($liste_trajets, 'json');
+
+      return new Response($bedroomJson, 200, ['Content-Type' => 'application/json']);
+  }
     /**
      * Creates a new trajet entity.
      *
@@ -42,7 +74,7 @@ class TrajetController extends Controller
     {
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $trajet = new Trajet();
-        $form = $this->createForm(TrajetType::class, $trajet);
+        $form = $this->createForm(new TrajetType(), $trajet);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -135,4 +167,5 @@ class TrajetController extends Controller
             ->getForm()
         ;
     }
+
 }
