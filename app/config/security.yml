@@ -4,7 +4,12 @@ security:
     encoders:
         FOS\UserBundle\Model\UserInterface: sha512
 
-
+    role_hierarchy:
+        ADMIN: ROLE_ADMIN
+        RESPONSABLE: ROLE_RESPONSABLE
+        PARENT: ROLE_PARENT
+        TUTEUR: ROLE_TUTEUR
+        CHAUFFEUR: ROLE_CHAUFFEUR
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
         fos_userbundle:

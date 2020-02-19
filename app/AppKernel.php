@@ -25,7 +25,8 @@ class AppKernel extends Kernel
             new FeridBundle\FeridBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
-            new Ob\HighchartsBundle\ObHighchartsBundle(),
+            new ADesigns\CalendarBundle\ADesignsCalendarBundle(),
+
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
