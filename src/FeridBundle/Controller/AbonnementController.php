@@ -3,7 +3,6 @@
 namespace FeridBundle\Controller;
 
 use AppBundle\Entity\Abonnement;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use FeridBundle\Form\AbonnementType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,6 +32,28 @@ class AbonnementController extends Controller
             'abonnements' => $abonnements,
         ));
     }
+
+    /**
+     *
+     * @Route("/facture/{id}",name="facture_abon",methods={"GET"})
+     *
+     */
+    public function factureAction(Abonnement $abonnement)
+    {
+        $snappy = $this->get("knp_snappy.pdf");
+        $html = $this->renderView("@Ferid/abonnement/facture.html.twig", array('abonnement' => $abonnement,'title' => 'Abonnement Enfant',));
+        $filname = "custom_pdf_form_twig";
+        return new Response(
+            $snappy->getOutputFromHtml($html),
+            200,
+            array(
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'inline; filename="' . $filname . '.pdf"'
+            )
+        );
+
+    }
+
     /**
      *
      * @Route("/pdf/{id}",name="getpdf",methods={"GET","HEAD"})
@@ -71,7 +92,7 @@ class AbonnementController extends Controller
             $em->persist($abonnement);
             $em->flush();
 
-            return $this->redirectToRoute('getpdf', array('id' => $abonnement->getId()));
+            return $this->redirectToRoute('facture_abon', array('id' => $abonnement->getId()));
         }
 
         return $this->render('@Ferid/abonnement/new.html.twig', array(
