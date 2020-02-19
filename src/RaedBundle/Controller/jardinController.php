@@ -3,6 +3,8 @@
 namespace RaedBundle\Controller;
 
 use AppBundle\Entity\Jardin;
+use AppBundle\Entity\Responsable;
+use AppBundle\Form\ResponsableType;
 use RaedBundle\Form\jardinType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -40,13 +42,26 @@ class jardinController extends Controller
      */
     public function newAction(Request $request)
     {
+
+
+
+        $resp=new Responsable();
         $jardin = new Jardin();
         $form = $this->createForm(jardinType::class, $jardin);
+       $form1=$this->createForm(ResponsableType::class,$resp);
         $form->handleRequest($request);
+        $form1->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $resp->addRole("ROLE_RESPONSABLE");
+            $resp->setEnabled(true);
+            $jardin->setResponsable($resp);
+            $resp->setJardin($jardin);
+            $jardin->setEtat("En ATTENTE");
             $em = $this->getDoctrine()->getManager();
             $em->persist($jardin);
+            $em->persist($resp);
             $em->flush();
 
             return $this->redirectToRoute('jardin_show', array('id' => $jardin->getId()));
@@ -55,6 +70,8 @@ class jardinController extends Controller
         return $this->render('@Raed/jardin/new.html.twig', array(
             'jardin' => $jardin,
             'form' => $form->createView(),
+            'form1'=>$form1->createView(),
+            'responsable'=>$resp
         ));
     }
 

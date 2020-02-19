@@ -76,17 +76,14 @@ class DefaultController extends Controller
             $event = new InteractiveLoginEvent($request, $token);
             $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
 
+            $us=$this->container->get('security.token_storage')->getToken()->getUser();
 
-            //checking the role of the user connected
-            $auth_checker = $this->get('security.authorization_checker');
-            if ($auth_checker->isGranted(['ROLE_PARENT'])) {
+            if ($us->getRoles()[0]=='ROLE_RESPONSABLE') {
                 // SUPER_ADMIN roles go to the `admin_home` route
                 return $this->redirectToRoute("homepage");
-            }
-
-            if ($auth_checker->isGranted('ROLE_RESPONSABLE')) {
+            }elseif($us->getRoles()[0]=='ROLE_PARENT') {
                 // Everyone else goes to the `home` route
-                return $this->redirectToRoute("tuteur_show");
+                return $this->redirectToRoute("tuteur_index");
             }
 
         }

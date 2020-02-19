@@ -13,7 +13,7 @@ class jardinType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')->add('description')->add('tarif')->add('adresse')->add('etat')->add('responsable');
+        $builder->add('name')->add('description')->add('tarif')->add('adresse')->add('numtel');
     }/**
      * {@inheritdoc}
      */

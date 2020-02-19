@@ -35,6 +35,12 @@ class Jardin
      * @ORM\Column(name="Description", type="string", length=255)
      */
     private $description;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="numtel", type="string", length=255)
+     */
+    private $numtel;
 
     /**
      * @var float
@@ -42,6 +48,7 @@ class Jardin
      * @ORM\Column(name="Tarif", type="float")
      */
     private $tarif;
+
 
     /**
      * @var string
@@ -347,6 +354,24 @@ class Jardin
     {
         return $this->adresse;
     }
+
+    /**
+     * @return string
+     */
+    public function getNumtel()
+    {
+        return $this->numtel;
+    }
+
+    /**
+     * @param string $numtel
+     */
+    public function setNumtel($numtel)
+    {
+        $this->numtel = $numtel;
+    }
+
+
 
 
 }

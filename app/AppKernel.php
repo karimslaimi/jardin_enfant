@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             new FeridBundle\FeridBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
+            new ADesigns\CalendarBundle\ADesignsCalendarBundle(),
 
         ];
 
