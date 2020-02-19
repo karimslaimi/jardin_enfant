@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+<center>
+
     <div class="container">
         <div class="row">
             <div class="col-md-7 col-md-offset-7">
@@ -32,11 +34,12 @@
 
     <ul>
 
-        <li>
-            <a class="btn btn-success" href="{{ path('evenement_edit', { 'id': evenement.id }) }}">Modifier</a>
-        </li>
+
+
+
         <li>
             {{ form_start(delete_form) }}
+            <a class="btn btn-success" href="{{ path('evenement_edit', { 'id': evenement.id }) }}">Modifier</a>
                 <input class="btn btn-danger" type="submit" value="supprimer">
             {{ form_end(delete_form) }}
         </li>
@@ -46,6 +49,7 @@
 </div>
 
     </div>
-
+</center>
 {% endblock %}
+
 

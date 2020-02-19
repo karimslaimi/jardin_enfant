@@ -42,17 +42,33 @@ class Evenement
      */
     private $description;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image", type="string", length=255)
+     */
+    private $image;
+
+
+
+
     /**
      * @ORM\ManyToOne(targetEntity="Categorie", inversedBy="evenements")
      * @ORM\JoinColumn(name="categorie_id", referencedColumnName="id")
      */
     private $categorie;
 
+
     /**
      * @ORM\ManyToOne(targetEntity="Jardin", inversedBy="evenements")
      * @ORM\JoinColumn(name="jardin_id", referencedColumnName="id")
      */
     private $jardin;
+    /**
+     * @ORM\OneToMany(targetEntity="Participer", mappedBy="evenement")
+     */
+    private $participation;
 
     /**
      * @return mixed
@@ -170,5 +186,44 @@ class Evenement
     {
         return $this->description;
     }
+
+    /**
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param string $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getParticipation()
+    {
+        return $this->participation;
+    }
+
+    /**
+     * @param mixed $participation
+     */
+    public function setParticipation($participation)
+    {
+        $this->participation = $participation;
+    }
+
+
+
+
+
+
 }
+
 

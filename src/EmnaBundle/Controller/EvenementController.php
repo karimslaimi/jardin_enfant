@@ -82,10 +82,10 @@ class EvenementController extends Controller
         $editForm = $this->createForm(EvenementType::class, $evenement);
         $editForm->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
+        if ($editForm->isSubmitted() ) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('evenement_edit', array('id' => $evenement->getId()));
+            return $this->redirectToRoute('evenement_show', array('id' => $evenement->getId()));
         }
 
         return $this->render('@Emna/evenement/edit.html.twig', array(
