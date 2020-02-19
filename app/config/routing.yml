@@ -52,6 +52,11 @@ app_enfant:
         type:     annotation
         prefix:   /
 
+app_default:
+        resource: "@FeridBundle/Controller/DefaultController.php"
+        type:     annotation
+        prefix:   /
+
 raed:
     resource: "@RaedBundle/Controller/"
     type:     annotation
