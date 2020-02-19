@@ -4,8 +4,8 @@
  * @param  {H.Map} map      A HERE Map instance within the application
  */
 function moveMapToBerlin(map){
-  map.setCenter({lat:52.5159, lng:13.3777});
-  map.setZoom(14);
+  map.setCenter({lat:36.8159, lng:10.3777});
+  map.setZoom(6);
 }
 
 /**
@@ -66,12 +66,12 @@ function addInfoBubble(map) {
     // show info bubble
     ui.addBubble(bubble);
   }, false);
-var x=0;
+
   $.get("/Sami/trajet/map/", function (data, status) {
-    console.log(data[2].adresse);
+    console.log(data);
     for (var i = 0; i < data.length; i++) {
-      x+=10;
-      addMarkerToGroup(group, {lat: x, lng: x}, 'tunis');
+
+      addMarkerToGroup(group, {lat: data[i].latitude, lng: data[i].longitude},' '+data[i].adresse);
     }
   });
 

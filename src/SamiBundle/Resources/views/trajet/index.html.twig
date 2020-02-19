@@ -1,31 +1,27 @@
-<html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+{% extends 'back.html.twig' %}
+{% block nav %}
+    <center>
+    <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+        <div class="container-fluid">
+            <h1>Les trajets disponibles</h1>
+        </div></div>
+    </center>
+{% endblock nav %}
+{% block body%}
 
-    <title>Map at a specified location</title>
-    <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('demo.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('styles.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('template.css') }}" />
-    <script type="text/javascript" src='{{asset('test-credentials.js')}}'></script>
-    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
-    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
-    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
-    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
-    <script type="text/javascript" src='../js-examples-rendering-helpers/iframe-height.js'></script></head>
 <body id="markers-on-the-map">
+<br>
+<div class="form-row" style="margin-left: 50px">
+    <a class="btn btn-outline-success" href="{{ path('trajet_new') }}">Ajouter un nouveau trajet</a>
+</div><center>
 <div class="page-header">
-    <h1>Map at a specified location</h1>
-    <p>Display a map at a specified location and zoom level</p>
+    <p>Les chauffeurs et leurs trajets</p>
 </div>
-<p>This example displays a movable map initially centered on the <b>Brandenburg Gate</b> in the centre of Berlin <i>(52.5159°N, 13.3777°E)</i></p>
 <div id="map"></div>
-<h3>Code</h3>
-<p>
-    The <code>map.setCenter()</code> method and <code>map.setZoom() </code>method are able to control the location of the map.<br>
-</p>
+
 <script type="text/javascript" src='{{ asset('demo.js') }}'></script>
 <script src="{{ asset('argon/assets/js/jquery-3.3.1.js') }}"></script>
+
+</center>
 </body>
-</html>
+{% endblock body %}
