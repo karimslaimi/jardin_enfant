@@ -36,6 +36,21 @@ class Club
      */
     private $description;
 
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $photo;
+
+    public function setPhoto( $file )
+    {
+        $this->photo = $file;
+    }
+
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
     /**
      * @OneToMany(targetEntity="Activite", mappedBy="club" )
      */

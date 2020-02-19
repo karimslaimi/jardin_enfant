@@ -1,18 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <center><h1>Activite</h1></center>
+    <center>
+    <h1>Activite</h1>
 
-    <table id="example" class="table table-striped table-bordered" style="width:100%">
+    <table id="example" class="table table-striped table-bordered" style="width:80% ">
         <tbody>
             <tr>
                 <th>Id</th>
-                <th>Typeact</th>
+                <th>Photo</th>
+                <th>Type d'activite</th>
                 <th>Details</th>
+
 
             </tr>
             <tr>
                 <td>{{ activite.id }}</td>
+                <td><img src="{{asset('images/'~activite.photo)}}" width="200" height="121"> </td>
                 <td>{{ activite.typeact }}</td>
                 <td>{{ activite.detailles }}</td>
             </tr>
@@ -28,7 +32,7 @@
     <div class=" col-md-4 col-sm-4 ">
 
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete" class="btn btn-danger">
+                <input type="submit" value="Supprimer" class="btn btn-danger">
             {{ form_end(delete_form) }}
         </div>
 
@@ -36,4 +40,5 @@
             <a href="{{ path('activite_index') }}">Back to the list</a>
         </li>
     </ul>
+    </center>
 {% endblock %}
