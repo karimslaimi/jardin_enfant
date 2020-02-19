@@ -3,10 +3,12 @@
 namespace FeridBundle\Controller;
 
 use AppBundle\Entity\Abonnement;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use FeridBundle\Form\AbonnementType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Abonnement controller.
@@ -31,7 +33,27 @@ class AbonnementController extends Controller
             'abonnements' => $abonnements,
         ));
     }
+    /**
+     *
+     * @Route("/pdf/{id}",name="getpdf",methods={"GET","HEAD"})
 
+     *
+     */
+    public function pdfAction(Abonnement $abonnement)
+    {
+        $snappy = $this->get("knp_snappy.pdf");
+        $html = $this->renderView("@Ferid/abonnement/pdf.html.twig", array('abonnement' => $abonnement,'title' => 'Abonnement Enfant',));
+        $filname = "custom_pdf_form_twig";
+        return new Response(
+            $snappy->getOutputFromHtml($html),
+            200,
+            array(
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'inline; filename="' . $filname . '.pdf"'
+            )
+        );
+
+    }
     /**
      * Creates a new abonnement entity.
      *
@@ -49,7 +71,7 @@ class AbonnementController extends Controller
             $em->persist($abonnement);
             $em->flush();
 
-            return $this->redirectToRoute('abonnement_show', array('id' => $abonnement->getId()));
+            return $this->redirectToRoute('getpdf', array('id' => $abonnement->getId()));
         }
 
         return $this->render('@Ferid/abonnement/new.html.twig', array(
@@ -118,6 +140,10 @@ class AbonnementController extends Controller
 
         return $this->redirectToRoute('abonnement_index');
     }
+
+
+
+
 
     /**
      * Creates a form to delete a abonnement entity.

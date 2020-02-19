@@ -46,7 +46,7 @@
                             <div class="link-box"><a href="{{ path('fos_user_security_logout') }}">Logout</a></div>
                         {% else %}
                             <div class="link-box"><a href="{{ path('parents_new') }}">S'inscrire</a></div>
-                            <div class="link-box"><a href="{{ path('parents_login') }}">Login</a></div>
+                            <div class="link-box"><a href="{{ path('user_login') }}">Login</a></div>
                         {% endif %}
 
                     </div>
@@ -76,8 +76,8 @@
 
                         <div class="collapse navbar-collapse clearfix" id="navbarSupportedContent">
                             <ul class="navigation clearfix">
-                                <li class="current dropdown"><a href="index-2.html">Home</a>
-                                    <ul>
+                                <li class="current "><a href="{{ path('homepage') }}">Accueil</a>
+                                    <!--<ul>
                                         <li><a href="index-2.html">Home page 01</a></li>
                                         <li><a href="index-3.html">Home page 02</a></li>
                                         <li class="dropdown"><a href="index-2.html">Header Styles</a>
@@ -86,33 +86,33 @@
                                                 <li><a href="index-3.html">Header Style Two</a></li>
                                             </ul>
                                         </li>
-                                    </ul>
+                                    </ul>-->
                                 </li>
-                                <li><a href="{{ path('aboutus') }}">About Us</a></li>
-                                <li class="dropdown"><a href="{{ path('evenement_index') }}">Events</a>
-                                    <ul>
+                                <li><a href="{{ path('aboutus') }}">A propos</a></li>
+                                <li class=""><a href="{{ path('evenement_index') }}">Evenements</a>
+                                   <!-- <ul>
                                         <li><a href="events.html">Events</a></li>
                                         <li><a href="event-detail.html">Event Detail</a></li>
-                                    </ul>
+                                    </ul>-->
                                 </li>
-                                <li class="dropdown"><a href="{{path('activite_index')}}">Programs</a>
-                                    <ul>
+                                <li class=""><a href="{{path('activite_index')}}">Activite</a>
+                                   <!-- <ul>
                                         <li><a href="numbers-matching.html">Numbers Matching</a></li>
                                         <li><a href="paper-plates-art.html">Paper Plates Art</a></li>
                                         <li><a href="create-cartoon-egg.html">Create Egg Cartoon</a></li>
                                         <li><a href="cooking-fun-cake.html">Cooking Fun Cake</a></li>
                                         <li><a href="super-colors-game.html">Super Colors Game</a></li>
                                         <li><a href="learning-disciplines.html">Learning Disciplines</a></li>
-                                    </ul>
+                                    </ul>-->
                                 </li>
-                                <li><a href="gallery.html">Gallery</a></li>
-                                <li class="dropdown"><a href="news.html">Our News</a>
-                                    <ul>
+                                <li><a href="{{path('jardin_index')}}">Nos Jarding</a></li>
+                                <li class=""><a href="{{ path('jardin_new') }}">rejoindre</a>
+                                   <!-- <ul>
                                         <li><a href="news.html">Our News</a></li>
                                         <li><a href="news-single.html">News Single</a></li>
-                                    </ul>
+                                    </ul>-->
                                 </li>
-                                <li><a href="{{path('reclamation_index')}}">Contact</a></li>
+                                <li><a href="{{path('reclamation_new')}}">Contact</a></li>
                             </ul>
                         </div>
                     </nav>
@@ -122,8 +122,8 @@
                     <div class="outer-box clearfix">
                         <ul class="social-icon-colored">
                             <li><a href="#"><span class="fab fa-facebook-f"></span></a></li>
-                            <li><a href="#"><span class="fab fa-twitter"></span></a></li>
-                            <li><a href="#"><span class="fab fa-youtube"></span></a></li>
+
+                            <li><a href="#"><span class="fab fa-instagram"></span></a></li>
                         </ul>
                     </div>
                 </div>
@@ -259,11 +259,11 @@
                                     <h4 class="widget-title">Links</h4>
                                     <div class="widget-content">
                                         <ul class="list">
-                                            <li><a href="#">About</a></li>
-                                            <li><a href="#">Contact</a></li>
-                                            <li><a href="#">Our Gallery</a></li>
-                                            <li><a href="#">Programs</a></li>
-                                            <li><a href="#">Events</a></li>
+                                            <li><a href="{{ path('aboutus') }}">A Propos</a></li>
+                                            <li><a href="#{{ path('reclamation_new') }}">Contact</a></li>
+                                            <li><a href="{{ path('jardin_new') }}">rejoindre</a></li>
+                                            <li><a href="{{path('activite_index')}}">Activite</a></li>
+                                            <li><a href="{{ path('evenement_index') }}">Evenements</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -291,7 +291,7 @@
                                 <div class="footer-widget newsletter-widget">
                                     <h4 class="widget-title">Newsletter</h4>
                                     <div class="newsletter-form">
-                                        <form method="post" action="http://t.commonsupport.xyz/bebio/contact.html">
+                                        <form method="post" action="">
                                             <div class="form-group">
                                                 <input type="email" name="email" value="" placeholder="Enter Your Email" required="">
                                                 <button type="submit" class="theme-btn btn-style-one">Subscribe</button>
@@ -313,7 +313,7 @@
                     <li><a href="#"><span class="fab fa-twitter"></span></a></li>
                     <li><a href="#"><span class="fab fa-youtube"></span></a></li>
                 </ul>
-                <div class="copyright"> Copyrights &copy; 2019 Bebio - Kinder Garten HTML Template</div>
+                <div class="copyright"> Copyrights &copy; 2020 Esprit</div>
             </div>
         </div>
     </footer>
@@ -324,6 +324,7 @@
 
 
 <!--Search Popup-->
+<!--
 <div id="search-popup" class="search-popup">
     <div class="close-search theme-btn"><span class="fa fa-times"></span></div>
     <div class="popup-inner">
@@ -352,7 +353,7 @@
 
     </div>
 </div>
-
+-->
 <script src="{{ asset('js/jquery.js') }}"></script>
 <script src="{{ asset('js/popper.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.min.js') }}"></script>

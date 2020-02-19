@@ -1,11 +1,11 @@
 <?php
 
-namespace DorraBundle\Controller;
+namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
-class DefaultController extends Controller
+class ParticiperController extends Controller
 {
 
 }
