@@ -24,8 +24,9 @@ class TuteurController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
 
-        $tuteurs = $em->getRepository(Tuteur::class)->findAll();
+        $tuteurs = $em->getRepository(Tuteur::class)->findBy(array('jardin'=>$user->getJardin()));
 
         return $this->render('@Sami/tuteur/index.html.twig', array(
             'tuteurs' => $tuteurs,
@@ -40,11 +41,14 @@ class TuteurController extends Controller
      */
     public function newAction(Request $request)
     {
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $tuteur = new Tuteur();
         $form = $this->createForm(TuteurType::class, $tuteur);
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
+            $tuteur->addRole("ROLE_Tuteur");
+            $tuteur->setJardin($user->getJardin());
             $em = $this->getDoctrine()->getManager();
             $em->persist($tuteur);
             $em->flush();
