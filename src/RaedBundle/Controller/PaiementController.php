@@ -23,6 +23,8 @@ class PaiementController extends Controller
      */
     public function indexAction()
     {
+
+
         $em = $this->getDoctrine()->getManager();
 
         $paiements = $em->getRepository('AppBundle:Paiement')->findAll();
@@ -40,22 +42,17 @@ class PaiementController extends Controller
      */
     public function newAction(Request $request)
     {
-        $paiement = new Paiement();
-        $form = $this->createForm(PaiementType::class, $paiement);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($paiement);
-            $em->flush();
+        \Stripe\Stripe::setApiKey('pk_test_TYooMQauvdEDq54NiTphI7jx');
 
-            return $this->redirectToRoute('paiement_show', array('id' => $paiement->getId()));
-        }
 
-        return $this->render('@Raed/paiement/new.html.twig', array(
-            'paiement' => $paiement,
-            'form' => $form->createView(),
-        ));
+            \Stripe\Charge::create([
+                'amount' => 2000,
+                'currency' => 'usd',
+                'source' => $request->request->get('stripeToken'),
+                'description' => "Paiement de test"
+            ]);
+
     }
 
     /**
@@ -134,4 +131,5 @@ class PaiementController extends Controller
             ->getForm()
         ;
     }
+
 }

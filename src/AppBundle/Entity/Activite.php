@@ -4,6 +4,9 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Activite
  *
@@ -34,6 +37,23 @@ class Activite
      * @ORM\Column(name="detailles", type="string", length=255)
      */
     private $detailles;
+
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $photo;
+
+    public function setPhoto( $file )
+    {
+        $this->photo = $file;
+    }
+
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
+
 
     /**
      * @ORM\ManyToOne(targetEntity="Club", inversedBy="activites")

@@ -71,7 +71,8 @@ function addInfoBubble(map) {
     console.log(data);
     for (var i = 0; i < data.length; i++) {
 
-      addMarkerToGroup(group, {lat: data[i].latitude, lng: data[i].longitude},' '+data[i].adresse);
+      addMarkerToGroup(group, {lat: data[i].latitude, lng: data[i].longitude},'<b>'+data[i].chauffeur+'</b><p>Adresse : '
+          + data[i].adresse +'</p><br><p>Heure :'+'</p>'+data[i].heure);
     }
   });
 

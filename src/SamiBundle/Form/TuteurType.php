@@ -21,10 +21,6 @@ class TuteurType extends AbstractType
                 'Homme'=>'homme',
                 'Femme'=>'femme',
             ]
-        ])->add('jardin',EntityType::class,[
-            'class'=>Jardin::class,
-            'choice_label'=>'name',
-            'multiple'=>false
         ])->add('username')
             ->add('email')
             ->add('password');

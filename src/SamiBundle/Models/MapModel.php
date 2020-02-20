@@ -10,6 +10,23 @@ private $latitude;
 private $longitude;
 private $adresse;
 private $heure;
+private $chauffeur;
+
+    /**
+     * @return mixed
+     */
+    public function getChauffeur()
+    {
+        return $this->chauffeur;
+    }
+
+    /**
+     * @param mixed $chauffeur
+     */
+    public function setChauffeur($chauffeur)
+    {
+        $this->chauffeur = $chauffeur;
+    }
 
     /**
      * @return mixed

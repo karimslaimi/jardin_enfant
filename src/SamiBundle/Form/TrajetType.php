@@ -21,7 +21,7 @@ class TrajetType extends AbstractType
             'class'=>Chauffeur::class,
             'query_builder' => function (EntityRepository $er) {
                 return $er->createQueryBuilder('u')
-                    ->where('u.jardin=1');
+                    ->where('u.jardin=3');
             },
             'choice_label'=>'nom',
             'multiple'=>false
