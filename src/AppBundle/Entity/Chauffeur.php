@@ -67,7 +67,23 @@ class Chauffeur extends User
      */
     private $jardin;
 
+    /**
+     *
+     * @ORM\Column(name="picture", type="string")
+     */
+    private $picture;
 
+
+    public function getPicture()
+    {
+        return $this->picture;
+    }
+
+
+    public function setPicture($picture)
+    {
+        $this->picture = $picture;
+    }
 
 
     /**

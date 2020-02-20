@@ -2,10 +2,12 @@
 
 namespace SamiBundle\Form;
 
+use AppBundle\Entity\Chauffeur;
 use AppBundle\Entity\Jardin;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -21,19 +23,16 @@ class ChauffeurType extends AbstractType
                 'Homme'=>'homme',
                 'Femme'=>'femme'
             ],])
-            ->add('jardin',EntityType::class,[
-            'class'=>Jardin::class,
-            'choice_label'=>'name',
-            'multiple'=>false
-        ])->add('username')
-        ->add('email');
+            ->add('username')
+        ->add('email')
+            ->add('picture', FileType::class, array('label'=>'inserer une image'));
     }/**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Chauffeur'
+            'data_class' => Chauffeur::class
         ));
     }
 

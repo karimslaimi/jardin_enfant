@@ -1,4 +1,7 @@
 {% extends 'back.html.twig' %}
+
+
+
 {% block nav %}
     <center>
     <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
@@ -6,6 +9,10 @@
             <h1>Les trajets disponibles</h1>
         </div></div>
     </center>
+    <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('demo.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('styles.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('template.css') }}" />
 {% endblock nav %}
 {% block body%}
 
@@ -25,3 +32,5 @@
 </center>
 </body>
 {% endblock body %}
+
+

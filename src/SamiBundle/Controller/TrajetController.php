@@ -53,7 +53,7 @@ class TrajetController extends Controller
   {
       $liste_trajets= array();
       $user = $this->container->get('security.token_storage')->getToken()->getUser();
-      $liste=$this->getDoctrine()->getManager()->getRepository(Chauffeur::class)->findBy(array('jardin'=>1));
+      $liste=$this->getDoctrine()->getManager()->getRepository(Chauffeur::class)->findBy(array('jardin'=>$user->getJardin()));
 
 
 
@@ -74,6 +74,7 @@ class TrajetController extends Controller
           $map->setLongitude($obj->Response->View[0]->Result[0]->Location->DisplayPosition->Longitude);
           $map->setAdresse($ls->getAdresse());
           $map->setHeure($ls->getHeure());
+          $map->setChauffeur($ls->getChauffeur()->getNom());
           array_push($finallist, $map);
 
       }
