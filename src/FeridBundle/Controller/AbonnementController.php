@@ -33,6 +33,24 @@ class AbonnementController extends Controller
         ));
     }
 
+
+    /**
+     * Lists all abonnement entities.
+     *
+     * @Route("/resp/index", name="abonnements_index",methods={"GET","HEAD"})
+     *
+     */
+    public function indexaboAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $abonnements = $em->getRepository(Abonnement::class)->findAll();
+
+        return $this->render('@Ferid/abonnement/indexback.html.twig', array(
+            'abonnements' => $abonnements,
+        ));
+    }
+
     /**
      *
      * @Route("/facture/{id}",name="facture_abon",methods={"GET"})
@@ -85,6 +103,7 @@ class AbonnementController extends Controller
     {
         $abonnement = new Abonnement();
         $form = $this->createForm(AbonnementType::class, $abonnement);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
@@ -117,6 +136,24 @@ class AbonnementController extends Controller
         ));
     }
 
+
+    /**
+     * Finds and displays a abonnement entity.
+     *
+     * @Route("/resp/{id}", name="abonnements_show",methods={"GET","HEAD"})
+
+     */
+    public function showbackAction(Abonnement $abonnement)
+    {
+        $deleteForm = $this->createDeleteForm($abonnement);
+
+        return $this->render('@Ferid/abonnement/showback.html.twig', array(
+            'abonnement' => $abonnement,
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+
     /**
      * Displays a form to edit an existing abonnement entity.
      *
@@ -141,6 +178,26 @@ class AbonnementController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
+
+    /**
+     * Displays a form to edit an existing abonnement entity.
+     *
+     * @Route("/{id}/accepter", name="abonnement_accepter",methods={"GET", "POST"})
+
+     */
+    public function accepterAction(Abonnement $abonnement)
+    {
+
+        $abonn=$this->getDoctrine()->getManager()->getRepository(Abonnement::class)->find($abonnement->getId());
+        $abonn->setEtat("accepté");
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('abonnements_index', array('id' => $abonnement->getId()));
+
+
+
+    }
+
 
     /**
      * Deletes a abonnement entity.

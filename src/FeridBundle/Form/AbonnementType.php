@@ -4,6 +4,8 @@ namespace FeridBundle\Form;
 
 use AppBundle\Entity\Enfant;
 use AppBundle\Entity\Jardin;
+use Doctrine\ORM\EntityRepository;
+use FeridBundle\Controller\EnfantController;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -17,17 +19,30 @@ class AbonnementType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('date')->add('type')->add('etat')->add('montant')->add('jardin', EntityType::class,[
+        $builder->add('date')->add('type',ChoiceType::class,[
+            'choices'=>[
+                'Bus'=>'bus',
+                'Normal'=>'normal'
+            ],])->add('montant')->add('jardin', EntityType::class,[
                 'class' => Jardin::class,
                 'choice_label' => 'name',
                 'expanded' => false,
                 'multiple' => false
             ])->add('enfant', EntityType::class,[
             'class' => Enfant::class,
-            'choice_label' => 'nom',
+            'query_builder' => function (EntityRepository $er) {
+                return $er->createQueryBuilder('u')
+                    ->where('u.parent=6');
+            },
+            'choice_label' => 'prenom',
+
             'expanded' => false,
             'multiple' => false
-        ]);
+        ])->add('etat',ChoiceType::class,[
+            'choices'=>[
+                'Attente'=>'attente'
+
+            ],]);
     }/**
      * {@inheritdoc}
      */
@@ -36,7 +51,9 @@ class AbonnementType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Abonnement'
         ));
+
     }
+
 
     /**
      * {@inheritdoc}
