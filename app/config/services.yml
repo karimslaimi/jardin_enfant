@@ -9,6 +9,12 @@ services:
         tags:
             - { name: form.type, alias: app_user_registration }
 
+
+    dorra_bundle.listener.loaddatalistener:
+        class: DorraBundle\Listener\LoadDataListener
+        tags:
+            - { name: 'kernel.event_listener', event: 'fullcalendar.set_data', method: loadData }
+
     # default configuration for services in *this* file
     _defaults:
         # automatically injects dependencies in your services

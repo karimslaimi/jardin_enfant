@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
+use AncaRebeca\FullCalendarBundle\Model\FullCalendarEvent;
 
 /**
  * Activite
@@ -13,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="activite")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ActiviteRepository")
  */
-class Activite
+class Activite extends FullCalendarEvent
 {
     /**
      * @var int
@@ -43,6 +44,15 @@ class Activite
      * @ORM\Column(type="string")
      */
     private $photo;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+
+
+    private $Date;
+
+
 
     public function setPhoto( $file )
     {
@@ -135,6 +145,14 @@ class Activite
     public function getDetailles()
     {
         return $this->detailles;
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        // TODO: Implement toArray() method.
     }
 }
 
