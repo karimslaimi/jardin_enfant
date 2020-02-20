@@ -26,39 +26,64 @@ class MessagesController extends Controller
     /**
      * Lists all message entities.
      *
-     * @Route("/msg", name="messages_json",methods={"GET","HEAD"})
+     * @Route("/msg", name="messages_i",methods={"GET","HEAD"})
      */
     public function lsAction(){
 
         $tab=$this->getDoctrine()->getManager()->getRepository(Messages::class)->getmessages(2);
-       // $this->normalizer->setIgnoredAttributes($tab);
-        $normalizer=new ObjectNormalizer();
-        $serializer = new Serializer(array($normalizer), array(new JsonEncoder()));
-
-        $formatted=$serializer->normalize($tab);
-        return new JsonResponse($formatted);
+       return $this->render('@Karim/messages/index.html.twig',array("messages"=>$tab));
     }
+
 
 
 
     /**
      * Lists all message entities.
      *
-     * @Route("/", name="messages_index",methods={"GET","HEAD"})
+     * @Route("/{id}", name="messages_index",defaults={"id" = null},methods={"GET","HEAD"})
      */
-    public function indexAction()
+    public function indexAction($id)
     {
-
-        $user = $this->container->get('security.token_storage')->getToken()->getUser();
-        if($user!=null){
-        $messages=$this->getDoctrine()->getManager()->getRepository(Messages::class)->getmessages($user->getId());
+        $messages=$this->getDoctrine()->getManager()->getRepository(Messages::class)->getallmess();
+        if($id!=null){
+            $tab=$this->getDoctrine()->getManager()->getRepository(Messages::class)->getmessages($id);
         }else{
-           return $this->redirectToRoute("login");
+            $this->redirectToRoute("messages_i");
         }
+
+
+
+
 
         return $this->render('@Karim/messages/index.html.twig', array(
             'messages' => $messages,
+            "mess"=>$tab
         ));
+    }
+    /**
+     * add msg.
+     *
+     * @Route("/addmess", name="addmess",methods={"POST"})
+     */
+    public function addmessction(Request $request)
+    {
+
+        $mes=$request->get('msg');
+        $message=new Messages();
+
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        if(in_array("ROLE_RESPONSABLE" , $user->getRoles())){
+
+            $message->setJardin($user->getJardin());
+            }
+        $message->setParent($request->get("id"));
+
+
+
+
+
+
+        return $this->redirectToRoute('messages_index');
     }
 
     /**

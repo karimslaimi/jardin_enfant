@@ -73,6 +73,7 @@
       <path value="$PROJECT_DIR$/vendor/stripe-php-7.25.0/lib" />
       <path value="$PROJECT_DIR$/vendor/stripe-php-7.25.0/data" />
       <path value="$PROJECT_DIR$/vendor/stripe/stripe-php" />
+      <path value="$PROJECT_DIR$/vendor/ancarebeca/full-calendar-bundle" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="5.5.0" />

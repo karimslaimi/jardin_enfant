@@ -12,10 +12,19 @@ class MessagesRepository extends \Doctrine\ORM\EntityRepository
 {
     public function getmessages($id)
     {
-        $q=$this->getEntityManager()->createQuery("SELECT p from AppBundle:Messages p JOIN p.jardin b where b.responsable.id=:id 
-        GROUP BY p.parent")
+        $q=$this->getEntityManager()->createQuery("SELECT m from AppBundle:Parents p , AppBundle:Messages m where m.parent=p AND m.parent=:id GROUP BY p.id")
             ->setParameter('id',$id);
         return $query=$q->getResult();
 
+
     }
+    public function getallmess()
+    {
+        $q=$this->getEntityManager()->createQuery("SELECT m from AppBundle:Messages m, AppBundle:Parents p where m.parent=p GROUP BY p.id");
+
+        return $query=$q->getResult();
+
+
+    }
+
 }

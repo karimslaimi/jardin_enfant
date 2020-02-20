@@ -62,7 +62,7 @@ class Parents extends User
     private $enfants;
 
     /**
-     * @ORM\OneToMany(targetEntity="Messages", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="Messages", mappedBy="parent",fetch="EAGER")
      */
     private $messages;
 

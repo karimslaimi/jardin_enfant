@@ -71,7 +71,7 @@ class PaiementController extends Controller
                     'description' => "Paiement de test"
                 ])*/
                 $order = new Order();
-                $order->cart = serialize($cart);
+                //$order->cart = serialize($cart);
                 $order->address = $request->input('address');
                 $order->name = $request->input('name');
                 $order->payment_id = $charges->id;
