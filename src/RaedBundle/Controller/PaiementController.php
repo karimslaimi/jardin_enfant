@@ -5,7 +5,9 @@ namespace RaedBundle\Controller;
 use AppBundle\Entity\Paiement;
 
 use RaedBundle\Form\PaiementType;
+use Stripe\Charge;
 use Stripe\Exception\ApiErrorException;
+use Stripe\Stripe;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -45,10 +47,10 @@ class PaiementController extends Controller
     public function newAction(Request $request)
     {
         try{
-            \Stripe\Stripe::setApiKey('pk_test_TYooMQauvdEDq54NiTphI7jx');
+            Stripe::setApiKey('pk_test_TYooMQauvdEDq54NiTphI7jx');
 
 
-            \Stripe\Charge::create([
+            Charge::create([
                 'amount' => 2000,
                 'currency' => 'usd',
                 'source' => $request->request->get('stripeToken'),
