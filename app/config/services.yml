@@ -1,15 +1,19 @@
 # Learn more about services, parameters and containers at
 # https://symfony.com/doc/current/service_container.html
 parameters:
-    #parameter_name: value
-     image_directory: '%kernel.project_dir%/web/images'
-     upload_directory: '%kernel.project_dir%/public/upload'
+        image_directory: '%kernel.project_dir%/web/images'
 
 services:
     app.form.registration:
         class: KarimBundle\Form\ParentType
         tags:
             - { name: form.type, alias: app_user_registration }
+
+
+    dorra_bundle.listener.loaddatalistener:
+        class: DorraBundle\Listener\LoadDataListener
+        tags:
+            - { name: 'kernel.event_listener', event: 'fullcalendar.set_data', method: loadData }
 
     # default configuration for services in *this* file
     _defaults:

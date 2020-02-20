@@ -86,11 +86,13 @@ class ActiviteController extends Controller
     /**
      * calendrier
      *
-     * @Route("/calendrier", name="activite_index")
+     * @Route("/calendrier")
      * @Method("GET")
      */
     public function AfficherCalendrier()
     {
+
+
         return $this->render('@Dorra/activite/calendrier.html.twig', array(''));
     }
 

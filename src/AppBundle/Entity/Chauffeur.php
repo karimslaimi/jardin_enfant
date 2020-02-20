@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Chauffeur
@@ -67,23 +68,7 @@ class Chauffeur extends User
      */
     private $jardin;
 
-    /**
-     *
-     * @ORM\Column(name="picture", type="string")
-     */
-    private $picture;
 
-
-    public function getPicture()
-    {
-        return $this->picture;
-    }
-
-
-    public function setPicture($picture)
-    {
-        $this->picture = $picture;
-    }
 
 
     /**

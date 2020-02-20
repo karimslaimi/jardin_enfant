@@ -10,4 +10,7 @@ namespace AppBundle\Repository;
  */
 class ReclamationRepository extends \Doctrine\ORM\EntityRepository
 {
+
+
+
 }

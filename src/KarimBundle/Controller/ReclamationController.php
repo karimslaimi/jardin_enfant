@@ -24,8 +24,8 @@ class ReclamationController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
-        $reclamations = $em->getRepository('AppBundle:Reclamation')->findAll();
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $reclamations = $em->getRepository('AppBundle:Reclamation')->findmyreclam($user->getId());
 
         return $this->render('@Karim/reclamation/index.html.twig', array(
             'reclamations' => $reclamations,

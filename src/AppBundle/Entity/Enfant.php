@@ -4,7 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Enfant
  *
@@ -24,14 +24,15 @@ class Enfant
 
     /**
      * @var string
-     *
+     *@Assert\Length(max = 20)
+
      * @ORM\Column(name="nom", type="string", length=255)
      */
     private $nom;
 
     /**
      * @var string
-     *
+     *@Assert\Length(max = 20)
      * @ORM\Column(name="prenom", type="string", length=255)
      */
     private $prenom;

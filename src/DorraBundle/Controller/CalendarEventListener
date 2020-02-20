@@ -7,6 +7,7 @@ use ADesigns\CalendarBundle\Event\CalendarEvent;
 use ADesigns\CalendarBundle\Entity\EventEntity;
 use Doctrine\ORM\EntityManager;
 
+
 class CalendarEventListener
 {
 private $entityManager;
@@ -15,6 +16,8 @@ public function __construct(EntityManager $entityManager)
 {
 $this->entityManager = $entityManager;
 }
+
+
 
 public function loadEvents(CalendarEvent $calendarEvent)
 {
@@ -31,9 +34,9 @@ $filter = $request->get('filter');
 // load events using your custom logic here,
 // for instance, retrieving events from a repository
 
-$companyEvents = $this->entityManager->getRepository('AcmeDemoBundle:MyCompanyEvents')
-->createQueryBuilder('company_events')
-->where('company_events.event_datetime BETWEEN :startDate and :endDate')
+$ActiviteEvents = $this->entityManager->getRepository('AppBundle:Activite')
+->createQueryBuilder('activite_events')
+->where('activite_events.Date BETWEEN :startDate and :endDate')
 ->setParameter('startDate', $startDate->format('Y-m-d H:i:s'))
 ->setParameter('endDate', $endDate->format('Y-m-d H:i:s'))
 ->getQuery()->getResult();
@@ -45,13 +48,13 @@ $companyEvents = $this->entityManager->getRepository('AcmeDemoBundle:MyCompanyEv
 // Create EventEntity instances and populate it's properties with data
 // from your own entities/database values.
 
-foreach($companyEvents as $companyEvent) {
+foreach($ActiviteEvents as $activiteEvent) {
 
 // create an event with a start/end time, or an all day event
-if ($companyEvent->getAllDayEvent() === false) {
-$eventEntity = new EventEntity($companyEvent->getTitle(), $companyEvent->getStartDatetime(), $companyEvent->getEndDatetime());
+if ($activiteEvent->getAllDayEvent() === false) {
+$eventEntity = new EventEntity($activiteEvent->getTitle(), $activiteEvent->getStartDatetime(), $activiteEvent->getEndDatetime());
 } else {
-$eventEntity = new EventEntity($companyEvent->getTitle(), $companyEvent->getStartDatetime(), null, true);
+$eventEntity = new EventEntity($activiteEvent->getTitle(), $activiteEvent->getStartDatetime(), null, true);
 }
 
 //optional calendar event settings

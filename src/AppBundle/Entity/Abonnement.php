@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Abonnement
@@ -45,7 +46,8 @@ class Abonnement
 
     /**
      * @var float
-     *
+
+     * @Assert\Length(max=4)
      * @ORM\Column(name="montant", type="float")
      */
     private $montant;

@@ -95,7 +95,7 @@ class TrajetController extends Controller
     {
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $trajet = new Trajet();
-        $form = $this->createForm(TrajetType::class, $trajet);
+        $form = $this->createForm(TrajetType::class, $trajet,array('user'=>$user->getJardin()));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
