@@ -19,7 +19,11 @@ class AbonnementType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('date')->add('type')->add('etat')->add('montant')->add('jardin', EntityType::class,[
+        $builder->add('date')->add('type',ChoiceType::class,[
+            'choices'=>[
+                'Bus'=>'bus',
+                'Normal'=>'normal'
+            ],])->add('montant')->add('jardin', EntityType::class,[
                 'class' => Jardin::class,
                 'choice_label' => 'name',
                 'expanded' => false,
@@ -30,10 +34,15 @@ class AbonnementType extends AbstractType
                 return $er->createQueryBuilder('u')
                     ->where('u.parent=6');
             },
-            'choice_label' => 'nom',
+            'choice_label' => 'prenom',
+
             'expanded' => false,
             'multiple' => false
-        ]);
+        ])->add('etat',ChoiceType::class,[
+            'choices'=>[
+                'Attente'=>'attente'
+
+            ],]);
     }/**
      * {@inheritdoc}
      */
