@@ -14,8 +14,8 @@
                 <div class="card-body" bis_skin_checked="1">
                     <form class="form-sample" method="post">
                         <div class="form-group" bis_skin_checked="1">
-                            <label for="exampleInputName1">Cin</label>
-                            {{ form_widget(edit_form.cin,{'attr': {'class': 'form-control'}})}}
+                            <label  for="exampleInputName1">Cin</label>
+                            {{ form_widget(edit_form.cin,{'attr': {'class': 'form-control '}})}}
                         </div>
                         <div class="form-group" bis_skin_checked="1">
                             <label for="exampleInputEmail3">Nom et prenom</label>
@@ -38,12 +38,12 @@
                             {{ form_widget(edit_form.email,{'attr': {'class': 'form-control'}})}}
                         </div>
                         <div class="form-group" bis_skin_checked="1">
-                            <label for="exampleInputEmail3">Password</label>
+                            <label for="exampleInputEmail3">mot de passe</label>
                             {{ form_widget(edit_form.plainPassword.first,{'attr': {'class': 'form-control'}})}}
                         </div>
                         <div class="form-group" bis_skin_checked="1">
-                            <label for="exampleInputEmail3">Jardin</label>
-                            {{ form_widget(edit_form.jardin,{'attr': {'class': 'form-control'}})}}
+                            <label for="exampleInputEmail3">Confirmer mot de passe</label>
+                            {{ form_widget(edit_form.plainPassword.second,{'attr': {'class': 'form-control'}})}}
                         </div>
 
                         <button type="submit" class="btn btn-success mr-2">Modifier</button>

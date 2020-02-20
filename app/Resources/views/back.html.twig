@@ -7,6 +7,7 @@
   <title>
 Backoffice
   </title>
+  {% block stylesheet %}
   <!-- Favicon -->
   <link href="{{ asset('argon/assets/img/brand/favicon.png') }}"  rel="icon" type="image/png">
   <!-- Fonts -->
@@ -16,10 +17,8 @@ Backoffice
   <link href="{{ asset('argon/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="{{ asset('argon/assets/css/argon-dashboard.css?v=1.1.2') }}" rel="stylesheet" />
-  <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
-  <link rel="stylesheet" type="text/css" href="{{ asset('demo.css') }}" />
-  <link rel="stylesheet" type="text/css" href="{{ asset('styles.css') }}" />
-  <link rel="stylesheet" type="text/css" href="{{ asset('template.css') }}" />
+
+{% endblock stylesheet %}
   <script type="text/javascript" src='{{asset('test-credentials.js')}}'></script>
   <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
   <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
@@ -125,12 +124,17 @@ Backoffice
           </li>
           <li class="nav-item">
             <a class="nav-link " href="{{ path('tuteur_index') }}">
-              <i class="ni ni-pin-3"></i> Liste des tuteurs
+              <i class="ni ni-books"></i> Liste des tuteurs
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="{{ path('chauffeur_index') }}">
-              <i class="ni ni-pin-3 text-blue"></i> Liste des chauffeurs
+              <i class="ni ni-album-2"></i> Liste des chauffeurs
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="{{ path('trajet_index') }}">
+              <i class="ni ni-pin-3 text-blue"></i> Map des trajets
             </a>
           </li>
         </ul>

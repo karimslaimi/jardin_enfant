@@ -33,7 +33,7 @@ class DefaultController extends Controller
         $password=$request->get('password');
 
         if($request->isMethod("GET")){
-            return $this->render("@Karim/parents/login.html.twig",array("msg"=>""));
+            return $this->render("default/login.html.twig",array("msg"=>""));
         }else{
 
             // Retrieve the security encoder of symfony
@@ -49,7 +49,7 @@ class DefaultController extends Controller
 
             // Check if the user exists !
             if(!$user){
-                return $this->render("@Karim/parents/login.html.twig",array("msg"=>"user does not exist"));
+                return $this->render("default/login.html.twig",array("msg"=>"user does not exist"));
             }
 
             /// Start verification
@@ -57,7 +57,7 @@ class DefaultController extends Controller
             $salt = $user->getSalt();
 
             if(!$encoder->isPasswordValid($user->getPassword(), $password, $salt)) {
-                return $this->render("@Karim/parents/login.html.twig",array("msg"=>"username or password are incorrect"));
+                return $this->render("default/login.html.twig",array("msg"=>"username or password are incorrect"));
             }
             /// End Verification
 
@@ -76,14 +76,14 @@ class DefaultController extends Controller
             $event = new InteractiveLoginEvent($request, $token);
             $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
 
-            $us=$this->container->get('security.token_storage')->getToken()->getUser();
+           // $us=$this->container->get('security.token_storage')->getToken()->getUser();
 
-            if ($us->getRoles()[0]=='ROLE_RESPONSABLE') {
+            if ($this->container->get('security.authorization_checker')->isGranted("ROLE_RESPONSABLE")) {
                 // SUPER_ADMIN roles go to the `admin_home` route
-                return $this->redirectToRoute("homepage");
-            }elseif($us->getRoles()[0]=='ROLE_PARENT') {
-                // Everyone else goes to the `home` route
                 return $this->redirectToRoute("tuteur_index");
+            }elseif($this->container->get('security.authorization_checker')->isGranted('ROLE_PARENT')) {
+                // Everyone else goes to the `home` route
+                return $this->redirect("/");
             }
 
         }

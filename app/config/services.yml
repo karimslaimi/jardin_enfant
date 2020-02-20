@@ -3,6 +3,7 @@
 parameters:
     #parameter_name: value
      image_directory: '%kernel.project_dir%/web/images'
+     upload_directory: '%kernel.project_dir%/public/upload'
 
 services:
     app.form.registration:
