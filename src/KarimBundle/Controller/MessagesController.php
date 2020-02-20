@@ -7,8 +7,12 @@ use AppBundle\Entity\Parents;
 use AppBundle\Repository\ParentRepository;
 use KarimBundle\Form\MessagesType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * Message controller.
@@ -17,6 +21,26 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class MessagesController extends Controller
 {
+
+
+    /**
+     * Lists all message entities.
+     *
+     * @Route("/msg", name="messages_json",methods={"GET","HEAD"})
+     */
+    public function lsAction(){
+
+        $tab=$this->getDoctrine()->getManager()->getRepository(Messages::class)->getmessages(2);
+       // $this->normalizer->setIgnoredAttributes($tab);
+        $normalizer=new ObjectNormalizer();
+        $serializer = new Serializer(array($normalizer), array(new JsonEncoder()));
+
+        $formatted=$serializer->normalize($tab);
+        return new JsonResponse($formatted);
+    }
+
+
+
     /**
      * Lists all message entities.
      *
