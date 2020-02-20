@@ -26,9 +26,10 @@ class EnfantController extends Controller
      */
     public function indexAction()
     {
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
 
-        $enfants = $em->getRepository('AppBundle:Enfant')->findAll();
+        $enfants = $em->getRepository('AppBundle:Enfant')->findBy(array('parent'=>$user));
 
         return $this->render('@Ferid/enfant/index.html.twig', array(
             'enfants' => $enfants,
@@ -43,12 +44,13 @@ class EnfantController extends Controller
      */
     public function newAction(Request $request)
     {
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $enfant = new Enfant();
         $form = $this->createForm(EnfantType::class, $enfant);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() ) {
-            $enfant->setParent($this->getDoctrine()->getManager()->getRepository(Parents::class)->find(4));
+            $enfant->setParent($this->getDoctrine()->getManager()->getRepository(Parents::class)->find($user->getId()));
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($enfant);
