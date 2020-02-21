@@ -41,16 +41,22 @@ class EvenementController extends Controller
      */
     public function chartAction()
     {
-
+$user=$this->container->get('security.token_storage')->getToken()->getUser();
+$list=$this->getDoctrine()->getManager()->getRepository(Evenement::class)->findBy(array('jardin'=>$user->getJardin()));
+$final=array();
+foreach ($list as $ls)
+{
+    array_push($final,array($ls->getTitre(),sizeof($ls->getParticipation())));
+}
         $series = array(
-            array("name" => "Data Serie Name",    "data" => array(1,2,4,5,6,3,8))
+            array("type"=>"bar","name" => "Nombre de participants","data"=>$final)
         );
 
         $ob = new Highchart();
         $ob->chart->renderTo('linechart');  // The #id of the div where to render the chart
-        $ob->title->text('Chart Title');
-        $ob->xAxis->title(array('text'  => "Horizontal axis title"));
-        $ob->yAxis->title(array('text'  => "Vertical axis title"));
+        $ob->title->text('Participation aux evenements');
+        $ob->xAxis->title(array('text'  => "Evenements"));
+        $ob->yAxis->title(array('text'  => "Participants"));
         $ob->series($series);
 
         return $this->render('@Emna/evenement/stat.html.twig', array(

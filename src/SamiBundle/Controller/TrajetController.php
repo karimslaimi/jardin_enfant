@@ -98,7 +98,7 @@ class TrajetController extends Controller
         $form = $this->createForm(TrajetType::class, $trajet,array('user'=>$user->getJardin()));
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() ) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($trajet);
             $em->flush();
