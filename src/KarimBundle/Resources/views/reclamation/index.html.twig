@@ -1,56 +1,36 @@
-{% extends 'base.html.twig' %}
+{% extends 'back.html.twig' %}
 
-{% block body %}
+{% block body %}<table class="table">
+    <thead>
+    <tr>
+        <th class="text-center">nom</th>
+        <th>email</th>
+        <th>titre</th>
+        <th>numéro</th>
 
-
-    <section class="page-title" style="background-image:url({{ asset ('images/1.jpg')}});">
-        <div class="auto-container">
-            <div class="inner-container clearfix">
-
-                <h1>Reclamation List</h1>
-            </div>
-        </div>
-    </section>
-
-    <section class="program-section alternate">
-        <div class="auto-container">
-            <div class="row">
-                {% for reclamation in reclamations %}
-
-                    <!-- Program Block -->
-                    <div class="program-block col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="800ms">
-                        <div class="inner-box">
-
-                            <div class="lower-content">
-                                <h4><a href="{{ path('reclamation_show', { 'id': reclamation.id }) }}">{{ reclamation.titre }}</a></h4>
-                                <div class="text">{{ reclamation.description }}</div>
-                                <ul class="program-info">
-
-                                    <li><span>Time:</span> {{ reclamation.date|date('Y-m-d H:i:s') }}</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                {% endfor %}
-            </div>
-        </div>
-    </section>
-
-
-
-
-    <div class="sec-title text-center">
-    <span class="title">Reclamations
-    </span>
-</div>
-
-
-
-
-    <ul>
-        <li>
-            <a href="{{ path('reclamation_new') }}">Create a new reclamation</a>
-        </li>
-    </ul>
+        <th class="text-right">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for rec in reclamations %}
+    <tr>
+        <td class="text-center">rec.nom</td>
+        <td>rec.email</td>
+        <td>rec.titre</td>
+        <td>rec.num</td>
+        <td class="td-actions text-right">
+            <button type="button" rel="tooltip" class="btn btn-info btn-icon btn-sm " data-original-title="" title="">
+                <i class="ni ni-circle-08 pt-1"></i>
+            </button>
+            <button type="button" rel="tooltip" class="btn btn-success btn-icon btn-sm " data-original-title="" title="">
+                <i class="ni ni-settings-gear-65 pt-1"></i>
+            </button>
+            <button type="button" rel="tooltip" class="btn btn-danger btn-icon btn-sm " data-original-title="" title="">
+                <i class="ni ni-fat-remove pt-1"></i>
+            </button>
+        </td>
+    </tr>
+  {% endfor %}
+    </tbody>
+</table>
 {% endblock %}

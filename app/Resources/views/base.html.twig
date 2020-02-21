@@ -15,6 +15,7 @@
         <link href="{{ asset('plugins/revolution/css/navigation.css')}}" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/style.css') }}" rel="stylesheet">
         <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
+
     {% endblock stylesheets %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
@@ -108,12 +109,20 @@
                                     </ul>-->
                                 </li>
                                 <li><a href="{{path('jardin_index')}}">Nos Jardins</a></li>
+                                {% if "ROLE_PARENT" in app.user.roles %}
+                                <li class="dropdown"><a href="{{ path('enfant_index') }}">Enfant</a>
+                                    <ul>
+                                        <li><a href="{{path('remarque_index')}}">Remarques</a></li>
+                                        <li><a href="{{ path('abonnement_index') }}">Abonnement</a></li>
+                                    </ul>
+                                </li>
+                                {% else %}
                                 <li class=""><a href="{{ path('jardin_new') }}">rejoindre</a>
                                    <!-- <ul>
                                         <li><a href="news.html">Our News</a></li>
                                         <li><a href="news-single.html">News Single</a></li>
                                     </ul>-->
-                                </li>
+                                </li>{% endif %}
                                 <li><a href="{{path('reclamation_new')}}">Contact</a></li>
                             </ul>
                         </div>
@@ -138,7 +147,7 @@
             <div class="auto-container clearfix">
                 <!--Logo-->
                 <div class="logo pull-left">
-                    <a href="index-2.html" title=""><img src="{{ asset('images/kgpng.png') }}" style="width:120px;height:50px"alt="" title=""></a>
+                    <a href="{{ path('homepage') }}" title=""><img src="{{ asset('images/kgpng.png') }}" style="width:120px;height:50px"alt="" title=""></a>
                 </div>
                 <!--Right Col-->
                 <div class="pull-right">
@@ -146,8 +155,8 @@
                     <nav class="main-menu">
                         <div class="navbar-collapse show collapse clearfix">
                             <ul class="navigation clearfix">
-                                <li class="current dropdown"><a href="index-2.html">Home</a>
-                                    <ul>
+                                <li class="current "><a href="{{ path('homepage') }}">Accueil</a>
+                                   <!-- <ul>
                                         <li><a href="index-2.html">Home page 01</a></li>
                                         <li><a href="index-3.html">Home page 02</a></li>
                                         <li class="dropdown"><a href="index-2.html">Header Styles</a>
@@ -156,33 +165,43 @@
                                                 <li><a href="index-3.html">Header Style Two</a></li>
                                             </ul>
                                         </li>
-                                    </ul>
+                                    </ul>-->
                                 </li>
-                                <li><a href="about.html">About Us</a></li>
-                                <li class="dropdown"><a href="events.html">Events</a>
-                                    <ul>
+                                <li><a href="{{ path('aboutus') }}">A propos</a></li>
+                                <li class=""><a href="{{ path('evenement_index') }}">Evenements</a>
+                                  <!--  <ul>
                                         <li><a href="events.html">Events</a></li>
                                         <li><a href="event-detail.html">Event Detail</a></li>
-                                    </ul>
+                                    </ul>-->
                                 </li>
-                                <li class="dropdown"><a href="programs.html">Programs</a>
-                                    <ul>
+                                <li class=""><a href="{{path('activite_index')}}">Activite</a>
+                                   <!-- <ul>
                                         <li><a href="numbers-matching.html">Numbers Matching</a></li>
                                         <li><a href="paper-plates-art.html">Paper Plates Art</a></li>
                                         <li><a href="create-cartoon-egg.html">Create Egg Cartoon</a></li>
                                         <li><a href="cooking-fun-cake.html">Cooking Fun Cake</a></li>
                                         <li><a href="super-colors-game.html">Super Colors Game</a></li>
                                         <li><a href="learning-disciplines.html">Learning Disciplines</a></li>
-                                    </ul>
+                                    </ul>-->
                                 </li>
-                                <li><a href="gallery.html">Gallery</a></li>
-                                <li class="dropdown"><a href="news.html">Our News</a>
-                                    <ul>
+                                <li><a href="{{path('jardin_index')}}">Nos Jardins</a></li>
+
+                                {% if "ROLE_PARENT" in app.user.roles %}
+                                <li class="dropdown"><a href="{{ path('enfant_index') }}">Enfant</a>
+                                     <ul>
+                                         <li><a href="{{path('remarque_index')}}">Remarques</a></li>
+                                         <li><a href="{{ path('abonnement_index') }}">Abonnement</a></li>
+                                     </ul>
+                                </li>
+                                {% else %}
+                                <li class=""><a href="{{ path('jardin_new') }}">rejoindre</a>
+                                   <!-- <ul>
                                         <li><a href="news.html">Our News</a></li>
                                         <li><a href="news-single.html">News Single</a></li>
-                                    </ul>
+                                    </ul>-->
                                 </li>
-                                <li><a href="contact.html">Contact</a></li>
+                                {% endif %}
+                                <li><a href="{{path('reclamation_new')}}">Contact</a></li>
                             </ul>
                         </div>
                     </nav><!-- Main Menu End-->

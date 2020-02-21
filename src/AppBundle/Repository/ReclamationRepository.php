@@ -12,5 +12,4 @@ class ReclamationRepository extends \Doctrine\ORM\EntityRepository
 {
 
 
-
 }

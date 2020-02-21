@@ -35,7 +35,7 @@ Backoffice
       </button>
       <!-- Brand -->
       <a class="navbar-brand pt-0" href="./index.html">
-        <img src="{{ asset('argon/assets/img/brand/blue.png') }}" class="navbar-brand-img" alt="...">
+        <img src="{{ asset('images/kgpng.png') }}" class="navbar-brand-img" alt="...">
       </a>
       <!-- User -->
       <ul class="nav align-items-center d-md-none">
@@ -137,6 +137,13 @@ Backoffice
               <i class="ni ni-book-bookmark"></i> Liste des abonnements
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link " href="{{ path('messages_index') }}">
+              <i class="ni ni-chat-round"></i> messages
+            </a>
+          </li>
+
+
 
           <li class="nav-item">
             <a class="nav-link " href="{{ path('trajet_index') }}">

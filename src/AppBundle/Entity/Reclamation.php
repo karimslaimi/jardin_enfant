@@ -41,12 +41,85 @@ class Reclamation
      * @ORM\Column(name="titre", type="string", length=255)
      */
     private $titre;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=255)
+     */
+    private $nom;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="numtel", type="string", length=255)
+     */
+    private $numtel;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mail", type="string", length=255)
+     */
+    private $mail;
 
     /**
      * @ORM\ManyToOne(targetEntity="Parents", inversedBy="reclamations", fetch="EAGER")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id",nullable=true)
      */
     private $parent;
+
+    /**
+     * @return string
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * @param string $nom
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNumtel()
+    {
+        return $this->numtel;
+    }
+
+    /**
+     * @param string $numtel
+     */
+    public function setNumtel($numtel)
+    {
+        $this->numtel = $numtel;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMail()
+    {
+        return $this->mail;
+    }
+
+    /**
+     * @param string $mail
+     */
+    public function setMail($mail)
+    {
+        $this->mail = $mail;
+    }
+
+
+
+
+
+
+
 
     /**
      * @return mixed
