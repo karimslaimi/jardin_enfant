@@ -102,7 +102,8 @@ class AbonnementController extends Controller
     public function newAction(Request $request)
     {
         $abonnement = new Abonnement();
-        $form = $this->createForm(AbonnementType::class, $abonnement);
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $form = $this->createForm(AbonnementType::class, $abonnement,array('user'=>$user->getId()));
 
         $form->handleRequest($request);
 

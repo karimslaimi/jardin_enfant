@@ -18,7 +18,7 @@ class AbonnementType extends AbstractType
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    {$data= $options['user'];
         $builder->add('date')->add('type',ChoiceType::class,[
             'choices'=>[
                 'Bus'=>'bus',
@@ -30,9 +30,9 @@ class AbonnementType extends AbstractType
                 'multiple' => false
             ])->add('enfant', EntityType::class,[
             'class' => Enfant::class,
-            'query_builder' => function (EntityRepository $er) {
+            'query_builder' => function (EntityRepository $er) use ($data){
                 return $er->createQueryBuilder('u')
-                    ->where('u.parent=6');
+                    ->where('u.parent='.$data);
             },
             'choice_label' => 'prenom',
 
@@ -49,7 +49,8 @@ class AbonnementType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Abonnement'
+            'data_class' => 'AppBundle\Entity\Abonnement',
+            'user'=>null,
         ));
 
     }
