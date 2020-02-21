@@ -109,11 +109,12 @@
                                     </ul>-->
                                 </li>
                                 <li><a href="{{path('jardin_index')}}">Nos Jardins</a></li>
-                                {% if "ROLE_PARENT" in app.user.roles %}
+                                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and  "ROLE_PARENT" in app.user.roles %}
                                 <li class="dropdown"><a href="{{ path('enfant_index') }}">Enfant</a>
                                     <ul>
                                         <li><a href="{{path('remarque_index')}}">Remarques</a></li>
                                         <li><a href="{{ path('abonnement_index') }}">Abonnement</a></li>
+                                        <li><a href="{{ path('sendmsg') }}">Contacer jardin </a></li>
                                     </ul>
                                 </li>
                                 {% else %}
@@ -186,11 +187,12 @@
                                 </li>
                                 <li><a href="{{path('jardin_index')}}">Nos Jardins</a></li>
 
-                                {% if "ROLE_PARENT" in app.user.roles %}
+                                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and  "ROLE_PARENT" in app.user.roles %}
                                 <li class="dropdown"><a href="{{ path('enfant_index') }}">Enfant</a>
                                      <ul>
                                          <li><a href="{{path('remarque_index')}}">Remarques</a></li>
                                          <li><a href="{{ path('abonnement_index') }}">Abonnement</a></li>
+                                         <li><a href="{{ path('sendmsg') }}">Contacer jardin </a></li>
                                      </ul>
                                 </li>
                                 {% else %}

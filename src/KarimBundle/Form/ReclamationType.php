@@ -21,6 +21,21 @@ class ReclamationType extends AbstractType
             'attr' => array(
                 'placeholder' => "Ecrivez un message"
             )))
+            ->add('nom',TextType::class,array(
+
+                'attr' => array(
+                    'placeholder' => "Votre nom"
+                )))
+            ->add('numtel',TextType::class,array(
+
+                'attr' => array(
+                    'placeholder' => "Votre numéro"
+                )))
+            ->add('mail',TextType::class,array(
+
+                'attr' => array(
+                    'placeholder' => "Votre mail"
+                )))
             ->add('description',TextareaType::class,array(
 
             'attr' => array(

@@ -2,6 +2,7 @@
 
 namespace KarimBundle\Controller;
 
+use AppBundle\Entity\Jardin;
 use AppBundle\Entity\Messages;
 use AppBundle\Entity\Parents;
 use AppBundle\Repository\ParentRepository;
@@ -21,6 +22,49 @@ use Symfony\Component\Serializer\Serializer;
  */
 class MessagesController extends Controller
 {
+
+
+    /**
+     * Lists all message entities.
+     *
+     * @Route("/ajouter", name="sendmsg",methods={"GET","POST"})
+     */
+    public function sendAction(Request $request){
+        {
+
+            $em=$this->getDoctrine()->getManager();
+            $message = new Messages();
+            $form = $this->createForm(MessagesType::class, $message);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $time=new \DateTime();
+                $message->setDate($time->format('Y-m-d H:i:s'));
+
+
+
+
+                $user = $this->container->get('security.token_storage')->getToken()->getUser();
+                    $message->setJardin($this->getDoctrine()->getRepository(Jardin::class)->find(2));
+                    $message->setParent($user);
+                    $message->setSender($user);
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($message);
+                    $em->flush();
+
+
+
+
+
+                return $this->redirectToRoute('homepage');
+            }
+
+            return $this->render('@Karim/messages/new1.html.twig', array(
+                'message' => $message,
+                'form' => $form->createView(),
+            ));
+        }
+    }
 
 
     /**
@@ -156,7 +200,7 @@ class MessagesController extends Controller
             return $this->redirectToRoute('messages_show', array('id' => $message->getId()));
         }
 
-        return $this->render('@Karim/messages/new.html.twig', array(
+        return $this->render('@Karim/messages/new1.html.twig', array(
             'message' => $message,
             'form' => $form->createView(),
         ));

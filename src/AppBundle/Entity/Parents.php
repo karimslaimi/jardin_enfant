@@ -3,7 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Parent
  *
@@ -23,28 +23,40 @@ class Parents extends User
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
+     * @Assert\NotNull
+     * * @Assert\Regex(
+     *     pattern     = "/^[a-z]+$/i",
+     *     htmlPattern = "^[a-zA-Z]+$"
+     * )
      * @ORM\Column(name="nom", type="string", length=255)
      */
     private $nom;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
+     * @Assert\NotNull
+     * * @Assert\Regex(
+     *     pattern     = "/^[a-z]+$/i",
+     *     htmlPattern = "^[a-zA-Z]+$"
+     * )
      * @ORM\Column(name="Prenom", type="string", length=255)
      */
     private $prenom;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
+     * @Assert\NotNull
      * @ORM\Column(name="numtel", type="string", length=255)
      */
     private $numtel;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
+     * @Assert\NotNull
      * @ORM\Column(name="adresse", type="string", length=255)
      */
     private $adresse;

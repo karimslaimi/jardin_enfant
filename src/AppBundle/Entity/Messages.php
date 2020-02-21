@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Messages
@@ -30,7 +31,8 @@ class Messages
 
     /**
      * @var string
-     *
+     *@Assert\NotNull
+     *@Assert\NotBlank(message="le message ne doit pas etre null")
      * @ORM\Column(name="msg", type="string", length=255)
      */
     private $msg;

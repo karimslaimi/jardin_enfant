@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Reclamation
@@ -23,7 +24,8 @@ class Reclamation
 
     /**
      * @var string
-     *
+     *  @Assert\NotBlank
+     * @Assert\NotNull
      * @ORM\Column(name="description", type="string", length=255)
      */
     private $description;
@@ -37,13 +39,15 @@ class Reclamation
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
+     * @Assert\NotNull
      * @ORM\Column(name="titre", type="string", length=255)
      */
     private $titre;
     /**
      * @var string
-     *
+     * @Assert\NotBlank
+     * @Assert\NotNull
      * @ORM\Column(name="nom", type="string", length=255)
      */
     private $nom;

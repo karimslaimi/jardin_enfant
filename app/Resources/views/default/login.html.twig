@@ -30,9 +30,11 @@
                         </div>
                     </div>
                 </form>
+                {% if msg is not null %}
                 <div class="alert alert-danger" role="alert">
                     {{msg}}
                 </div>
+                {% endif %}
             </div>
         </div>
     </section>
