@@ -63,6 +63,13 @@ class Enfant
      */
     private $parent;
 
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="Participer", mappedBy="enfant")
+     */
+    private $participation;
+
     /**
      * @return mixed
      */

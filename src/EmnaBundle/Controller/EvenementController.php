@@ -3,6 +3,9 @@
 namespace EmnaBundle\Controller;
 
 use AppBundle\Entity\Evenement;
+use AppBundle\Entity\Jardin;
+use AppBundle\Entity\Participer;
+use EmnaBundle\Form\ParticiperType;
 use EmnaBundle\Form\EvenementType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ob\HighchartsBundle\Highcharts\Highchart;
@@ -55,8 +58,36 @@ class EvenementController extends Controller
         ));
     }
 
+    /**
+     * Creates a new evenement entity.
+     *
+     * @Route("/participer/{id}", name="evenement_participe",methods={"GET","POST"})
+     */
+    public function participerAction(Request $request,$id)
+   {
+       $event = $this->getDoctrine()->getManager()->getRepository(Evenement::class)->find($id);
+       $participe =new Participer();
+       $participe->setEvenement($event);
+       $form = $this->createForm(ParticiperType::class, $participe);
+       $form->handleRequest($request);
+
+       if ($form->isSubmitted() ) {
+
+           $em = $this->getDoctrine()->getManager();
+           $em->persist($participe);
+           $em->flush();
+
+           return $this->redirectToRoute('evenement_index');
+       }
+
+       return $this->render('@Emna/evenement/participer.html.twig', array(
+           'evenement' => $event,
+           'id'=>$id,
+           'form' => $form->createView(),
+       ));
 
 
+   }
 
     /**
      * Creates a new evenement entity.
@@ -69,7 +100,8 @@ class EvenementController extends Controller
         $form = $this->createForm(EvenementType::class, $evenement);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() ) {
+            if ($form->isSubmitted() ) {
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($evenement);
             $em->flush();
@@ -156,4 +188,5 @@ class EvenementController extends Controller
             ->getForm()
         ;
     }
+
 }

@@ -31,10 +31,10 @@ class Participer
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="Parents", inversedBy="participation")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Enfant", inversedBy="participation")
+     * @ORM\JoinColumn(name="enfant_id", referencedColumnName="id")
      */
-    private $parent;
+    private $enfant;
     /**
      * @ORM\ManyToOne(targetEntity="Evenement", inversedBy="participation")
      * @ORM\JoinColumn(name="evenement_id", referencedColumnName="id")
@@ -75,5 +75,38 @@ class Participer
     {
         return $this->dateE;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getEnfant()
+    {
+        return $this->enfant;
+    }
+
+    /**
+     * @param mixed $enfant
+     */
+    public function setEnfant($enfant)
+    {
+        $this->enfant = $enfant;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEvenement()
+    {
+        return $this->evenement;
+    }
+
+    /**
+     * @param mixed $evenement
+     */
+    public function setEvenement($evenement)
+    {
+        $this->evenement = $evenement;
+    }
+
 }
 

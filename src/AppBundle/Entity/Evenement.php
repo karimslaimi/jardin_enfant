@@ -43,14 +43,6 @@ class Evenement
     private $description;
 
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="image", type="string", length=255)
-     */
-    private $image;
-
-
 
 
     /**
@@ -185,22 +177,6 @@ class Evenement
     public function getDescription()
     {
         return $this->description;
-    }
-
-    /**
-     * @return string
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    /**
-     * @param string $image
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
     }
 
     /**

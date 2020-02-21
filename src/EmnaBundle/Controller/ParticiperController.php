@@ -7,5 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class ParticiperController extends Controller
 {
+public function ParticiperAction (){
 
+}
 }

@@ -71,12 +71,6 @@ class Parents extends User
      */
     private $reclamations;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Participer", mappedBy="parent")
-     */
-    private $participation;
-
-
 
     /**
      * @return mixed

@@ -1,9 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<center>
 
-    <div class="container">
+<div class="form-row col-md-12">
+    <div class="form-group col-md-1"></div>
+    <div class="form-group col-md-5">
+   <div class="container">
         <div class="row">
             <div class="col-md-7 col-md-offset-7">
     <h2>Evenement</h2>
@@ -35,17 +37,20 @@
     <ul>
         <li>
             {{ form_start(delete_form) }}
+
             <a class="btn btn-success" href="{{ path('evenement_edit', { 'id': evenement.id }) }}">Modifier</a>
                 <input class="btn btn-danger" type="submit" value="supprimer">
+            <a class="btn btn-primary" href="{{ path('evenement_participe', { 'id': evenement.id }) }}">Participer</a>
             {{ form_end(delete_form) }}
         </li>
     </ul>
         </div>
     </div>
-</div>
-
+    </div></div>
+        <div class="form-group col-md-6">
+        <img src="{{ asset('clown.jpg') }}" width="300px">
+        </div>
     </div>
-</center>
 {% endblock %}
 
 
