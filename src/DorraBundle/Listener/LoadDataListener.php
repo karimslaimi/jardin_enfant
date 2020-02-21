@@ -1,12 +1,11 @@
 <?php
+namespace DorraBundle\Listener;
 
 use AncaRebeca\FullCalendarBundle\Event\CalendarEvent;
 use AncaRebeca\FullCalendarBundle\Model\FullCalendarEvent;
 use AppBundle\Entity\Activite as MyCustomEvent;
 
 class LoadDataListener
-
-
 {
 /**
 * @param CalendarEvent $calendarEvent
