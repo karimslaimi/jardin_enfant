@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use Doctrine\ORM\Mapping\ClassMetadata;
+
 /**
  * MessagesRepository
  *
@@ -12,7 +14,7 @@ class MessagesRepository extends \Doctrine\ORM\EntityRepository
 {
     public function getmessages($id)
     {
-        $q=$this->getEntityManager()->createQuery("SELECT m from AppBundle:Parents p , AppBundle:Messages m where m.parent=p AND m.parent=:id GROUP BY p.id")
+        $q=$this->getEntityManager()->createQuery("SELECT m from AppBundle:Parents p , AppBundle:Messages m where m.parent=p AND m.parent=:id ")
             ->setParameter('id',$id);
         return $query=$q->getResult();
 
@@ -20,7 +22,7 @@ class MessagesRepository extends \Doctrine\ORM\EntityRepository
     }
     public function getallmess()
     {
-        $q=$this->getEntityManager()->createQuery("SELECT m from AppBundle:Messages m, AppBundle:Parents p where m.parent=p GROUP BY p.id");
+        $q=$this->getEntityManager()->createQuery("SELECT p,m from AppBundle:Messages m  LEFT JOIN m.parent p GROUP BY m.parent");
 
         return $query=$q->getResult();
 

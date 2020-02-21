@@ -35,9 +35,8 @@
                     </div>
                 </div>
                 <div class="inbox_chat">
-                    {% set msgg="" %}
+
                     {% for message in messages %}
-                   {% set msgg=message %}
                         <a href="{{ url('messages_index',{'id': message.parent.id}) }}">
                     <div class="chat_list ">
                         <div class="chat_people">
@@ -49,10 +48,11 @@
                         </div>
                     </div>
                         </a>
+
                     {% endfor %}
                 </div>
             </div>
-            {% if mess is not null %}
+            {% if mess is defined %}
             <div class="mesgs">
                 <div class="msg_history">
 
@@ -80,8 +80,8 @@
                         <form action=" {{ path('addmess') }}" method="post">
 
                             <input type="text" class="write_msg" placeholder="Type a message" name="msg" />
-                            <input type="text" name="id" hidden="hidden" value="{{ app.request.attributes('id') }}">
-                            <button class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                            <input type="text" name="id" hidden="hidden" value="{{  app.request.attributes.get('_route_params')['id']}}">
+                            <button class="msg_send_btn" type="submit"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
                         </form>
                     </div>
                 </div>

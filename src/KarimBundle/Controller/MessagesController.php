@@ -30,7 +30,7 @@ class MessagesController extends Controller
      */
     public function lsAction(){
 
-        $tab=$this->getDoctrine()->getManager()->getRepository(Messages::class)->getmessages(2);
+        $tab=$this->getDoctrine()->getManager()->getRepository(Messages::class)->getallmess();
        return $this->render('@Karim/messages/index.html.twig',array("messages"=>$tab));
     }
 
@@ -48,7 +48,7 @@ class MessagesController extends Controller
         if($id!=null){
             $tab=$this->getDoctrine()->getManager()->getRepository(Messages::class)->getmessages($id);
         }else{
-            $this->redirectToRoute("messages_i");
+            return $this->redirectToRoute("messages_i");
         }
 
 
@@ -72,12 +72,45 @@ class MessagesController extends Controller
         $message=new Messages();
 
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
-        if(in_array("ROLE_RESPONSABLE" , $user->getRoles())){
+        if(in_array("ROLE_RESPONSABLE" , $user->getRoles())) {
 
             $message->setJardin($user->getJardin());
-            }
-        $message->setParent($request->get("id"));
 
+        }
+        $parid= $request->get("id");
+
+        $message->setParent($this->getDoctrine()->getManager()->getRepository(Parents::class)->find($parid));
+        $time=new \DateTime();
+        $message->setDate($time->format('Y-m-d H:i:s'));
+        $message->setSender($user);
+        $message->setMsg($mes);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($message);
+            $em->flush();
+
+        $transport = \Swift_SmtpTransport::newInstance('smtp.gmail.com', 587, 'tls')
+            ->setUsername('trizouni1@gmail.com')
+            ->setPassword('karims123');
+        $mailer = new \Swift_Mailer($transport);
+
+        $ms=(new \Swift_Message('Votre Message a eté envoyée avec success '))
+            ->setFrom('raed.bahri@esprit.tn')
+            ->setTo("karim-nar@live.fr")
+
+            //  ->setBody('<h3> Bonjour  </h3>' . $contact->getNom()."Votre Message a eté envoyée avec success",'text/html');
+
+            ->setBody(
+                $this->renderView(
+                // templates/emails/registration.html.twig
+                    'default/mail.html.twig',
+                    ['nom' => $message->getParent()->getNom()
+                    ,"mess"=>$message->getMsg()]
+
+                ),
+                'text/html'
+            );
+        $mailer->send($ms);
 
 
 
