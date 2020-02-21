@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Tuteur
@@ -23,13 +25,15 @@ class Tuteur extends User
 
     /**
      * @var string
-     *
+     *@Assert\NotBlank(message="veuillez saisir le nom ")
+     * @Assert\Regex(pattern="/^[a-z]+$/i",htmlPattern = "^[a-zA-Z]+$")
      * @ORM\Column(name="nom", type="string", length=255)
      */
     private $nom;
     /**
      * @var string
-     *
+     *@Assert\NotBlank(message="veuillez saisir le prenom")
+     * @Assert\Regex(pattern="/^[a-z]+$/i",htmlPattern = "^[a-zA-Z]+$")
      * @ORM\Column(name="prenom", type="string", length=255)
      */
     private $prenom;

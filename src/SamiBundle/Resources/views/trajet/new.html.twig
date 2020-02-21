@@ -1,4 +1,5 @@
 {% extends 'back.html.twig' %}
+
 {% block nav %}
     <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
         <div class="container-fluid">
@@ -24,20 +25,17 @@
                         {{ form_widget(form.heure,{'attr': {'class': 'form-control '}})}}
                     </div>
                     <div class="form-group" bis_skin_checked="1">
-                        <label  for="exampleInputName1">Heure</label>
+                        <label  for="exampleInputName1">Chauffeur</label>
                         {{ form_widget(form.chauffeur,{'attr': {'class': 'form-control '}})}}
                     </div>
 
-                    <input type="submit" value="Creer" />
+                    <button type="submit" class="btn btn-success mr-2">Ajouter</button>
+                    <a class="btn btn-light" href="{{ path('trajet_index') }}">Revenir à la map</a>
 
                 </form>
             </div>
         </div>
     </div>
 </center>
-    <ul>
-        <li>
-            <a href="{{ path('trajet_index') }}">Back to the list</a>
-        </li>
-    </ul>
+
 {% endblock %}

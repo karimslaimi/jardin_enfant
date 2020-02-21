@@ -3,6 +3,7 @@
 namespace SamiBundle\Controller;
 
 use AppBundle\Entity\Chauffeur;
+use AppBundle\Entity\Enfant;
 use AppBundle\Entity\Jardin;
 use AppBundle\Entity\Trajet;
 use SamiBundle\Form\TrajetType;
@@ -26,6 +27,68 @@ use Symfony\Component\Serializer\Serializer;
  */
 class TrajetController extends Controller
 {
+    /**
+     * @Route(
+     *      "/mapParent/",
+     *      name="getMapParent"
+     * )
+     * @Method("GET")
+     */
+    public function mapParent()
+    {
+        $liste_trajets= array();
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $enfant=new Enfant();
+        $enfant=$user->getEnfants()[0];
+        $id=$enfant->getAbonnements()[0]->getJardin();
+        $liste=$this->getDoctrine()->getManager()->getRepository(Chauffeur::class)->findBy(array('jardin'=>$id));
+
+        foreach ($liste as $ls)
+        {
+            foreach ($ls->getTrajet() as $l)
+                array_push($liste_trajets,$l);
+
+        }
+
+        $finallist=array();
+        foreach ($liste_trajets as $ls)
+        {
+            $json = file_get_contents('https://geocoder.ls.hereapi.com/6.2/geocode.json?searchtext='.$ls->getAdresse().'&gen=9&apiKey=CxxCHigH6e2itFdUuYEJdiNCKYOFT2wwtIF2QxxIjiw');
+            $obj = json_decode($json);
+            $map = new MapModel();
+            $map->setLatitude($obj->Response->View[0]->Result[0]->Location->DisplayPosition->Latitude);
+            $map->setLongitude($obj->Response->View[0]->Result[0]->Location->DisplayPosition->Longitude);
+            $map->setAdresse($ls->getAdresse());
+            $map->setHeure($ls->getHeure());
+            $map->setChauffeur($ls->getChauffeur()->getNom());
+            array_push($finallist, $map);
+
+        }
+
+        $serializer = new Serializer([new ObjectNormalizer()]);
+
+        $dataJson = $serializer->normalize($finallist);
+
+        return new JsonResponse($dataJson);
+
+    }
+    /**
+     * Lists all trajet entities.
+     *
+     * @Route("/trajetParent", name="trajet_map")
+     * @Method("GET")
+     */
+    public function parentAction()
+    {
+        $liste_trajets= array();
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $enfant=new Enfant();
+        $enfant=$user->getEnfants()[0];
+        $jardin=$enfant->getAbonnements()[0]->getJardin();
+        return $this->render('@Sami/trajet/mapParent.html.twig', array(
+            'jardin' => $jardin,
+        ));
+    }
     /**
      * Lists all trajet entities.
      *

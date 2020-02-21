@@ -26,6 +26,8 @@ class Chauffeur extends User
 
     /**
      * @var string
+     * @Assert\Regex(pattern="/[0-9]/")
+     * @Assert\NotBlank()
      *
      * @ORM\Column(name="cin", type="string", length=255)
      */
@@ -33,13 +35,15 @@ class Chauffeur extends User
 
     /**
      * @var string
-     *
+     *@Assert\NotBlank(message="veuillez saisir le nom et prenom")
+     * @Assert\Regex(pattern="/^[a-z]+$/i",htmlPattern = "^[a-zA-Z]+$")
      * @ORM\Column(name="Nom", type="string", length=255)
      */
     private $nom;
 
     /**
      * @var string
+     * @Assert\Regex(pattern="/[0-9]/")
      *
      * @ORM\Column(name="tel", type="string", length=255)
      */
@@ -67,7 +71,6 @@ class Chauffeur extends User
      * @ORM\JoinColumn(name="jardin_id", referencedColumnName="id")
      */
     private $jardin;
-
 
 
 

@@ -7,7 +7,7 @@
 
     <title>{% block title %}Welcome!{% endblock %}</title>
     {% block stylesheets %}
-        <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
+
        <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}">
         <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
         <link href="{{ asset('plugins/revolution/css/settings.css')}}" rel="stylesheet" type="text/css">
@@ -21,6 +21,12 @@
 
     {% block javascripts %}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+
+        <script type="text/javascript" src='{{asset('test-credentials.js')}}'></script>
+        <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
+        <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
+        <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
+        <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
 {% endblock javascripts %}
 </head>
 <body>
@@ -380,6 +386,7 @@
 <script src="{{ asset('js/jquery.js') }}"></script>
 <script src="{{ asset('js/popper.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+
 <!--Revolution Slider-->
 <script src="{{ asset('plugins/revolution/js/jquery.themepunch.revolution.min.js') }}"></script>
 <script src="{{ asset('plugins/revolution/js/jquery.themepunch.tools.min.js') }}"></script>
@@ -401,9 +408,5 @@
 <script src="{{ asset('js/appear.js') }}"></script>
 <script src="{{ asset('js/parallax.min.js') }}"></script>
 <script src="{{ asset('js/script.js') }}"></script>
-<!--Google Map APi Key-->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcaOOcFcQ0hoTqANKZYz-0ii-J0aUoHjk"></script>
-<script src="{{ asset('js/map-script.js') }}"></script>
 
-<!--End Google Map APi-->
 </body>
