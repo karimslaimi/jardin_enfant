@@ -90,12 +90,13 @@ class EnfantController extends Controller
      */
     public function editAction(Request $request, Enfant $enfant)
     {
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $deleteForm = $this->createDeleteForm($enfant);
         $editForm = $this->createForm(EnfantType::class, $enfant);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted()) {
-            $enfant->setParent($this->getDoctrine()->getManager()->getRepository(Parents::class)->find(1));
+            $enfant->setParent($this->getDoctrine()->getManager()->getRepository(Parents::class)->find($user->getId()));
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('enfant_show', array('id' => $enfant->getId()));

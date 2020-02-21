@@ -48,6 +48,7 @@ class Abonnement
      * @var float
 
      * @Assert\Length(max=4)
+     * @Assert\Regex(pattern="/[0-9]/")
      * @ORM\Column(name="montant", type="float")
      */
     private $montant;

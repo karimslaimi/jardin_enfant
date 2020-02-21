@@ -25,7 +25,7 @@ class Enfant
     /**
      * @var string
      *@Assert\Length(max = 20)
-
+     * @Assert\Regex(pattern="/[a-zA-Z]/")
      * @ORM\Column(name="nom", type="string", length=255)
      */
     private $nom;
@@ -39,7 +39,7 @@ class Enfant
 
     /**
      * @var \DateTime
-     *
+
      * @ORM\Column(name="datenaiss", type="date")
      */
     private $datenaiss;

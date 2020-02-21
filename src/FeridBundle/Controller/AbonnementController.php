@@ -163,11 +163,14 @@ class AbonnementController extends Controller
      */
     public function editAction(Request $request, Abonnement $abonnement)
     {
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $deleteForm = $this->createDeleteForm($abonnement);
-        $editForm = $this->createForm(AbonnementType::class, $abonnement);
+        $editForm = $this->createForm(AbonnementType::class, $abonnement,array('user'=>$user->getId()));
+
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() ) {
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('abonnement_show', array('id' => $abonnement->getId()));
