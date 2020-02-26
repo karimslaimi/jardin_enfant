@@ -21,13 +21,17 @@ class TuteurController extends Controller
      * @Route("/", name="tuteur_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
 
         $tuteurs = $em->getRepository(Tuteur::class)->findBy(array('jardin'=>$user->getJardin()));
+        if($request->isMethod("post"))
+        {
 
+            $tuteurs=$em->getRepository(Tuteur::class)->searchTuteurs($request->get('search'),$user->getJardin());
+        }
         return $this->render('@Sami/tuteur/index.html.twig', array(
             'tuteurs' => $tuteurs,
         ));

@@ -23,11 +23,17 @@ class ChauffeurController extends Controller
      * @Route("/", name="chauffeur_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {        $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
 
         $chauffeurs = $em->getRepository(Chauffeur::class)->findBy(array('jardin'=>$user->getJardin()));
+
+        if($request->isMethod("post"))
+{
+
+$chauffeurs=$em->getRepository(Chauffeur::class)->searchChauffeurs($request->get('search'),$user->getJardin());
+}
 
         return $this->render('@Sami/chauffeur/index.html.twig', array(
             'chauffeurs' => $chauffeurs,

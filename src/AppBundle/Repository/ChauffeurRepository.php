@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Repository;
+use Doctrine\ORM\Mapping\ClassMetadata;
 
 /**
  * ChauffeurRepository
@@ -10,4 +11,12 @@ namespace AppBundle\Repository;
  */
 class ChauffeurRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function searchChauffeurs($search,$id)
+    {
+        $q=$this->getEntityManager()->createQuery("SELECT m from AppBundle:Chauffeur m where m.nom like :motcle and m.jardin=:id")
+            ->setParameter('motcle','%'.$search.'%')
+        ->setParameter('id',$id);
+        return $query=$q->getResult();
+
+    }
 }
