@@ -74,7 +74,7 @@ class MessagesController extends Controller
      */
     public function lsAction(){
 
-        $tab=$this->getDoctrine()->getManager()->getRepository(Messages::class)->getallmess();
+        $tab=$this->getDoctrine()->getManager()->getRepository(Messages::class)->getallmess(2);
        return $this->render('@Karim/messages/index.html.twig',array("messages"=>$tab));
     }
 
@@ -88,7 +88,7 @@ class MessagesController extends Controller
      */
     public function indexAction($id)
     {
-        $messages=$this->getDoctrine()->getManager()->getRepository(Messages::class)->getallmess();
+        $messages=$this->getDoctrine()->getManager()->getRepository(Messages::class)->getallmess(2);
         if($id!=null){
             $tab=$this->getDoctrine()->getManager()->getRepository(Messages::class)->getmessages($id);
         }else{
