@@ -18,16 +18,25 @@ class RemarqueController extends Controller
     /**
      * Lists all remarque entities.
      *
-     * @Route("/", name="remarque_index",methods={"GET"})
+     * @Route("/{page}", name="remarque_index",defaults={"page"=1},methods={"GET"})
      */
-    public function indexAction()
+    public function indexAction($page)
     {
         $em = $this->getDoctrine()->getManager();
 
         $remarques = $em->getRepository('AppBundle:Remarque')->findAll();
 
+        $paginator  = $this->get('knp_paginator');
+
+
+        $rq = $paginator->paginate(
+            $remarques,
+            $page /*page number*/,
+            100 /*limit per page*/
+        );
+
         return $this->render('@Karim/remarque/index.html.twig', array(
-            'remarques' => $remarques,
+            'remarques' => $rq,
         ));
     }
 

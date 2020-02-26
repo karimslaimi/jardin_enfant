@@ -11,9 +11,9 @@ use Doctrine\ORM\Mapping\ClassMetadata;
  */
 class ChauffeurRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function searchChauffeurs($search,$id)
+    public function searchChauffeurs($search,$id,$tri)
     {
-        $q=$this->getEntityManager()->createQuery("SELECT m from AppBundle:Chauffeur m where m.nom like :motcle and m.jardin=:id")
+        $q=$this->getEntityManager()->createQuery("SELECT m from AppBundle:Chauffeur m where m.nom like :motcle and m.jardin=:id order by m.nom ".$tri)
             ->setParameter('motcle','%'.$search.'%')
         ->setParameter('id',$id);
         return $query=$q->getResult();
