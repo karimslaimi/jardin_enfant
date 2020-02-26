@@ -5,6 +5,7 @@ namespace RaedBundle\Controller;
 use AppBundle\Entity\Jardin;
 use AppBundle\Entity\Responsable;
 use AppBundle\Form\ResponsableType;
+use Knp\Component\Pager\PaginatorInterface;
 use RaedBundle\Form\jardinType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -23,15 +24,22 @@ class jardinController extends Controller
      * @Route("/", name="jardin_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
         $jardins = $em->getRepository('AppBundle:Jardin')->findAll();
+        $rec = $this->get('knp_paginator')->paginate(
+            $jardins, $request->query->get('page',1)/*page number*/,
+            3 /*limit per page*/
+        );
+
+
 
         return $this->render('@Raed/jardin/index.html.twig', array(
-            'jardins' => $jardins,
+            'jardins' => $jardins,'rec' => $rec
         ));
+
     }
 
     /**
