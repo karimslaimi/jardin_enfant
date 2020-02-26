@@ -160,7 +160,7 @@ class MessagesController extends Controller
 
 
 
-        return $this->redirectToRoute('messages_index');
+        return $this->redirectToRoute('messages_index',array("id"=>$parid));
     }
 
     /**
