@@ -3,6 +3,7 @@
 namespace FeridBundle\Controller;
 
 use AppBundle\Entity\Abonnement;
+use AppBundle\Entity\Parents;
 use FeridBundle\Form\AbonnementType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,9 +25,12 @@ class AbonnementController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
 
-        $abonnements = $em->getRepository(Abonnement::class)->findAll();
+        $em = $this->getDoctrine()->getManager();
+        $enfants = $em->getRepository('AppBundle:Enfant')->findBy(array('parent'=>$user));
+        $abonnements = $em->getRepository('AppBundle:Abonnement')->findBy(array('enfant'=>$enfants));
+
 
         return $this->render('@Ferid/abonnement/index.html.twig', array(
             'abonnements' => $abonnements,
@@ -37,14 +41,19 @@ class AbonnementController extends Controller
     /**
      * Lists all abonnement entities.
      *
-     * @Route("/resp/index", name="abonnements_index",methods={"GET","HEAD"})
+     * @Route("/resp/index", name="abonnements_index",methods={"GET","POST"})
      *
      */
-    public function indexaboAction()
+    public function indexaboAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $abonnements = $em->getRepository(Abonnement::class)->findBy(array('jardin'=>$user->getJardin()));
+        if($request->isMethod("post"))
+        {
 
-        $abonnements = $em->getRepository(Abonnement::class)->findAll();
+            $abonnements=$em->getRepository(Abonnement::class)->searchAbonnements($request->get('search'),$user->getJardin());
+        }
 
         return $this->render('@Ferid/abonnement/indexback.html.twig', array(
             'abonnements' => $abonnements,
@@ -108,6 +117,8 @@ class AbonnementController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
+            $time=new \DateTime('now');
+            $abonnement->setDate($time);
             $em = $this->getDoctrine()->getManager();
             $em->persist($abonnement);
             $em->flush();
