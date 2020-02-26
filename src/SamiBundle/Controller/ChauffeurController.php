@@ -32,7 +32,7 @@ class ChauffeurController extends Controller
         if($request->isMethod("post"))
 {
 
-$chauffeurs=$em->getRepository(Chauffeur::class)->searchChauffeurs($request->get('search'),$user->getJardin());
+$chauffeurs=$em->getRepository(Chauffeur::class)->searchChauffeurs($request->get('search'),$user->getJardin(),$request->get('tri'));
 }
 
         return $this->render('@Sami/chauffeur/index.html.twig', array(
