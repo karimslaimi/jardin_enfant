@@ -5,15 +5,11 @@ namespace KarimBundle\Controller;
 use AppBundle\Entity\Jardin;
 use AppBundle\Entity\Messages;
 use AppBundle\Entity\Parents;
-use AppBundle\Repository\ParentRepository;
 use KarimBundle\Form\MessagesType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
+
 
 /**
  * Message controller.

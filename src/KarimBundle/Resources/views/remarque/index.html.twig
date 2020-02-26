@@ -9,23 +9,40 @@
 {% endblock stylesheets %}
 {% block body %}
     <h1>Remarques</h1>
-    <table class="table">
-        <thead>
-        <tr>
-            <th class="text-center">#</th>
-            <th>Enfant</th>
-            <th>Tuteur</th>
-            <th>Date</th
-            <th class="text-right"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
+    <div class="navigation text-center">
+        <div class="count">
+            {{ remarques.getTotalItemCount }}
+        </div>
+        <table class="table">
+            <tr>
+                {# sorting of properties based on query components #}
+                <th>{{ knp_pagination_sortable(remarques, 'Id', 'a.id') }}</th>
+                <th{% if remarques.isSorted('a.enfant') %} class="sorted"{% endif %}>
+                    {{ knp_pagination_sortable(remarques, '.nom', 'a.enfant') }}
+                </th>
+                <th{% if remarques.isSorted(['a.date']) %} class="sorted"{% endif %}>
+                    {{ knp_pagination_sortable(remarques, 'date', ['a.date', 'a.time']) }}
+                </th>
+                <th{% if remarques.isSorted(['a.description']) %} class="sorted"{% endif %}>
+                    {{ knp_pagination_sortable(remarques, 'description', ['a.description']) }}
+                </th>
+            </tr>
 
-        </tr>
-
-        </tbody>
-    </table>
+            {# table body #}
+            {% for remarque in remarques %}
+                <tr {% if loop.index is odd %}class="color"{% endif %}>
+                    <td>{{ remarque.id }}</td>
+                    <td>{{ remarque.abonnement.enfant.nom}}</td>
+                    <td>{{ remarque.date | date('Y-m-d') }}</td>
+                    <td>{{ remarque.description }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        {# display navigation #}
+        <div class="navigation">
+            {{ knp_pagination_render(remarques) }}
+        </div>
+    </div>
 
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
