@@ -20,9 +20,12 @@ class MessagesRepository extends \Doctrine\ORM\EntityRepository
 
 
     }
-    public function getallmess()
+    public function getallmess($id)
     {
-        $q=$this->getEntityManager()->createQuery("SELECT p,m from AppBundle:Messages m  LEFT JOIN m.parent p GROUP BY m.parent");
+        $q=$this->getEntityManager()->createQuery("SELECT p,m from AppBundle:Messages m 
+         LEFT JOIN m.parent p where m.jardin=:id group by m.parent
+  ORDER BY m.date DESC
+           ")->setParameter('id',$id);
 
         return $query=$q->getResult();
 
