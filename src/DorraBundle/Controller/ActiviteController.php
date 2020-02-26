@@ -45,7 +45,6 @@ class ActiviteController extends Controller
      */
     public function newAction(Request $request)
     {
-
         $activite = new Activite();
         $form = $this->createForm('DorraBundle\Form\ActiviteType', $activite);
         $form->handleRequest($request);
