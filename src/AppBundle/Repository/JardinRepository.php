@@ -10,4 +10,12 @@ namespace AppBundle\Repository;
  */
 class JardinRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function searchJardins($search)
+    {
+        $q=$this->getEntityManager()->createQuery("SELECT m from AppBundle:Jardin m where (m.name like :motcle)")
+            ->setParameter('motcle','%'.$search.'%');
+        return $query=$q->getResult();
+
+    }
 }
+
