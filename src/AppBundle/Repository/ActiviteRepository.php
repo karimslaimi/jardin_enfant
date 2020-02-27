@@ -10,4 +10,13 @@ namespace AppBundle\Repository;
  */
 class ActiviteRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function RechercheActivite($search)
+    {
+        $q=$this->getEntityManager()->createQuery("SELECT m from AppBundle:Activite m  where  (m.typeact like :motcle or m.detailles like :motcle )")
+            ->setParameter('motcle','%'.$search.'%');
+
+        return $query=$q->getResult();
+
+    }
+
 }

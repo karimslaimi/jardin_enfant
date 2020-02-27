@@ -15,12 +15,12 @@
 
             </tr>
 
-            {% for activite in activites %}
+            {% for act in activite %}
                 <tr>
 
-                    <td><img src="{{asset('images/'~activite.photo)}}" width="200" height="121"></td>
-                    <td>{{ activite.typact }}</td>
-                    <td>{{ activite.Date|date('Y-m-d ') }}</td>
+                    <td><img src="{{asset('images/'~act.photo)}}" width="200" height="121"></td>
+                    <td>{{ act.typeact }}</td>
+                    <td>{{ act.Date|date('Y-m-d ') }}</td>
                 </tr>
             {% endfor %}
 

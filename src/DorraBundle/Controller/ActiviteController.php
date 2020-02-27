@@ -23,16 +23,46 @@ class ActiviteController extends Controller
     /**
      * Lists all activite entities.
      *
-     * @Route("/", name="activite_index")
-     * @Method("GET")
+     * @Route("/backactivite/", name="activite_indexback" , methods={"GET"})
+     *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
         $activites = $em->getRepository('AppBundle:Activite')->findAll();
 
+        if($request->isMethod("post"))
+        {
+
+            $activites=$em->getRepository(Activite::class)->RechercheActivite($request->get('search'));
+        }
+
+
         return $this->render('@Dorra/activite/index.html.twig', array(
+            'activites' => $activites,
+        ));
+    }
+    /**
+     * Lists all activite entities.
+     *
+     * @Route("/parentactivite/", name="activite_index")
+     * @Method("GET")
+     */
+    public function indexparentAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $activites = $em->getRepository('AppBundle:Activite')->findAll();
+
+        if($request->isMethod("post"))
+        {
+
+            $activites=$em->getRepository(Activite::class)->RechercheActivite($request->get('search'));
+        }
+
+
+        return $this->render('@Dorra/activite/indexparent.html.twig', array(
             'activites' => $activites,
         ));
     }
@@ -135,6 +165,21 @@ class ActiviteController extends Controller
         ));
     }
 
+    /**
+     * Finds and displays a activite entity.
+     *
+     * @Route("/showparent/{id}", name="activite_showparent")
+     * @Method("GET")
+     */
+    public function showparentAction(Activite $activite)
+    {
+        $deleteForm = $this->createDeleteForm($activite);
+
+        return $this->render('@Dorra/activite/showparent.html.twig', array(
+            'activite' => $activite,
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
     /**
      * Displays a form to edit an existing activite entity.
      *
@@ -249,7 +294,7 @@ class ActiviteController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('activite_index');
+        return $this->redirectToRoute('activite_indexs');
     }
 
     /**

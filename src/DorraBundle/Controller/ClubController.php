@@ -20,10 +20,10 @@ class ClubController extends Controller
     /**
      * Lists all club entities.
      *
-     * @Route("/", name="club_index")
-     * @Method("GET")
+     * @Route("/back/", name="club_indexs", methods={"GET","POST"})
+
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -31,15 +31,52 @@ class ClubController extends Controller
 
         $clubs = $em->getRepository(Club::class)->findBy(array('jardin'=>$user->getJardin()));
 
+        if($request->isMethod("post"))
+        {
+
+            $clubs=$em->getRepository(Club::class)->RechercheClub($request->get('search'));
+        }
+
         return $this->render('@Dorra/club/index.html.twig', array(
             'clubs' => $clubs,
         ));
+
+
+    }
+
+    /**
+     * Lists all club entities.
+     *
+     * @Route("/parent/", name="club_index")
+     * @Method("GET")
+     */
+    public function indexParentAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+
+        $enfant= $user->getEnfants()[0];
+
+        $clubs = $em->getRepository(Club::class)->findBy(array('jardin'=>$enfant->getAbonnements()[0]->getJardin()));
+
+        if($request->isMethod("post"))
+        {
+
+            $clubs=$em->getRepository(Club::class)->RechercheClub($request->get('search'));
+        }
+
+        return $this->render('@Dorra/club/indexparent.html.twig', array(
+            'clubs' => $clubs,
+        ));
+
+
     }
 
     /**
      * Lister les activités d'un club précis
      *
-     * @Route("/activiteclub", name="club_listeactivite")
+     * @Route("/activiteclub/{id}", name="club_listeactivite")
      * @Method("GET")
      */
     public function activiteClubAction($id){
@@ -47,9 +84,9 @@ class ClubController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $club = $this->getDoctrine()->getManager()->getRepository(Club::class)->find($id);
-        $activites = $this->getDoctrine()->getManager()->getRepository(Activite::class)->findBy(array('Activite' => $id));
+        $activites = $this->getDoctrine()->getManager()->getRepository(Activite::class)->findBy(array('club' => $id));
 
-        return $this->render('@Dorra/activite/listeactivite.html.twig', array(
+        return $this->render('@Dorra/club/listeactivite.html.twig', array(
             'activite' => $activites
         ));
 
@@ -99,6 +136,22 @@ class ClubController extends Controller
         $deleteForm = $this->createDeleteForm($club);
 
         return $this->render('@Dorra/club/show.html.twig', array(
+            'club' => $club,
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+    /**
+     * Finds and displays a club entity.
+     *
+     * @Route("/parent/{id}", name="club_showparent")
+     * @Method("GET")
+     */
+    public function showparentAction(Club $club)
+    {
+        $deleteForm = $this->createDeleteForm($club);
+
+        return $this->render('@Dorra/club/showparent.html.twig', array(
             'club' => $club,
             'delete_form' => $deleteForm->createView(),
         ));

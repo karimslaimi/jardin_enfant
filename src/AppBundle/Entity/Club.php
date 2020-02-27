@@ -5,6 +5,8 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Club
  *
@@ -24,7 +26,9 @@ class Club
 
     /**
      * @var string
-     *
+     *@Assert\NotBlank(message="veuillez saisir le nom du club")
+     * @Assert\Length(max=60)
+     * @Assert\Regex(pattern="/[a-zA-Z]/")
      * @ORM\Column(name="Name", type="string", length=255)
      */
     private $name;
@@ -32,6 +36,7 @@ class Club
     /**
      * @var string
      *
+     * @Assert\Regex(pattern="/[a-zA-Z]/")
      * @ORM\Column(name="Description", type="string", length=255)
      */
     private $description;
@@ -39,6 +44,7 @@ class Club
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank()
      */
     private $photo;
 
