@@ -26,7 +26,7 @@ class EvenementType extends AbstractType
             'choice_label' => 'name',
             'expanded' => false,
             'multiple' => false
-        ]) ->add('image', FileType::class, array('label'=>'insert image','data_class' => null,'required' => false));
+        ]) ;
     }/**
      * {@inheritdoc}
      */
@@ -44,6 +44,4 @@ class EvenementType extends AbstractType
     {
         return 'appbundle_evenement';
     }
-
-
 }

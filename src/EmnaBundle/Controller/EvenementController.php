@@ -38,14 +38,16 @@ class EvenementController extends Controller
     /**
      * Finds and displays a evenement entity.
      *
-     * @Route("/evenets/{id}", name="evenements_show",methods={"GET"})
+     * @Route("/evenet/{id}", name="evenements_show",methods={"GET"})
      */
-    public function show1Action(Evenement $evenement)
+    public function show1Action($id)
     {
-        $deleteForm = $this->createDeleteForm($evenement);
+        $em = $this->getDoctrine()->getManager();
+
+        $evenements = $em->getRepository(Evenement::class)->find($id);
 
         return $this->render('@Emna/evenement/show1.html.twig', array(
-            'evenement' => $evenement,
+            'evenement' => $evenements,
 
         ));
     }
