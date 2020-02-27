@@ -59,7 +59,7 @@ class PaiementController extends Controller
             try {
                 $charges = Charge::create(array(
                     "amount" => 1000,
-                    "currency" => "usd",
+                    "currency" => "eur",
                     "source" => $request->get('stripeToken'),
                     "description" => "Test Charges"
                 ));
@@ -81,7 +81,9 @@ class PaiementController extends Controller
 
             } catch (ApiErrorException $e) {
 
-                return new Response("worked");
+
+                return $this->redirect("https://dashboard.stripe.com/test/dashboard");
+
 
             }
         }

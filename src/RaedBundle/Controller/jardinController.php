@@ -2,14 +2,21 @@
 
 namespace RaedBundle\Controller;
 
+use AppBundle\Entity\Chauffeur;
 use AppBundle\Entity\Jardin;
 use AppBundle\Entity\Responsable;
 use AppBundle\Form\ResponsableType;
 use Knp\Component\Pager\PaginatorInterface;
 use RaedBundle\Form\jardinType;
+use RaedBundle\models\jardinmodels;
+use SamiBundle\Models\MapModel;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * Jardin controller.
@@ -29,18 +36,41 @@ class jardinController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $jardins = $em->getRepository('AppBundle:Jardin')->findAll();
-        $rec = $this->get('knp_paginator')->paginate(
-            $jardins, $request->query->get('page',1)/*page number*/,
-            3 /*limit per page*/
+
+        if($request->isMethod("post"))
+        {
+
+            $jardins=$em->getRepository(Jardin::class)->searchJardins($request->get('search'));
+        }
+
+
+        $qb=$em->createQueryBuilder('a')->select("a")->from("AppBundle:Jardin","a");
+        if($request->query->getAlnum("filter")){
+            $qb=$qb
+                ->where('a.name like :filter or a.description like :filter or a.adress like :filter ')
+                ->setParameter('filter', '%' . $request->query->getAlnum('filter') . '%');
+        }
+        $remarques = $qb->getQuery();
+
+
+
+        $paginator  = $this->get('knp_paginator');
+
+
+        $rq = $paginator->paginate(
+            $jardins,
+            $request->query->get('page',1) /*page number*/,
+            $request->query->get('limit',2) /*limit per page*/
         );
 
 
-
         return $this->render('@Raed/jardin/index.html.twig', array(
-            'jardins' => $jardins,'rec' => $rec
+            'jardins' => $rq,
         ));
 
     }
+
+
 
     /**
      * Creates a new jardin entity.
