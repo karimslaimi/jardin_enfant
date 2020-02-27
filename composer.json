@@ -41,7 +41,8 @@
         "symfony/symfony": "3.4.*",
         "symfony/templating": "^3.4",
         "twig/twig": "^1.0||^2.0",
-        "twilio/sdk": "^5.42"
+        "twilio/sdk": "^5.42",
+        "vich/uploader-bundle": "^1.4"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.0",

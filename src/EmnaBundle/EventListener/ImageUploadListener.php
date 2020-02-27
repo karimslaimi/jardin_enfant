@@ -34,14 +34,14 @@ class ImageUploadListener
 
     private function uploadFile($entity)
     {
-        // upload only works for Product entities
+
         if (!$entity instanceof Evenement) {
             return;
         }
 
         $file = $entity->getImage();
 
-        // only upload new files
+
         if (!$file instanceof UploadedFile) {
             return;
         }

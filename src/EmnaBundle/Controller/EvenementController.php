@@ -2,6 +2,7 @@
 
 namespace EmnaBundle\Controller;
 
+use AppBundle\Entity\Enfant;
 use AppBundle\Entity\Evenement;
 use AppBundle\Entity\Jardin;
 use AppBundle\Entity\Participer;
@@ -75,7 +76,10 @@ foreach ($list as $ls)
        $event = $this->getDoctrine()->getManager()->getRepository(Evenement::class)->find($id);
        $participe =new Participer();
        $participe->setEvenement($event);
-       $form = $this->createForm(ParticiperType::class, $participe,array('user'=>$user->getEnfants()[0]->getAbonnements()->getJardin()));
+       $q=$this->getDoctrine()->getManager()->getRepository(Enfant::class)->getmesenfqnt($user->getId(),$event->getJardin());
+
+       $form = $this->createForm(ParticiperType::class, $participe,
+           array('user'=>$q,'jardin'=>$event,));
        $form->handleRequest($request);
 
        if ($form->isSubmitted() ) {

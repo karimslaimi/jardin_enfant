@@ -10,4 +10,10 @@ namespace AppBundle\Repository;
  */
 class EnfantRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getmesenfqnt($id,$jar){
+        $q=$this->getEntityManager()->createQuery("select a from AppBundle:Enfant a
+        Join AppBundle:Abonnement ab with a=ab.enfant where a.parent=:parent and ab.jardin=:jardin")
+            ->setParameter('parent',$id)->setParameter('jardin',$jar);
+        return $query=$q->getResult();
+    }
 }

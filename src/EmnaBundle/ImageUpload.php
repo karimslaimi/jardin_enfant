@@ -26,4 +26,5 @@ class ImageUpload
     {
         return $this->targetDir;
     }
+
 }
