@@ -34,12 +34,12 @@ class Participer
 
     /**
      * @ORM\ManyToOne(targetEntity="Enfant", inversedBy="participation")
-     * @ORM\JoinColumn(name="enfant_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="enfant_id", referencedColumnName="id",onDelete="cascade")
      */
     private $enfant;
     /**
      * @ORM\ManyToOne(targetEntity="Evenement", inversedBy="participation")
-     * @ORM\JoinColumn(name="evenement_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="evenement_id", referencedColumnName="id",onDelete="cascade")
      */
     private $evenement;
 

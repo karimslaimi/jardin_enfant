@@ -62,7 +62,9 @@ class MessagesController extends Controller
         //this action is for the parent to see the message from the admin
 
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
-        $messages=$this->getDoctrine()->getManager()->getRepository(Messages::class)->getmine($user->getId(),2);
+        $jardin=array();
+        $jardin=$this->getDoctrine()->getManager()->getRepository(Jardin::class)->getme($user->getId());
+        $messages=$this->getDoctrine()->getManager()->getRepository(Messages::class)->getmine($user->getId(),$jardin);
 
 
 

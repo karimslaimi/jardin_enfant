@@ -17,5 +17,13 @@ class JardinRepository extends \Doctrine\ORM\EntityRepository
         return $query=$q->getResult();
 
     }
+    public function getme($id){
+
+        $q=$this->getEntityManager()->createQuery("SELECT m from AppBundle:Jardin m 
+        Join AppBundle:Abonnement ab Join ab.enfant e 
+          where e.parents=:id")
+            ->setParameter('id',$id);
+        return $query=$q->getResult();
+    }
 }
 
