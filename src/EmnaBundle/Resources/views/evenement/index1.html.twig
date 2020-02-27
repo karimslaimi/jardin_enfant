@@ -15,11 +15,11 @@
                                 <figure class="image"><img src="images/resource/event-1.jpg" alt=""></figure>
                             </div>
                             <div class="content-box">
-                                <div class="date">5 March 2019</div>
-                                <h4><a href="event-detail.html">Work together in summer</a></h4>
+                                <div class="date">{{evenement.date|date('d F Y')}}</div>
+                                <h4><a href="{{path('evenements_show', {evenement: evenement.id})}}">{{evenement.titre}}</a></h4>
                                 <ul class="event-info">
-                                    <li><span>Time:</span> 9:00-11:00</li>
-                                    <li><span>Location:</span> Clifton</li>
+                                    <li><span>Time:</span> {{ evenement.date|date('H:i') }}</li>
+                                    <li><span>Location:</span> {{evenement.jardin.name}}</li>
                                 </ul>
                             </div>
                         </div>

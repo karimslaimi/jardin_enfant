@@ -36,6 +36,21 @@ class EvenementController extends Controller
         ));
     }
     /**
+     * Finds and displays a evenement entity.
+     *
+     * @Route("/evenets/{id}", name="evenements_show",methods={"GET"})
+     */
+    public function show1Action(Evenement $evenement)
+    {
+        $deleteForm = $this->createDeleteForm($evenement);
+
+        return $this->render('@Emna/evenement/show1.html.twig', array(
+            'evenement' => $evenement,
+
+        ));
+    }
+
+    /**
      * Lists all evenement entities.
      *
      * @Route("/index", name="evenement_index",methods={"GET"})
