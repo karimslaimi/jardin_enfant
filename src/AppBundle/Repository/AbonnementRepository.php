@@ -10,9 +10,9 @@ namespace AppBundle\Repository;
  */
 class AbonnementRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function searchAbonnements($search,$id)
+    public function searchAbonnements($search,$id,$tris)
     {
-        $q=$this->getEntityManager()->createQuery("SELECT m from AppBundle:Abonnement m JOIN m.enfant e where  (e.nom like :motcle or e.prenom like :motcle or m.etat like :motcle or m.type like :motcle ) and m.jardin=:id")
+        $q=$this->getEntityManager()->createQuery("SELECT m from AppBundle:Abonnement m JOIN m.enfant e where  (e.nom like :motcle or e.prenom like :motcle or m.etat like :motcle or m.type like :motcle ) and m.jardin=:id order by m.etat ".$tris)
             ->setParameter('motcle','%'.$search.'%')
             ->setParameter('id',$id);
         return $query=$q->getResult();
@@ -20,11 +20,25 @@ class AbonnementRepository extends \Doctrine\ORM\EntityRepository
     }
 
 
-    public function searchAbonnemParent($search,$id)
+    public function searchAbonnemParent($search,$id,$tri)
     {
-        $q=$this->getEntityManager()->createQuery("SELECT m from AppBundle:Abonnement m JOIN m.enfant e where  (e.nom like :motcle or e.prenom like :motcle or m.etat like :motcle or m.type like :motcle or m.date like :motcle ) and e.parent=:id")
+        $q=$this->getEntityManager()->createQuery("SELECT m from AppBundle:Abonnement m JOIN m.enfant e where  (e.nom like :motcle or e.prenom like :motcle or m.etat like :motcle or m.type like :motcle or m.date like :motcle ) and e.parent=:id order by e.nom ".$tri)
             ->setParameter('motcle','%'.$search.'%')
             ->setParameter('id',$id);
+        return $query=$q->getResult();
+
+    }
+
+    public function countEnfants($id)
+    {
+
+        $q=$this->getEntityManager()->createQueryBuilder('cc')
+            ->select('cc')
+            ->from('AppBundle:Abonnement',"cc")
+            ->where('cc.jardin = :id')
+            ->setParameter('id', $id)
+            ->distinct()
+            ->getQuery();
         return $query=$q->getResult();
 
     }

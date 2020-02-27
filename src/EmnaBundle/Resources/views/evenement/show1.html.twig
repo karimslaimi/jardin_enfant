@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-
+{% block body %}
 <!--Page Title-->
 <<section class="page-title" style="background-image:url({{ asset ('images/1.jpg')}});">
     <div class="auto-container">
@@ -24,7 +24,7 @@
                             <img src="{{ asset("images/resource/event-detail.jpg")}}" alt=""></a></div>
 
                     <div class="lower-content">
-                        <span class="date">{{ event.date||date('d F Y')}}</span>
+                        <span class="date">{{ event.date|date('d F Y')}}</span>
                         <h3>{{event.titre}}</h3>
                         <p>{{event.description}}</p>
                     </div>
@@ -46,3 +46,4 @@
     </div>
 </div>
                 </div></div></div></div></div>
+{% endblock %}

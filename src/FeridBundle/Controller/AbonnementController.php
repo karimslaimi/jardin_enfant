@@ -34,7 +34,7 @@ class AbonnementController extends Controller
         if($request->isMethod("post"))
         {
 
-            $abonnements=$em->getRepository(Abonnement::class)->searchAbonnemParent($request->get('search'),$user);
+            $abonnements=$em->getRepository(Abonnement::class)->searchAbonnemParent($request->get('search'),$user,$request->get('tri'));
         }
 
 
@@ -58,7 +58,7 @@ class AbonnementController extends Controller
         if($request->isMethod("post"))
         {
 
-            $abonnements=$em->getRepository(Abonnement::class)->searchAbonnements($request->get('search'),$user->getJardin());
+            $abonnements=$em->getRepository(Abonnement::class)->searchAbonnements($request->get('search'),$user->getJardin(),$request->get('tris'));
         }
 
         return $this->render('@Ferid/abonnement/indexback.html.twig', array(
@@ -114,7 +114,7 @@ class AbonnementController extends Controller
      * @Route("/new", name="abonnement_new",methods={"GET", "POST"})
 
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request,Jardin $jardin)
     {
         $abonnement = new Abonnement();
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
@@ -125,6 +125,8 @@ class AbonnementController extends Controller
         if ($form->isSubmitted()) {
             $time=new \DateTime('now');
             $abonnement->setDate($time);
+            $abonnement->setJardin($jardin);
+            $abonnement->setMontant($jardin->getTarif());
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($abonnement);
@@ -139,10 +141,45 @@ class AbonnementController extends Controller
         ));
     }
 
+
+    /**
+     * Creates a new abonnement entity.
+     *
+     * @Route("/{id}", name="abonnement_news",methods={"GET", "POST"})
+
+     */
+    public function newsAction(Request $request,Jardin $jardin)
+    {
+        $abonnement = new Abonnement();
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $form = $this->createForm(AbonnementType::class, $abonnement,array('user'=>$user->getId()));
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            $time=new \DateTime('now');
+            $abonnement->setDate($time);
+            $abonnement->setJardin($jardin);
+            $abonnement->setMontant($jardin->getTarif());
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($abonnement);
+            $em->flush();
+
+            return $this->redirectToRoute('facture_abon', array('id' => $abonnement->getId()));
+        }
+
+        return $this->render('@Ferid/abonnement/new.html.twig', array(
+            'abonnement' => $abonnement,
+            'form' => $form->createView(),
+        ));
+    }
+
+
     /**
      * Finds and displays a abonnement entity.
      *
-     * @Route("/{id}", name="abonnement_show",methods={"GET","HEAD"})
+     * @Route("/{id}/show", name="abonnement_show",methods={"GET","HEAD"})
 
      */
     public function showAction(Abonnement $abonnement)
@@ -188,6 +225,8 @@ class AbonnementController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() ) {
+            $time=new \DateTime('now');
+            $abonnement->setDate($time);
 
             $this->getDoctrine()->getManager()->flush();
 
