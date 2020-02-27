@@ -2,6 +2,8 @@
 
 namespace RaedBundle\Controller;
 
+use AppBundle\AppBundle;
+use AppBundle\Entity\Jardin;
 use AppBundle\Entity\Paiement;
 
 use Symfony\Component\HttpFoundation\Response;
@@ -53,46 +55,25 @@ class PaiementController extends Controller
             return $this->render('@Raed/paiement/new.html.twig');
         }else {
 
+            $prix=1000;
 
-            \Stripe\Stripe::setApiKey('sk_test_4JsTkhR1jl9inK7aFCOIB2R200xZ1BTW3D');
+            \Stripe\Stripe::setApiKey("sk_test_4JsTkhR1jl9inK7aFCOIB2R200xZ1BTW3D");
 
-            try {
-                $charges = Charge::create(array(
-                    "amount" => 1000,
-                    "currency" => "eur",
-                    "source" => $request->get('stripeToken'),
-                    "description" => "Test Charges"
-                ));
-                /*
-                \Stripe\Charge::create([
-                    'amount' => 2000,
-                    'currency' => 'eur',
-                    'source' => $request->request->get('stripeToken'),
-                    'description' => "Paiement de test"
-                ])*/
-                $order = new Order();
-                //$order->cart = serialize($cart);
-                $order->address = $request->input('address');
-                $order->name = $request->input('name');
-                $order->payment_id = $charges->id;
-
-                Auth::user()->orders()->save($order);
-                return new Response("worked1");
-
-            } catch (ApiErrorException $e) {
+            $charge = \Stripe\Charge::create([
+                "amount" => $prix,
+                "currency" => "eur",
+                "source" => "tok_mastercard", // obtained with Stripe.js
+                "description" => "My First Test Charge (created for API docs)"
+            ], [
+                "idempotency_key" =>"session_order_reference",
+            ]);
 
 
-                return $this->redirect("https://dashboard.stripe.com/test/dashboard");
+
+            return $this->redirect("https://dashboard.stripe.com/test/dashboard");
 
 
-            }
         }
-            return $this->render('@@Raed/paiement/new.html.twig', array("prix" => $prix));
-
-
-
-
-
     }
 
     /**
