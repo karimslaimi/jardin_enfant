@@ -71,6 +71,11 @@ class Enfant
     private $participation;
 
     /**
+     * @ORM\OneToMany(targetEntity="PartActivite", mappedBy="enfant")
+     */
+    private $participerActivite;
+
+    /**
      * @return mixed
      */
     public function getAbonnements()

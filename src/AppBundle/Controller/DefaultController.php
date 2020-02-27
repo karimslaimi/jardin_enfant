@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Reclamation;
+use KarimBundle\Form\ReclamationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,7 +18,35 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         // replace this example code with whatever you need
-        return $this->render('default/index.html.twig');
+
+
+        $reclamation = new Reclamation();
+        $form = $this->createForm(ReclamationType::class, $reclamation);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            //if it s parent who sent this reclam he will be saved to database
+            $user = $this->container->get('security.token_storage')->getToken()->getUser();
+            if($user!=null){
+                $reclamation->setParent($user);
+            }
+
+            $em = $this->getDoctrine()->getManager();
+            $time=new \DateTime();
+            $reclamation->setDate($time);
+            $em->persist($reclamation);
+            $em->flush();
+
+            return $this->redirectToRoute('homepage', array('id' => $reclamation->getId()));
+        }
+
+        return $this->render('default/index.html.twig', array(
+            'reclamation' => $reclamation,
+            'form' => $form->createView(),
+        ));
+
+
+
     }
     /**
      * @Route("/about", name="aboutus")

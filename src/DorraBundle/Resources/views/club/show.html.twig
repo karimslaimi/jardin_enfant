@@ -7,7 +7,7 @@
         <thead >
             <tr >
 
-                <th>Id</th>
+
 
                 <th>Photo</th>
 
@@ -19,7 +19,7 @@
         </thead>
 
         <tr>
-            <td>{{ club.id }}</td>
+
             <td><img src="{{asset('images/'~club.photo)}}" width="200" height="121"> </td>
             <td>{{ club.name }}</td>
             <td>{{ club.description }}</td>
@@ -30,14 +30,17 @@
 
 
     <div class=" col-md-4 col-sm-4 ">
-
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and  "ROLE_RESPONSABLE" in app.user.roles %}
         <a href="{{ path('club_edit', { 'id': club.id }) }}"><button class="btn btn-info">Editer</button></a>
+        {% endif %}
     </div>
     <br>
         <div class=" col-md-4 col-sm-4 ">
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and  "ROLE_RESPONSABLE" in app.user.roles %}
             {{ form_start(delete_form) }}
                 <input type="submit" value="Supprimer" class="btn btn-danger">
             {{ form_end(delete_form) }}
+            {% endif %}
         </div>
         <li>
             <a href="{{ path('club_index') }}">Back to the list</a>

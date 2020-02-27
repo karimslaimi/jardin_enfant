@@ -10,9 +10,9 @@ namespace AppBundle\Repository;
  */
 class TuteurRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function searchTuteurs($search,$id)
+    public function searchTuteurs($search,$id,$tri)
     {
-        $q=$this->getEntityManager()->createQuery("SELECT m from AppBundle:Tuteur m where (m.nom like :motcle or m.nom like :motcle) and m.jardin=:id")
+        $q=$this->getEntityManager()->createQuery("SELECT m from AppBundle:Tuteur m where (m.nom like :motcle or m.prenom like :motcle) and m.jardin=:id order by m.nom ".$tri)
             ->setParameter('motcle','%'.$search.'%')
             ->setParameter('id',$id);
         return $query=$q->getResult();

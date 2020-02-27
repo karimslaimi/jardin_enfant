@@ -24,6 +24,13 @@ services:
         tags:
             - { name: 'kernel.event_listener', event: 'fullcalendar.set_data', method: loadData }
 
+    twilio.client:
+        class: Twilio\Rest\Client
+        arguments: ['%twilio_sid%', '%twilio_token%']
+
+    # Add an alias for the twilio.client service
+    Twilio\Rest\Client: '@twilio.client'
+
     # default configuration for services in *this* file
     _defaults:
         # automatically injects dependencies in your services

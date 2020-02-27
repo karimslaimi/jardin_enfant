@@ -3,24 +3,32 @@
 {% block body %}
     <center>
     <h3>Liste des activites</h3>
+        <div >
+            <a href="{{ path('activite_calendrier') }}"  >Afficher le calendrier des activités
+
+            </a>
+        </div>
 
     <table id="example" class="table table-striped table-bordered" style="width:80%">
         <thead>
             <tr>
-                <th>Id</th>
+
                 <th>photo de l'activite</th>
                 <th>Type d'activite</th>
                 <th>Details</th>
+                <th>Date</th>
                 <th>Actions</th>
+
             </tr>
         </thead>
         <tbody>
         {% for activite in activites %}
             <tr>
-                <td><a href="{{ path('activite_show', { 'id': activite.id }) }}">{{ activite.id }}</a></td>
+
                 <td><img src="{{asset('images/'~activite.photo)}}" width="200" height="121"> </td>
                 <td>{{ activite.typeact }}</td>
                 <td>{{ activite.detailles }}</td>
+                <td>{{ activite.Date|date('Y-m-d ') }}</td>
 
                 <td>
                     <ul>
@@ -28,10 +36,23 @@
                             <a href="{{ path('activite_show', { 'id': activite.id }) }}">show</a>
                         </li>
                         <li>
+                            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and  "ROLE_RESPONSABLE" in app.user.roles %}
                             <a href="{{ path('activite_edit', { 'id': activite.id }) }}">editer</a>
+                            {% endif %}
+                        </li>
+                        <li>
+                            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and  "ROLE_PARENT" in app.user.roles %}
+                            <a href="{{ path('activite_part', { 'id': activite.id }) }}">participer</a>
+                            {% endif %}
+                        </li>
+                        <li>
+                            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and  "ROLE_RESPONSABLE" in app.user.roles %}
+                                <a href="{{ path('activite_liste', { 'id': activite.id }) }}">Liste des participants</a>
+                            {% endif %}
                         </li>
                     </ul>
                 </td>
+
             </tr>
         {% endfor %}
         </tbody>
@@ -39,11 +60,14 @@
 
     <ul>
         <li>
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and  "ROLE_RESPONSABLE" in app.user.roles %}
             <div class="form-group col-lg-12 col-md-12 col-sm-12 text-center">
                 <a href="{{ path('activite_new') }}"  ><button class="theme-btn btn-style-one" type="submit" name="submit-form">Ajouter une activité</button>
 
             </a></div>
+            {% endif %}
         </li>
+
     </ul>
     </center>
 {% endblock %}

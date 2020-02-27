@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use AncaRebeca\FullCalendarBundle\Model\FullCalendarEvent;
 
+
 /**
  * Activite
  *
@@ -27,14 +28,17 @@ class Activite extends FullCalendarEvent
 
     /**
      * @var string
-     *
+     *@Assert\NotBlank(message="veuillez saisir le type d'activite")
+     * @Assert\Length(max=10)
+     * @Assert\Regex(pattern="/[a-zA-Z]/")
      * @ORM\Column(name="typeact", type="string", length=255)
      */
     private $typeact;
 
     /**
      * @var string
-     *
+     *@Assert\Length(max=200)
+     * @Assert\Regex(pattern="/[a-zA-Z]/")
      * @ORM\Column(name="detailles", type="string", length=255)
      */
     private $detailles;
@@ -53,6 +57,76 @@ class Activite extends FullCalendarEvent
     private $Date;
 
 
+    /**
+     * @var \DateTime
+     * @Assert\DateTime()
+     * @ORM\Column(name="dateDebut", type="date")
+     */
+    private $dateDebut;
+
+    /**
+     * @var \DateTime
+     *
+     *
+     * @ORM\Column(name="dateFin", type="date")
+     */
+    private $dateFin;
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="messages", fetch="EAGER")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $userid;
+
+    /**
+     * @return mixed
+     */
+    public function getUserid()
+    {
+        return $this->userid;
+    }
+
+    /**
+     * @param mixed $userid
+     */
+    public function setUserid($userid): void
+    {
+        $this->userid = $userid;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDate()
+    {
+        return $this->Date;
+    }
+
+    /**
+     * @param mixed $Date
+     */
+    public function setDate($Date)
+    {
+        $this->Date = $Date;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getParticipation()
+    {
+        return $this->participation;
+    }
+
+    /**
+     * @param mixed $participation
+     */
+    public function setParticipation($participation)
+    {
+        $this->participation = $participation;
+    }
+
+
+
 
     public function setPhoto( $file )
     {
@@ -66,10 +140,21 @@ class Activite extends FullCalendarEvent
 
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateCreation", type="date")
+     */
+    private $dateCreation;
+    /**
      * @ORM\ManyToOne(targetEntity="Club", inversedBy="activites")
      * @ORM\JoinColumn(name="club_id", referencedColumnName="id", onDelete="cascade")
      */
     private $club;
+
+    /**
+     * @ORM\OneToMany(targetEntity="PartActivite", mappedBy="activite")
+     */
+    private $participation;
 
     /**
      * @return mixed
@@ -154,5 +239,86 @@ class Activite extends FullCalendarEvent
     {
         // TODO: Implement toArray() method.
     }
-}
 
+    /**
+     * @return \DateTime
+     */
+    public function getDateDebut()
+    {
+        return $this->dateDebut;
+    }
+
+    /**
+     * @param \DateTime $dateDebut
+     */
+    public function setDateDebut($dateDebut)
+    {
+        $this->dateDebut = $dateDebut;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateFin()
+    {
+        return $this->dateFin;
+    }
+
+    /**
+     * @param \DateTime $dateFin
+     */
+    public function setDateFin($dateFin)
+    {
+        $this->dateFin = $dateFin;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param string $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getStartDate()
+    {
+        return $this->startDate;
+    }
+
+    /**
+     * @param \DateTime $startDate
+     */
+    public function setStartDate($startDate)
+    {
+        $this->startDate = $startDate;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateCreation()
+    {
+        return $this->dateCreation;
+    }
+
+    /**
+     * @param \DateTime $dateCreation
+     */
+    public function setDateCreation($dateCreation)
+    {
+        $this->dateCreation = $dateCreation;
+    }
+
+
+}
