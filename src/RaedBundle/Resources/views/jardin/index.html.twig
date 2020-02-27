@@ -53,6 +53,11 @@
                         <li>
                             <a href="{{ path('jardin_edit', { 'id': jardin.id }) }}" style="color: gold" ><button type="submit" value="Modifier" class="btn btn-primary">Edit</button></a>
                         </li>
+                        <br>
+                        <li>
+                            <a class="btn btn-primary" href="{{ path('abonnement_news', { 'id': jardin.id }) }}">S'abonner</a>
+
+                        </li>
                     </ul>
                 </td>
             </tr>

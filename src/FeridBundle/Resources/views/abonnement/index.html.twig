@@ -21,7 +21,7 @@
 
         <thead>
             <tr>
-                <th>Id</th>
+                <th>Jardin</th>
                 <th>Nom Prenom</th>
                 <th>Date</th>
                 <th>Type</th>
@@ -33,7 +33,7 @@
         <tbody>
         {% for abonnement in abonnements %}
             <tr>
-                <td><a href="{{ path('abonnement_show', { 'id': abonnement.id }) }}">{{ abonnement.id }}</a></td>
+                <td>{{ abonnement.jardin.name }}</td>
                 <td>{{ abonnement.enfant.nom }} {{ abonnement.enfant.prenom }}</td>
                 <td>{% if abonnement.date %}{{ abonnement.date|date('Y-m-d') }}{% endif %}</td>
                 <td>{{ abonnement.type }}</td>

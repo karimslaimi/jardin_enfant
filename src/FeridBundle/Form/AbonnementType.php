@@ -25,7 +25,7 @@ class AbonnementType extends AbstractType
             'choices'=>[
                 'Bus'=>'bus',
                 'Normal'=>'normal'
-            ],])->add('montant')->add('jardin', EntityType::class,[
+            ],])->add('jardin', EntityType::class,[
                 'class' => Jardin::class,
                 'choice_label' => 'name',
                 'expanded' => false,
