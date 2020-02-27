@@ -10,4 +10,12 @@ namespace AppBundle\Repository;
  */
 class ClubRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function RechercheClub($search)
+    {
+        $q=$this->getEntityManager()->createQuery("SELECT m from AppBundle:Club m  where  (m.name like :motcle or m.description like :motcle )")
+            ->setParameter('motcle','%'.$search.'%');
+
+        return $query=$q->getResult();
+
+    }
 }

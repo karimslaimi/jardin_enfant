@@ -1,5 +1,10 @@
-{% extends 'base.html.twig' %}
-
+{% extends 'back.html.twig' %}
+{% block nav %}
+    <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+        <div class="container-fluid">
+            <center><h1>Modifier une activité</h1></center>
+        </div></div>
+{% endblock nav %}
 {% block body %}
     <center>
 
@@ -7,7 +12,6 @@
 <div class="col-md-6 grid-margin stretch-card" bis_skin_checked="1">
     <div class="card" bis_skin_checked="1">
         <div class="card-body" bis_skin_checked="1">
-            <h4 class="card-title">Modifier une activité </h4>
 
             {{ form_start(edit_form) }}
             <form method="POST" class="forms-sample">
@@ -41,7 +45,7 @@
 </div>
     <ul>
         <li>
-            <a href="{{ path('activite_index') }}">Back to the list</a>
+            <a href="{{ path('activite_indexback') }}">Back to the list</a>
         </li>
 
     </ul>
