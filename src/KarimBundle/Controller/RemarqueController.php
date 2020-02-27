@@ -18,22 +18,32 @@ class RemarqueController extends Controller
     /**
      * Lists all remarque entities.
      *
-     * @Route("/{page}", name="remarque_index",defaults={"page"=1},methods={"GET"})
+     * @Route("/", name="remarque_index",methods={"GET"})
      */
-    public function indexAction($page)
+    public function indexAction(Request $request)
     {
+        //this action is so important because it containe filter, pagination and sorting using knp paginator
         $em = $this->getDoctrine()->getManager();
 
-        $remarques = $em->getRepository('AppBundle:Remarque')->findAll();
+
+       // $dql="select a from AppBundle:Remarque a";
+        $qb=$em->createQueryBuilder('a')->select("a")->from("AppBundle:Remarque","a");
+        if($request->query->getAlnum("filter")){
+            $qb=$qb->join('a.abonnement','ab')->join('ab.enfant','en')
+            ->where('en.nom like :filter or a.description like :filter')
+                ->setParameter('filter', '%' . $request->query->getAlnum('filter') . '%');
+        }
+        $remarques = $qb->getQuery();
 
         $paginator  = $this->get('knp_paginator');
 
 
         $rq = $paginator->paginate(
             $remarques,
-            $page /*page number*/,
-            100 /*limit per page*/
+           $request->query->get('page',1) /*page number*/,
+            $request->query->get('limit',1) /*limit per page*/
         );
+
 
         return $this->render('@Karim/remarque/index.html.twig', array(
             'remarques' => $rq,
@@ -47,6 +57,7 @@ class RemarqueController extends Controller
      */
     public function newAction(Request $request)
     {
+        //this option is avaible for the tutor in the mobile app to use it
         $remarque = new Remarque();
         $form = $this->createForm(RemarqueType::class, $remarque);
         $form->handleRequest($request);
@@ -72,6 +83,7 @@ class RemarqueController extends Controller
      */
     public function showAction(Remarque $remarque)
     {
+        //i m trying to figure out how to replace it with modal
         $deleteForm = $this->createDeleteForm($remarque);
 
         return $this->render('@Karim/remarque/show.html.twig', array(
@@ -87,6 +99,7 @@ class RemarqueController extends Controller
      */
     public function editAction(Request $request, Remarque $remarque)
     {
+        //useless too for now maybe later we will change the idea
         $deleteForm = $this->createDeleteForm($remarque);
         $editForm = $this->createForm(RemarqueType::class, $remarque);
         $editForm->handleRequest($request);
@@ -111,6 +124,7 @@ class RemarqueController extends Controller
      */
     public function deleteAction(Request $request, Remarque $remarque)
     {
+        //maybe useless i can neither approve nor deny that facr
         $form = $this->createDeleteForm($remarque);
         $form->handleRequest($request);
 

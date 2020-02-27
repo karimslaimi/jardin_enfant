@@ -30,7 +30,7 @@ class AppKernel extends Kernel
             new AncaRebeca\FullCalendarBundle\FullCalendarBundle(),
             new Ob\HighchartsBundle\ObHighchartsBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
-            new PUGX\AutocompleterBundle\PUGXAutocompleterBundle(),
+           // new PUGX\AutocompleterBundle\PUGXAutocompleterBundle(),
 
         ];
 

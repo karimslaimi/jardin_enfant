@@ -31,4 +31,16 @@ class MessagesRepository extends \Doctrine\ORM\EntityRepository
 
     }
 
+    public function getmine($id,$jar)
+    {
+        $q=$this->getEntityManager()->createQuery("SELECT m from AppBundle:Messages m 
+         LEFT JOIN m.parent p where m.parent=:id AND  m.jardin=:jar  
+            ")->setParameter('id',$id)->setParameter('jar',$jar);
+
+        return $query=$q->getResult();
+
+
+    }
+
+
 }

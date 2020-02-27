@@ -23,22 +23,19 @@ class MessagesController extends Controller
     /**
      * Lists all message entities.
      *
-     * @Route("/ajouter", name="sendmsg",methods={"GET","POST"})
+     * @Route("/ajouter", name="sendmsg",methods={"POST"})
      */
     public function sendAction(Request $request){
-        {
+        // this action is for the parent to send message to the kidergarten
 
-            $em=$this->getDoctrine()->getManager();
-            $message = new Messages();
-            $form = $this->createForm(MessagesType::class, $message);
-            $form->handleRequest($request);
+                $em=$this->getDoctrine()->getManager();
+                $message = new Messages();
 
-            if ($form->isSubmitted() && $form->isValid()) {
+
+
                 $time=new \DateTime();
+                $message->setMsg($request->query->getAlnum("msg"));
                 $message->setDate($time->format('Y-m-d H:i:s'));
-
-
-
 
                 $user = $this->container->get('security.token_storage')->getToken()->getUser();
                     $message->setJardin($this->getDoctrine()->getRepository(Jardin::class)->find(2));
@@ -48,18 +45,34 @@ class MessagesController extends Controller
                     $em->persist($message);
                     $em->flush();
 
+                return $this->redirectToRoute('messages_index');
 
 
 
 
-                return $this->redirectToRoute('homepage');
-            }
-
-            return $this->render('@Karim/messages/new1.html.twig', array(
-                'message' => $message,
-                'form' => $form->createView(),
-            ));
         }
+
+    /**
+     * Lists all message entities.
+     *
+     * @Route("/{id}", name="messages_index",defaults={"id" = null},methods={"GET","POST-"})
+     */
+    public function indexAction()
+    {
+        //this action is for the parent to see the message from the admin
+
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $messages=$this->getDoctrine()->getManager()->getRepository(Messages::class)->getmine($user->getId(),2);
+
+
+
+
+
+
+        return $this->render('@Karim/messages/show.html.twig', array(
+            'messages' => $messages,
+
+        ));
     }
 
 
@@ -69,6 +82,7 @@ class MessagesController extends Controller
      * @Route("/msg", name="messages_i",methods={"GET","HEAD"})
      */
     public function lsAction(){
+        //this action is for the responsable jardin to see the incoming messages
 
         $tab=$this->getDoctrine()->getManager()->getRepository(Messages::class)->getallmess(2);
        return $this->render('@Karim/messages/index.html.twig',array("messages"=>$tab));
@@ -78,35 +92,13 @@ class MessagesController extends Controller
 
 
     /**
-     * Lists all message entities.
-     *
-     * @Route("/{id}", name="messages_index",defaults={"id" = null},methods={"GET","HEAD"})
-     */
-    public function indexAction($id)
-    {
-        $messages=$this->getDoctrine()->getManager()->getRepository(Messages::class)->getallmess(2);
-        if($id!=null){
-            $tab=$this->getDoctrine()->getManager()->getRepository(Messages::class)->getmessages($id);
-        }else{
-            return $this->redirectToRoute("messages_i");
-        }
-
-
-
-
-
-        return $this->render('@Karim/messages/index.html.twig', array(
-            'messages' => $messages,
-            "mess"=>$tab
-        ));
-    }
-    /**
      * add msg.
      *
      * @Route("/addmess", name="addmess",methods={"POST"})
      */
     public function addmessction(Request $request)
     {
+        //this action if for the responsable jardin to send message to a parent
 
         $mes=$request->get('msg');
         $message=new Messages();
@@ -166,6 +158,7 @@ class MessagesController extends Controller
      */
     public function newAction(Request $request)
     {
+        //this action is useless
 
         $em=$this->getDoctrine()->getManager();
         $message = new Messages();
@@ -209,6 +202,7 @@ class MessagesController extends Controller
      */
     public function showAction(Messages $message)
     {
+        //this action is more than useless
         $deleteForm = $this->createDeleteForm($message);
 
         return $this->render('@Karim/messages/show.html.twig', array(
@@ -224,6 +218,7 @@ class MessagesController extends Controller
      */
     public function editAction(Request $request, Messages $message)
     {
+        //this one is to edit a message so it s useless too
         $deleteForm = $this->createDeleteForm($message);
         $editForm = $this->createForm(MessagesType::class, $message);
         $editForm->handleRequest($request);
@@ -249,6 +244,7 @@ class MessagesController extends Controller
      */
     public function deleteAction(Request $request, Messages $message)
     {
+        // i m not giving this option so this one too is useless maybe it s more than useless XD
         $form = $this->createDeleteForm($message);
         $form->handleRequest($request);
 
