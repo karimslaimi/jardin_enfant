@@ -47,7 +47,7 @@ class EvenementController extends Controller
         $evenements = $em->getRepository(Evenement::class)->find($id);
 
         return $this->render('@Emna/evenement/show1.html.twig', array(
-            'evenement' => $evenements,
+            'event' => $evenements,
 
         ));
     }
