@@ -49,7 +49,7 @@ foreach ($list as $ls)
     array_push($final,array($ls->getTitre(),sizeof($ls->getParticipation())));
 }
         $series = array(
-            array("type"=>"bar","name" => "Nombre de participants","data"=>$final)
+            array("type"=>"pie","name" => "Nombre de participants","data"=>$final)
         );
 
         $ob = new Highchart();
@@ -71,10 +71,11 @@ foreach ($list as $ls)
      */
     public function participerAction(Request $request,$id)
    {
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
        $event = $this->getDoctrine()->getManager()->getRepository(Evenement::class)->find($id);
        $participe =new Participer();
        $participe->setEvenement($event);
-       $form = $this->createForm(ParticiperType::class, $participe);
+       $form = $this->createForm(ParticiperType::class, $participe,array('user'=>$user->getEnfants()[0]->getAbonnements()->getJardin()));
        $form->handleRequest($request);
 
        if ($form->isSubmitted() ) {

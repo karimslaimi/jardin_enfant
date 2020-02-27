@@ -2,7 +2,9 @@
 
 namespace AppBundle\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Participer
@@ -22,8 +24,8 @@ class Participer
     private $id;
 
     /**
-     * @var \DateTime
-     *
+     * @var /DateTime
+     * @Assert\GreaterThanOrEqual(value = "today UTC")
      * @ORM\Column(name="date_E", type="datetime")
      */
     private $dateE;
@@ -55,7 +57,7 @@ class Participer
     /**
      * Set dateE
      *
-     * @param \DateTime $dateE
+     * @param DateTime $dateE
      *
      * @return Participer
      */
@@ -69,7 +71,7 @@ class Participer
     /**
      * Get dateE
      *
-     * @return \DateTime
+     * @return DateTime
      */
     public function getDateE()
     {

@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Evenement
@@ -23,26 +24,29 @@ class Evenement
 
     /**
      * @var string
-     *
+     * @Assert\Regex(pattern="/[a-zA-Z]/")
      * @ORM\Column(name="titre", type="string", length=255)
      */
     private $titre;
 
     /**
-     * @var \DateTime
-     *
+     * @var /DateTime
+     * @Assert\GreaterThanOrEqual(value = "today UTC")
      * @ORM\Column(name="date", type="date")
      */
     private $date;
 
     /**
      * @var string
-     *
+     * @Assert\Regex(pattern="/[a-zA-Z]/")
      * @ORM\Column(name="description", type="string", length=255)
      */
     private $description;
 
-
+    /**
+     * @ORM\Column(type="string", name="image",nullable=true)
+     */
+    private $image;
 
 
     /**
@@ -193,6 +197,22 @@ class Evenement
     public function setParticipation($participation)
     {
         $this->participation = $participation;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param mixed $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
     }
 
 

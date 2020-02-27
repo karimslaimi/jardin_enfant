@@ -10,7 +10,7 @@
             <div class="card" bis_skin_checked="1">
                 <div class="card-body" bis_skin_checked="1">
                     <h4 class="card-title">Participer</h4>
-
+<form method="post">
                 <div class="form-group" bis_skin_checked="1">
                     <label for="exampleInputName1">Date de l'enregistrement</label>
                     {{ form_widget(form.dateE)}}        </div>
@@ -29,19 +29,19 @@
                     {{ form_widget(form.enfant,{'attr': {'class': 'form-control'}})}}
 
                 </div>
-
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <ul>
+                    <ul>
                         <li>
 
                             <input class="btn btn-primary" type="submit" value="Participer">
 
                         </li>
                     </ul>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
 
 
 

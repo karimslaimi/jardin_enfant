@@ -8,7 +8,16 @@ services:
         class: KarimBundle\Form\ParentType
         tags:
             - { name: form.type, alias: app_user_registration }
+    Emna.image_uploader:
+        class: EmnaBundle\ImageUpload
+        arguments: ['%images_directory%']
 
+    Emna.doctrine_image_listener:
+        class: EmnaBundle\EventListener\ImageUploadListener
+        arguments: ['@Emna.image_uploader']
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }
 
     dorra_bundle.listener.loaddatalistener:
         class: DorraBundle\Listener\LoadDataListener
