@@ -28,4 +28,18 @@ class AbonnementRepository extends \Doctrine\ORM\EntityRepository
         return $query=$q->getResult();
 
     }
+
+    public function countEnfants($id)
+    {
+
+        $q=$this->getEntityManager()->createQueryBuilder('cc')
+            ->select('cc')
+            ->from('AppBundle:Abonnement',"cc")
+            ->where('cc.jardin = :id')
+            ->setParameter('id', $id)
+            ->distinct()
+            ->getQuery();
+        return $query=$q->getResult();
+
+    }
 }

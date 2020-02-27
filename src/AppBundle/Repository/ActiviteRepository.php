@@ -19,4 +19,12 @@ class ActiviteRepository extends \Doctrine\ORM\EntityRepository
 
     }
 
+    public function getActivities($id)
+    {
+        $q=$this->getEntityManager()->createQuery("SELECT m from AppBundle:Activite m JOIN AppBundle:Club e where m.club=e.id and e.jardin=:id")
+            ->setParameter('id',$id);
+        return $query=$q->getResult();
+
+
+    }
 }
