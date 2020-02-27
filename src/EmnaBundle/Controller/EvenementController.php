@@ -21,6 +21,21 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
 class EvenementController extends Controller
 {
     /**
+     *
+     *
+     * @\Symfony\Component\Routing\Annotation\Route("/events", name="evenements",methods={"GET"})
+     */
+    public function index1Action()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $evenements = $em->getRepository(Evenement::class)->findAll();
+
+        return $this->render('@Emna/evenement/index1.html.twig', array(
+            'evenements' => $evenements,
+        ));
+    }
+    /**
      * Lists all evenement entities.
      *
      * @Route("/index", name="evenement_index",methods={"GET"})
@@ -164,16 +179,7 @@ foreach ($list as $ls)
             'delete_form' => $deleteForm->createView(),
         ));
     }
-    public function index1Action()
-    {
-        $em = $this->getDoctrine()->getManager();
 
-        $evenements = $em->getRepository('AppBundle:Evenement')->findAll();
-
-        return $this->render('@Emna/evenement/index.html.twig', array(
-            'evenements' => $evenements,
-        ));
-    }
 
     /**
      * Deletes a evenement entity.

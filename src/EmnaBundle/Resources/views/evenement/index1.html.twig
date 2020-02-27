@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>liste des événements</h1>
+
+    <!-- Event Section -->
+    <section class="events-section style-two">
+        <div class="auto-container">
+            <div class="row">
+                {% set cl="fadeInLeft" %}
+                {% for evenement in evenements %}
+                    <div class="event-block col-xl-6 col-md-12 col-sm-12 wow {{cl}}">
+                        <div class="inner-box">
+                            <div class="image-box">
+                                <figure class="image"><img src="images/resource/event-1.jpg" alt=""></figure>
+                            </div>
+                            <div class="content-box">
+                                <div class="date">5 March 2019</div>
+                                <h4><a href="event-detail.html">Work together in summer</a></h4>
+                                <ul class="event-info">
+                                    <li><span>Time:</span> 9:00-11:00</li>
+                                    <li><span>Location:</span> Clifton</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    {% if(cl=="fadeInLeft") %}
+                        {% set cl="fadeInRight" %}
+                    {% else %}
+                        {% set cl="fadeInLeft" %}
+                    {% endif %}
+                {% endfor %}
+
+
+            </div>
+        </div>
+    </section>
+    <!--End Event Section -->
+{% endblock %}
+
