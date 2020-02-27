@@ -17,7 +17,7 @@ class ActiviteType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('typeact')->add('detailles')->add('club', EntityType::class,[
+        $builder->add('typeact')->add('detailles')->add('Date')->add('club', EntityType::class,[
             'class' => Club::class,
             'choice_label' => 'name',
             'expanded' => false,

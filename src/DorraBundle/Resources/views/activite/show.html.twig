@@ -7,18 +7,20 @@
     <table id="example" class="table table-striped table-bordered" style="width:80% ">
         <tbody>
             <tr>
-                <th>Id</th>
+
                 <th>Photo</th>
                 <th>Type d'activite</th>
                 <th>Details</th>
+                <th>Date de l'activité</th>
 
 
             </tr>
             <tr>
-                <td>{{ activite.id }}</td>
+
                 <td><img src="{{asset('images/'~activite.photo)}}" width="200" height="121"> </td>
                 <td>{{ activite.typeact }}</td>
                 <td>{{ activite.detailles }}</td>
+                <td>{{ activite.Date|date('Y-m-d ') }}</td>
             </tr>
 
         </tbody>

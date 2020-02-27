@@ -26,7 +26,9 @@ class ClubController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $clubs = $em->getRepository('AppBundle:Club')->findAll();
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+
+        $clubs = $em->getRepository(Club::class)->findBy(array('jardin'=>$user->getJardin()));
 
         return $this->render('@Dorra/club/index.html.twig', array(
             'clubs' => $clubs,
