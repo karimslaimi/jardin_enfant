@@ -31,7 +31,6 @@ class ChauffeurController extends Controller
 
         if($request->isMethod("post"))
 {
-
 $chauffeurs=$em->getRepository(Chauffeur::class)->searchChauffeurs($request->get('search'),$user->getJardin(),$request->get('tri'));
 }
 
