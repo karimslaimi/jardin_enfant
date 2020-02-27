@@ -25,16 +25,12 @@ class AbonnementType extends AbstractType
             'choices'=>[
                 'Bus'=>'bus',
                 'Normal'=>'normal'
-            ],])->add('montant',EntityType::class,[
-            'class' => Jardin::class,
-            'choice_label' => 'tarif',
-            'expanded' => false,
-            'multiple' => false
-        ])->add('jardin', EntityType::class,[
+            ],])->add('montant')->add('jardin', EntityType::class,[
                 'class' => Jardin::class,
                 'choice_label' => 'name',
                 'expanded' => false,
-                'multiple' => false
+                'multiple' => false,
+
             ])->add('enfant', EntityType::class,[
             'class' => Enfant::class,
             'query_builder' => function (EntityRepository $er) use ($data){

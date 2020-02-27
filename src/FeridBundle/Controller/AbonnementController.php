@@ -3,6 +3,7 @@
 namespace FeridBundle\Controller;
 
 use AppBundle\Entity\Abonnement;
+use AppBundle\Entity\Jardin;
 use AppBundle\Entity\Parents;
 use FeridBundle\Form\AbonnementType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -20,16 +21,21 @@ class AbonnementController extends Controller
     /**
      * Lists all abonnement entities.
      *
-     * @Route("/index", name="abonnement_index",methods={"GET","HEAD"})
+     * @Route("/index", name="abonnement_index",methods={"GET","POST"})
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
 
         $em = $this->getDoctrine()->getManager();
         $enfants = $em->getRepository('AppBundle:Enfant')->findBy(array('parent'=>$user));
         $abonnements = $em->getRepository('AppBundle:Abonnement')->findBy(array('enfant'=>$enfants));
+        if($request->isMethod("post"))
+        {
+
+            $abonnements=$em->getRepository(Abonnement::class)->searchAbonnemParent($request->get('search'),$user);
+        }
 
 
         return $this->render('@Ferid/abonnement/index.html.twig', array(
@@ -119,6 +125,7 @@ class AbonnementController extends Controller
         if ($form->isSubmitted()) {
             $time=new \DateTime('now');
             $abonnement->setDate($time);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($abonnement);
             $em->flush();

@@ -2,11 +2,27 @@
 
 {% block body %}
     <h1>Liste des abonnements</h1>
+    {% block search %}
+        <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto" method="post" style="float: right">
+
+            <div class="form-group mb-0">
+                <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-search"></i></span>
+                    </div>
+                    <input class="form-control" placeholder="Search" type="text" name="search">
+                </div>
+            </div>
+        </form>
+
+    {% endblock search %}
 
     <table id="example" class="table table-striped table-bordered" style="width:100%">
+
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Nom Prenom</th>
                 <th>Date</th>
                 <th>Type</th>
                 <th>Etat</th>
@@ -18,6 +34,7 @@
         {% for abonnement in abonnements %}
             <tr>
                 <td><a href="{{ path('abonnement_show', { 'id': abonnement.id }) }}">{{ abonnement.id }}</a></td>
+                <td>{{ abonnement.enfant.nom }} {{ abonnement.enfant.prenom }}</td>
                 <td>{% if abonnement.date %}{{ abonnement.date|date('Y-m-d') }}{% endif %}</td>
                 <td>{{ abonnement.type }}</td>
                 <td>{{ abonnement.etat }}</td>

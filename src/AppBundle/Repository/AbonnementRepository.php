@@ -18,4 +18,14 @@ class AbonnementRepository extends \Doctrine\ORM\EntityRepository
         return $query=$q->getResult();
 
     }
+
+
+    public function searchAbonnemParent($search,$id)
+    {
+        $q=$this->getEntityManager()->createQuery("SELECT m from AppBundle:Abonnement m JOIN m.enfant e where  (e.nom like :motcle or e.prenom like :motcle or m.etat like :motcle or m.type like :motcle or m.date like :motcle ) and e.parent=:id")
+            ->setParameter('motcle','%'.$search.'%')
+            ->setParameter('id',$id);
+        return $query=$q->getResult();
+
+    }
 }
