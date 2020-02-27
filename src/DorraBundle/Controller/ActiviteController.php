@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 
-
 /**
  * Activite controller.
  *
@@ -46,7 +45,7 @@ class ActiviteController extends Controller
      */
     public function newAction(Request $request)
     {
-        $activite = new Activite('',New \DateTime('now')
+        $activite = new Activite('', New \DateTime('now')
         );
         $form = $this->createForm('DorraBundle\Form\ActiviteType', $activite);
         $form->handleRequest($request);
@@ -55,18 +54,16 @@ class ActiviteController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
 
             $file = $activite->getPhoto();
-                if($activite->getPhoto()!=null)
-                {
-                    $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
-                    //$fileName = mdS(uniqid()).'.'.$file->queasExtintion();
-                    $file->move($this->getParameter('image_directory'),$fileName);
-                    $activite->setPhoto($fileName);
-                }
-
+            if ($activite->getPhoto() != null) {
+                $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
+                //$fileName = mdS(uniqid()).'.'.$file->queasExtintion();
+                $file->move($this->getParameter('image_directory'), $fileName);
+                $activite->setPhoto($fileName);
+            }
 
 
             $em = $this->getDoctrine()->getManager();
-            $activite->setClub($em->getRepository(Club::class)->find(1 ));
+            $activite->setClub($em->getRepository(Club::class)->find(1));
             $activite->setDateDebut(New \DateTime('now'));
             $activite->setDateFin(New \DateTime('now'));
             $activite->setDateCreation(New \DateTime('now'));
@@ -83,14 +80,10 @@ class ActiviteController extends Controller
     }
 
 
-
-
-
-
     /**
      * calendrier
      *
-     * @Route("/calendrier")
+     * @Route("/calendrier",name="activite_calendrier")
      * @Method("GET")
      */
     public function AfficherCalendrier()
@@ -100,6 +93,30 @@ class ActiviteController extends Controller
         return $this->render('@Dorra/activite/calendrier.html.twig', array(''));
     }
 
+    /**
+     * calendrier
+     *
+     * @Route("/calendrierModify",name="date")
+     * @Method("GET")
+     */
+    public function modifyAction(Request $request)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $titre = $request->get('event');
+        $start = $request->get('datedebut');
+        $end = $request->get('datefin');
+        $user = $request->get('user');
+        $evenement = $em->getRepository(Activite::class)->findOneBy(array("typeact" => $titre));
+        if ($user != $evenement->getResponsable()->getId()) {
+            return new Response("no");
+        }
+        $evenement->setDateDebut(new \DateTime($start));
+        $evenement->setDateFin(new \DateTime($end));
+        $em->merge($evenement);
+        $em->flush();
+        return new Response("yes");
+    }
 
 
     /**
@@ -130,21 +147,20 @@ class ActiviteController extends Controller
         $editForm = $this->createForm('DorraBundle\Form\ActiviteType', $activite);
         $editForm->handleRequest($request);
 
-        if ($editForm->isSubmitted() ) {
+        if ($editForm->isSubmitted()) {
 
             $file = $activite->getPhoto();
-            if($activite->getPhoto()!=null)
-            {
-                $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+            if ($activite->getPhoto() != null) {
+                $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
                 //$fileName = mdS(uniqid()).'.'.$file->queasExtintion();
-                $file->move($this->getParameter('image_directory'),$fileName);
+                $file->move($this->getParameter('image_directory'), $fileName);
                 $activite->setPhoto($fileName);
             }
 
             $em = $this->getDoctrine()->getManager();
 
             //$activite->setClub($em->getRepository(Club::class)->find(1 ));
-           $em->merge($activite);
+            $em->merge($activite);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('activite_show', array('id' => $activite->getId()));
@@ -158,24 +174,24 @@ class ActiviteController extends Controller
     }
 
 
-
     /**
      * participer à une activité
      *
      * @Route("/participer/{id}", name="activite_part")
      * @Method({"GET", "POST"})
      */
-    public function ParticiperAction(Request $request,$id){
+    public function ParticiperAction(Request $request, $id)
+    {
 
         $em = $this->getDoctrine()->getManager();
 
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $activite = $this->getDoctrine()->getManager()->getRepository(Activite::class)->find($id);
-        $participe =new PartActivite();
-        $form = $this->createForm(PartActiviteType::class, $participe,array('user'=>$user));
+        $participe = new PartActivite();
+        $form = $this->createForm(PartActiviteType::class, $participe, array('user' => $user));
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() ) {
+        if ($form->isSubmitted()) {
             $participe->setDate(New \DateTime('now'));
             $participe->setActivite($activite);
             $em = $this->getDoctrine()->getManager();
@@ -184,15 +200,15 @@ class ActiviteController extends Controller
             $em->flush();
 
 
-            return $this->render('@Dorra/activite/participer.html.twig',array( 'activites'=>$activite,
+            return $this->render('@Dorra/activite/participer.html.twig', array('activites' => $activite,
                 'form' => $form->createView(),
-                'msg'=>'participation est confirmée'));
+                'msg' => 'participation est confirmée'));
         }
 
         return $this->render('@Dorra/activite/participer.html.twig', array(
-            'activites'=>$activite,
+            'activites' => $activite,
             'form' => $form->createView(),
-            'msg'=>''
+            'msg' => ''
         ));
     }
 
@@ -202,13 +218,14 @@ class ActiviteController extends Controller
      * @Route("/liste/{id}", name="activite_liste")
      * @Method("GET")
      */
-    public function afficherParticipantAction($id){
+    public function afficherParticipantAction($id)
+    {
 
 
         $em = $this->getDoctrine()->getManager();
 
         $activite = $this->getDoctrine()->getManager()->getRepository(Activite::class)->find($id);
-        $enfants= $this->getDoctrine()->getManager()->getRepository(PartActivite::class)->findBy(array('Activite'=>$id));
+        $enfants = $this->getDoctrine()->getManager()->getRepository(PartActivite::class)->findBy(array('Activite' => $id));
 
         return $this->render('@Dorra/activite/listeparticipant.html.twig', array(
             'enfants' => $enfants
@@ -220,14 +237,13 @@ class ActiviteController extends Controller
      * Deletes a activite entity.
      *
      * @Route("/delete/{id}", name="activite_delete", methods="DELETE")
-
      */
     public function deleteAction(Request $request, Activite $activite)
     {
         $form = $this->createDeleteForm($activite);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() ) {
+        if ($form->isSubmitted()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($activite);
             $em->flush();
@@ -248,8 +264,7 @@ class ActiviteController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('activite_delete', array('id' => $activite->getId())))
             ->setMethod('DELETE')
-            ->getForm()
-        ;
+            ->getForm();
     }
 
     private function generateUniqueFileName()

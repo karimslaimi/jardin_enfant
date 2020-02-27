@@ -59,13 +59,13 @@ $event = new Event($schedule->getTypeact(), $schedule->getDateDebut()  );
 //          $event->setStartDate($schedule->getDateDebut());
 
 $event->setEndDate( $datetime );
-$event->setEditable($user==$schedule->getTitle()? true : false);
+$event->setEditable($user==$schedule->getUserid() ? true : false);
 $event->setStartEditable($user==$schedule->getUserid() ? true : false);
 $event->setId($schedule->getId());
 $color ="#FF0000";
     $color ="";
-    if($schedule->getType()=='Culturel') {$color='#00FF00';}
-    elseif ($schedule->getType()=='Aventure'){ $color='light blue' ;}
+    if($schedule->getTypeact()=='Culturel') {$color='#00FF00';}
+    elseif ($schedule->getTypeact()=='Aventure'){ $color='light blue' ;}
     else {$color='#FF0000';}
     $event->setColor($color);
 $event->setColor($color);

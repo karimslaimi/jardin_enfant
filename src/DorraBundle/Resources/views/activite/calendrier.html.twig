@@ -1,5 +1,4 @@
-{% include '@FullCalendar/Calendar/calendar.html.twig' %}
-
+<div id="calendar-holder"></div>
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('bundles/fullcalendar/css/fullcalendar/fullcalendar.min.css') }}" />
 {% endblock %}
@@ -13,92 +12,156 @@
 
     <script>
 
-        $(document).ready(function() {
-            var calendar = $('#calendar').fullCalendar({
-                editable:true,
-                header:{
-                    left:'prev,next today',
-                    center:'title',
-                    right:'month,agendaWeek,agendaDay'
-                },
-                events: 'load.php',
-                selectable:true,
-                selectHelper:true,
-                select: function(start, end, allDay)
-                {
-                    var title = prompt("Enter Event Title");
-                    if(title)
-                    {
-                        var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
-                        var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
-                        $.ajax({
-                            url:"insert.php",
-                            type:"POST",
-                            data:{title:title, start:start, end:end},
-                            success:function()
-                            {
-                                calendar.fullCalendar('refetchEvents');
-                                alert("Added Successfully");
-                            }
-                        })
-                    }
-                },
-                editable:true,
-                eventResize:function(event)
-                {
-                    var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
-                    var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
-                    var title = event.title;
-                    var id = event.id;
-                    $.ajax({
-                        url:"update.php",
-                        type:"POST",
-                        data:{title:title, start:start, end:end, id:id},
-                        success:function(){
-                            calendar.fullCalendar('refetchEvents');
-                            alert('Event Update');
-                        }
-                    })
+
+        $(function () {
+            $('#calendar-holder').fullCalendar({
+                header: {
+                    left: 'prev, next',
+                    center: 'title',
+                    right: 'month, basicWeek, basicDay,'
                 },
 
-                eventDrop:function(event)
-                {
-                    var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
-                    var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
-                    var title = event.title;
-                    var id = event.id;
-                    $.ajax({
-                        url:"update.php",
-                        type:"POST",
-                        data:{title:title, start:start, end:end, id:id},
-                        success:function()
-                        {
-                            calendar.fullCalendar('refetchEvents');
-                            alert("Event Updated");
-                        }
-                    });
+
+                lazyFetching: false,
+                timeFormat: {
+                    agenda: 'h:mmt',
+                    '': 'h:mmt'
                 },
 
-                eventClick:function(event)
-                {
-                    if(confirm("Are you sure you want to remove it?"))
+                eventSources: [
                     {
-                        var id = event.id;
-                        $.ajax({
-                            url:"delete.php",
-                            type:"POST",
-                            data:{id:id},
-                            success:function()
-                            {
-                                calendar.fullCalendar('refetchEvents');
-                                alert("Event Removed");
-                            }
-                        })
+                        url: "../../../full-calendar/load",
+                        type: 'POST',
+                        color: 'bleu',
+                        textColor: 'white',
+                        data: {},
+                        error: function () {
+                        }
                     }
+                ],eventRender:function(event, element){
+                    element.css('text-align', 'center');
+
                 },
+
+
+                eventClick: function (calEvent, jsEvent, view) {
+
+
+                    window.location.href = "http://localhost/pi-dev-web/web/app_dev.php/events/detail/" + calEvent.id
+
+
+                },
+                //CHANGEMENT DE LA DATE DANS CALENDEIER
+
+                eventDrop: function (calEvent, jsEvent, view) {
+                    var start = calEvent.start;
+                    var end = calEvent.end;
+                    var user = {{ app.user.id }}
+                    var opt = {
+                        autoOpen: true,
+                        modal: true,
+
+                        width: 250,
+                        height: 150,
+
+                    };
+
+
+                    if (!confirm("Voulez vous changer la date")) {
+
+                        revertFunc();
+
+                    } else {
+
+
+                        //ENVOI OBJET JSON AU FRONTEND JAVASCRIPT ET BACKEND PHP
+                        $.ajax({
+                            type: "POST",
+                            url: "{{ path('date') }}",
+                            data: {
+                                "event": calEvent.title,
+                                "datedebut": start.format(),
+                                "datefin": end.format(),
+                                "user": user
+                            },
+                            success: function (data) {
+                                $.noConflict();
+                                if (data == "yes") {
+
+                                    console.log(data)
+
+                                    $(function () {
+                                        $("#dialog").dialog(opt);
+                                        $("#dialog").dialog("open");
+                                    });
+
+
+                                } else {
+                                    alert("no");
+                                    revertFunc();
+                                }
+
+
+                            },
+                            error: function () {
+                                revertFunc();
+                            }
+                        });
+
+                    }
+
+                },
+
+
+                //CHAGEMENT DU DUREE DU CALENDRIER EN UTILISANT REVERTFUNC
+                eventResize: function (event, delta, revertFunc) {
+
+                    var start = event.start;
+                    var end = event.end;
+                    var user = {{ app.user.id }}
+                    if (!confirm("Voulez vous changer la duree")) {
+
+                        revertFunc();
+
+                    } else {
+                        $.ajax({
+                            type: "POST",
+                            url: "{{ path('date') }}",
+                            data: {
+                                "event": event.title,
+                                "datedebut": start.format(),
+                                "datefin": end.format(),
+                                "user": user
+                            },
+                            success: function (data) {
+                                if (data == "yes") {
+                                    alert("yes");
+                                    console.log(data)
+                                    $(function () {
+                                        $("#dialog").dialog(opt);
+                                        $("#dialog").dialog("open");
+
+
+                                    });
+
+                                } else {
+                                    alert("no");
+                                    revertFunc();
+                                }
+                            },
+                            error: function () {
+                                revertFunc();
+                            }
+                        });
+                    }
+
+                },
+
 
             });
+
         });
+
 
     </script>
 {% endblock %}

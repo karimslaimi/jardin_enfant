@@ -27,7 +27,12 @@
                             <a href="{{ path('club_show', { 'id': club.id }) }}">show</a>
                         </li>
                         <li>
+                            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and  "ROLE_RESPONSABLE" in app.user.roles %}
                             <a href="{{ path('club_edit', { 'id': club.id }) }}">edit</a>
+                            {% endif %}
+                        </li>
+                        <li>
+                            <a href="{{ path('activite_index', { 'id': club.id }) }}">liste des Activités</a>
                         </li>
                     </ul>
                 </td>
@@ -39,10 +44,12 @@
 
     <ul>
         <li>
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and  "ROLE_RESPONSABLE" in app.user.roles %}
             <div class="form-group col-lg-12 col-md-12 col-sm-12 text-center">
                 <a href="{{ path('club_new') }}"  ><button class="theme-btn btn-style-one" type="submit" name="submit-form">Ajouter un Club</button>
 
                 </a></div>
+            {% endif %}
         </li>
     </ul>
    </center>

@@ -2,6 +2,7 @@
 
 namespace DorraBundle\Controller;
 
+use AppBundle\Entity\Activite;
 use AppBundle\Entity\Club;
 use AppBundle\Entity\Jardin;
 use DorraBundle\Form\ClubType;
@@ -35,6 +36,24 @@ class ClubController extends Controller
         ));
     }
 
+    /**
+     * Lister les activités d'un club précis
+     *
+     * @Route("/activiteclub", name="club_listeactivite")
+     * @Method("GET")
+     */
+    public function activiteClubAction($id){
+
+        $em = $this->getDoctrine()->getManager();
+
+        $club = $this->getDoctrine()->getManager()->getRepository(Club::class)->find($id);
+        $activites = $this->getDoctrine()->getManager()->getRepository(Activite::class)->findBy(array('Activite' => $id));
+
+        return $this->render('@Dorra/activite/listeactivite.html.twig', array(
+            'activite' => $activites
+        ));
+
+    }
     /**
      * Creates a new club entity.
      *
