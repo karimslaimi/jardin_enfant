@@ -34,7 +34,7 @@ class AbonnementController extends Controller
         if($request->isMethod("post"))
         {
 
-            $abonnements=$em->getRepository(Abonnement::class)->searchAbonnemParent($request->get('search'),$user);
+            $abonnements=$em->getRepository(Abonnement::class)->searchAbonnemParent($request->get('search'),$user,$request->get('tri'));
         }
 
 
@@ -58,7 +58,7 @@ class AbonnementController extends Controller
         if($request->isMethod("post"))
         {
 
-            $abonnements=$em->getRepository(Abonnement::class)->searchAbonnements($request->get('search'),$user->getJardin());
+            $abonnements=$em->getRepository(Abonnement::class)->searchAbonnements($request->get('search'),$user->getJardin(),$request->get('tris'));
         }
 
         return $this->render('@Ferid/abonnement/indexback.html.twig', array(
@@ -179,7 +179,7 @@ class AbonnementController extends Controller
     /**
      * Finds and displays a abonnement entity.
      *
-     * @Route("/{id}", name="abonnement_show",methods={"GET","HEAD"})
+     * @Route("/{id}/show", name="abonnement_show",methods={"GET","HEAD"})
 
      */
     public function showAction(Abonnement $abonnement)
@@ -225,6 +225,8 @@ class AbonnementController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() ) {
+            $time=new \DateTime('now');
+            $abonnement->setDate($time);
 
             $this->getDoctrine()->getManager()->flush();
 

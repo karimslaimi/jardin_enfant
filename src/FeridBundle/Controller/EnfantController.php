@@ -21,7 +21,7 @@ class EnfantController extends Controller
     /**
      * Lists all enfant entities.
      *
-     * @Route("/index", name="enfant_index",methods={"GET","HEAD"})
+     * @Route("/index", name="enfant_index",methods={"GET","POST"})
 
      */
     public function indexAction(Request $request)
@@ -30,6 +30,8 @@ class EnfantController extends Controller
 
 
         $em = $this->getDoctrine()->getManager();
+
+
 
 
         // $dql="select a from AppBundle:Remarque a";
@@ -42,6 +44,7 @@ class EnfantController extends Controller
         }
         $enfants = $qb->getQuery();
 
+
         $paginator  = $this->get('knp_paginator');
 
 
@@ -50,7 +53,11 @@ class EnfantController extends Controller
             $request->query->get('page',1) /*page number*/,
             $request->query->get('limit',100) /*limit per page*/
         );
+        if($request->isMethod("post"))
+        {
 
+            $rq=$em->getRepository(Enfant::class)->searchEnfant($request->get('search'),$user);
+        }
 
         return $this->render('@Ferid/enfant/index.html.twig', array(
             'enfants' => $rq,
