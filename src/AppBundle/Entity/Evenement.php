@@ -51,7 +51,7 @@ class Evenement
 
     /**
      * @ORM\ManyToOne(targetEntity="Categorie", inversedBy="evenements")
-     * @ORM\JoinColumn(name="categorie_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="categorie_id", referencedColumnName="id",onDelete="cascade")
      */
     private $categorie;
 
@@ -62,7 +62,7 @@ class Evenement
      */
     private $jardin;
     /**
-     * @ORM\OneToMany(targetEntity="Participer", mappedBy="evenement")
+     * @ORM\OneToMany(targetEntity="Participer", mappedBy="evenement",cascade={"remove"})
      */
     private $participation;
 
