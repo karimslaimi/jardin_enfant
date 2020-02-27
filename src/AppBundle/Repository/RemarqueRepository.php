@@ -10,4 +10,5 @@ namespace AppBundle\Repository;
  */
 class RemarqueRepository extends \Doctrine\ORM\EntityRepository
 {
+
 }

@@ -29,6 +29,8 @@ class AppKernel extends Kernel
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new AncaRebeca\FullCalendarBundle\FullCalendarBundle(),
             new Ob\HighchartsBundle\ObHighchartsBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+           // new PUGX\AutocompleterBundle\PUGXAutocompleterBundle(),
 
         ];
 

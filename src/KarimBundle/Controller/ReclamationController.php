@@ -23,6 +23,7 @@ class ReclamationController extends Controller
      */
     public function indexAction()
     {
+        //this option is avaible for the admin on the desktop app so it s useless here
         $em = $this->getDoctrine()->getManager();
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $reclamations = $em->getRepository('AppBundle:Reclamation')->findmyreclam($user->getId());
@@ -39,11 +40,14 @@ class ReclamationController extends Controller
      */
     public function newAction(Request $request)
     {
+        //this action is for a user or a parent to send a claim
+
         $reclamation = new Reclamation();
         $form = $this->createForm(ReclamationType::class, $reclamation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //if it s parent who sent this reclam he will be saved to database
             $user = $this->container->get('security.token_storage')->getToken()->getUser();
             if($user!=null){
                $reclamation->setParent($user);
@@ -71,6 +75,7 @@ class ReclamationController extends Controller
      */
     public function showAction(Reclamation $reclamation)
     {
+        //this action is useless too because it for the admin to check it on the desktop so no need to explain it
         $deleteForm = $this->createDeleteForm($reclamation);
 
         return $this->render('@Karim/reclamation/show.html.twig', array(
@@ -86,6 +91,7 @@ class ReclamationController extends Controller
      */
     public function editAction(Request $request, Reclamation $reclamation)
     {
+        //another useless action
         $deleteForm = $this->createDeleteForm($reclamation);
         $editForm = $this->createForm(ReclamationType::class, $reclamation);
         $editForm->handleRequest($request);
@@ -110,6 +116,7 @@ class ReclamationController extends Controller
      */
     public function deleteAction(Request $request, Reclamation $reclamation)
     {
+        //probably we will need it later
         $form = $this->createDeleteForm($reclamation);
         $form->handleRequest($request);
 

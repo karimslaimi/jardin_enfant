@@ -2,11 +2,50 @@
 
 {% block body %}
     <h1 style="color: red">Jardins list</h1>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="{{ asset('bundles/pugxautocompleter/js/autocompleter-jqueryui.js') }}"></script>
+    <center><input type="text" id="search" placeholder="CHERCHER Jardin..." style="color:#3b003b" ></center>
+    <script>
 
-    <table id="example" class="table table-striped table-bordered" style="width:50%" >
+
+
+        $(document).ready(function(){
+            $('#search').keyup(function(){
+                search_table($(this).val());
+            });
+            function search_table(value){
+                $('#tableac tbody tr').each(function(){
+                    var found = 'false';
+                    $(this).each(function(){
+                        if($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0)
+                        {
+                            found = 'true';
+                        }
+                    });
+                    if(found == 'true')
+                    {
+                        $(this).show();
+
+                    }
+                    else
+                    {
+                        $(this).hide();
+
+                    }
+                });
+            }
+        });
+    </script>
+
+
+    <div class="navigation">
+        {{ knp_pagination_render(rec) }}
+    </div>
+
+    <table class="table table-striped table-bordered" style="width:50%" >
         <thead>
             <tr>
-                <th style="color:#d971f2"> <b>Id </b></th>
+                <th id="tableac tbody tr"  style="color:#d971f2"> <b>Id </b></th>
 
                 <th style="color: #1c7430"> <b>Name</b> </th>
 
@@ -33,10 +72,10 @@
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('jardin_show', { 'id': jardin.id }) }}" style="color: gold">show</a>
+                            <a href="{{ path('jardin_show', { 'id': jardin.id }) }}" style="color: gold"><button type="submit" value="Modifier" class="btn btn-success mr-2">Show</button></a>
                         </li>
                         <li>
-                            <a href="{{ path('jardin_edit', { 'id': jardin.id }) }}" style="color: gold" >edit</a>
+                            <a href="{{ path('jardin_edit', { 'id': jardin.id }) }}" style="color: gold" ><button type="submit" value="Modifier" class="btn btn-primary">Edit</button></a>
                         </li>
                     </ul>
                 </td>
@@ -46,9 +85,13 @@
     </table>
 
 
+
+
     <ul>
         <li>
-            <a href="{{ path('jardin_new') }}" style="color: red">Create a new jardin</a>
+            <a href="{{ path('jardin_new') }}" style="color: red"><button type="submit" value="Modifier" class="btn btn-danger">Create a new jardin</button></a>
         </li>
     </ul>
+
+
 {% endblock %}

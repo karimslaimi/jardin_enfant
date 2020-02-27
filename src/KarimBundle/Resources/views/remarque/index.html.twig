@@ -8,24 +8,65 @@
     <link href="{{ asset('argon/assets/js/plugins/nucleo/fonts/nucleo-icons.svg') }}" rel="stylesheet" />
 {% endblock stylesheets %}
 {% block body %}
-    <h1>Remarques</h1>
-    <table class="table">
-        <thead>
-        <tr>
-            <th class="text-center">#</th>
-            <th>Enfant</th>
-            <th>Tuteur</th>
-            <th>Date</th
-            <th class="text-right"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
+    <h3>Remarques</h3>
 
-        </tr>
 
-        </tbody>
-    </table>
+  <!--  <div class="navigation text-center">
+        <div class="count">
+            {{ remarques.getTotalItemCount }}
+        </div>
+    </div>-->
+    <div>
+        <form action="{{ path('remarque_index') }}" method="get">
+
+
+            <div class="col-sm-2" >
+                <div class="input-group" >
+                    <input name="filter" id="table_filter" type="text" class="form-control" placeholder="filter">
+                    <div class="input-group-btn" >
+            <button type="submit" class="btn btn-default btn-sm">Filter Now</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+        <table class="table">
+            <tr>
+                {# sorting of properties based on query components #}
+                <th>{{ knp_pagination_sortable(remarques, 'Id', 'a.id') }}</th>
+                <th{% if remarques.isSorted('a.enfant') %} class="sorted"{% endif %}>
+                    {{ knp_pagination_sortable(remarques, 'nom', 'a.enfant') }}
+                </th>
+                <th{% if remarques.isSorted(['a.date']) %} class="sorted"{% endif %}>
+                    {{ knp_pagination_sortable(remarques, 'date', ['a.date']) }}
+                </th>
+                <th{% if remarques.isSorted(['a.description']) %} class="sorted"{% endif %}>
+                    {{ knp_pagination_sortable(remarques, 'description', ['a.description']) }}
+                </th>
+            </tr>
+
+            {# table body #}
+            {% for remarque in remarques %}
+                <tr {% if loop.index is odd %}class="color"{% endif %}>
+                    <td>{{ remarque.id }}</td>
+                    <td>{{ remarque.abonnement.enfant.nom}}</td>
+                    <td>{{ remarque.date | date('Y-m-d') }}</td>
+                    <td>{{ remarque.description }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+
+
+        {# display navigation #}
+        <div class=" navigation" >
+            {{ knp_pagination_render(remarques, null, {}, {
+                'position': 'centered',
+                'size': 'small',
+                'rounded': true,
+            })  }}
+        </div>
+
 
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">

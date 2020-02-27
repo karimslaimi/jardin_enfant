@@ -4,6 +4,7 @@ namespace FeridBundle\Form;
 
 use AppBundle\Entity\Enfant;
 use AppBundle\Entity\Jardin;
+use Doctrine\DBAL\Types\DateTimeType;
 use Doctrine\ORM\EntityRepository;
 use FeridBundle\Controller\EnfantController;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -11,6 +12,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class AbonnementType extends AbstractType
 {
@@ -23,7 +25,12 @@ class AbonnementType extends AbstractType
             'choices'=>[
                 'Bus'=>'bus',
                 'Normal'=>'normal'
-            ],])->add('montant')->add('jardin', EntityType::class,[
+            ],])->add('montant',EntityType::class,[
+            'class' => Jardin::class,
+            'choice_label' => 'tarif',
+            'expanded' => false,
+            'multiple' => false
+        ])->add('jardin', EntityType::class,[
                 'class' => Jardin::class,
                 'choice_label' => 'name',
                 'expanded' => false,
@@ -43,6 +50,7 @@ class AbonnementType extends AbstractType
                 'Attente'=>'attente'
 
             ],]);
+
     }/**
      * {@inheritdoc}
      */

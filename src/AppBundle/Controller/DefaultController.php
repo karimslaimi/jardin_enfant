@@ -29,6 +29,7 @@ class DefaultController extends Controller
      * @Route("/signin", name="user_login")
      */
     public function loginAction(Request $request){
+        // i thought it was in the parent controller but it s here so if u want to check the other comment go there lol
         $username=$request->get('username');
         $password=$request->get('password');
 

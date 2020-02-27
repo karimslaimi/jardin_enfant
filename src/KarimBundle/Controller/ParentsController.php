@@ -29,6 +29,7 @@ class ParentsController extends Controller
      */
     public function loginAction(Request $request)
     {
+        //login action don't ask me how it woks because i don't know XD
         $username=$request->get('username');
         $password=$request->get('password');
 
@@ -96,6 +97,7 @@ class ParentsController extends Controller
      */
     public function indexAction()
     {
+        //maybe usefull for reponsable jardin and the admin
         $em = $this->getDoctrine()->getManager();
 
         $parents = $em->getRepository('AppBundle:Parents')->findAll();
@@ -113,6 +115,7 @@ class ParentsController extends Controller
      */
     public function newAction(Request $request)
     {
+        //signup action for the parent good one
         $parent = new Parents();
         $form = $this->createForm(ParentsType::class, $parent);
         $form->handleRequest($request);
@@ -143,6 +146,7 @@ class ParentsController extends Controller
      */
     public function showAction(Parents $parent)
     {
+        //useless
         $deleteForm = $this->createDeleteForm($parent);
 
         return $this->render('@Karim/parents/show.html.twig', array(
@@ -159,6 +163,7 @@ class ParentsController extends Controller
      */
     public function editAction(Request $request, Parents $parent)
     {
+        //i need it for the parent to update his profile but it must be enhanced
         $deleteForm = $this->createDeleteForm($parent);
         $editForm = $this->createForm(ParentsType::class, $parent);
         $editForm->handleRequest($request);
@@ -188,6 +193,7 @@ class ParentsController extends Controller
      */
     public function deleteAction(Request $request, Parents $parent)
     {
+        //idon't know if i need it
         $form = $this->createDeleteForm($parent);
         $form->handleRequest($request);
 

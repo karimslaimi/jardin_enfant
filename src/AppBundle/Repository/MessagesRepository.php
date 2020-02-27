@@ -22,14 +22,25 @@ class MessagesRepository extends \Doctrine\ORM\EntityRepository
     }
     public function getallmess($id)
     {
-        $q=$this->getEntityManager()->createQuery("SELECT p,m from AppBundle:Messages m 
-         LEFT JOIN m.parent p where m.jardin=:id group by m.parent
-  ORDER BY m.date DESC
-           ")->setParameter('id',$id);
+        $q=$this->getEntityManager()->createQuery("SELECT m from AppBundle:Messages m 
+         LEFT JOIN m.parent p where m.date in(select MAX(l.date) from AppBundle:Messages l Group by l.parent) AND  m.jardin=:id   ORDER BY m.date DESC 
+            ")->setParameter('id',$id);
 
         return $query=$q->getResult();
 
 
     }
+
+    public function getmine($id,$jar)
+    {
+        $q=$this->getEntityManager()->createQuery("SELECT m from AppBundle:Messages m 
+         LEFT JOIN m.parent p where m.parent=:id AND  m.jardin=:jar  
+            ")->setParameter('id',$id)->setParameter('jar',$jar);
+
+        return $query=$q->getResult();
+
+
+    }
+
 
 }
