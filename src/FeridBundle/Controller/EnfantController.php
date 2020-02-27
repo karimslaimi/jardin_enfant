@@ -24,15 +24,36 @@ class EnfantController extends Controller
      * @Route("/index", name="enfant_index",methods={"GET","HEAD"})
 
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
+
+
         $em = $this->getDoctrine()->getManager();
 
-        $enfants = $em->getRepository('AppBundle:Enfant')->findBy(array('parent'=>$user));
+
+        // $dql="select a from AppBundle:Remarque a";
+        $qb=$em->createQueryBuilder('a')->select("a")->from("AppBundle:Enfant","a")
+            ->where("a.parent=:parent")->setParameter("parent",$user);
+        if($request->query->getAlnum("filter")){
+            $qb=$qb
+                ->AndWhere('a.nom like :filter or a.prenom like :filter or a.sexe like :filter')
+                ->setParameter('filter', '%' . $request->query->getAlnum('filter') . '%');
+        }
+        $enfants = $qb->getQuery();
+
+        $paginator  = $this->get('knp_paginator');
+
+
+        $rq = $paginator->paginate(
+            $enfants,
+            $request->query->get('page',1) /*page number*/,
+            $request->query->get('limit',100) /*limit per page*/
+        );
+
 
         return $this->render('@Ferid/enfant/index.html.twig', array(
-            'enfants' => $enfants,
+            'enfants' => $rq,
         ));
     }
 

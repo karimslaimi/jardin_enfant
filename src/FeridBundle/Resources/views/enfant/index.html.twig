@@ -3,14 +3,25 @@
 {% block body %}
     <h1>Liste des enfants</h1>
 
+
+
+
     <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>Datenaiss</th>
-                <th>Sexe</th>
+                <th>{{ knp_pagination_sortable(enfants, 'Id', 'a.id') }}</th>
+                <th{% if enfants.isSorted('a.nom') %} class="sorted"{% endif %}>
+                    {{ knp_pagination_sortable(enfants, 'nom', 'a.nom') }}
+                </th>
+                <th{% if enfants.isSorted('a.prenom') %} class="sorted"{% endif %}>
+                    {{ knp_pagination_sortable(enfants, 'prenom', 'a.prenom') }}
+                </th>
+                <th{% if enfants.isSorted('a.datenaiss') %} class="sorted"{% endif %}>
+                    {{ knp_pagination_sortable(enfants, 'date naissance', 'a.datenaiss') }}
+                </th>
+                <th{% if enfants.isSorted('a.sexe') %} class="sorted"{% endif %}>
+                    {{ knp_pagination_sortable(enfants, 'sexe', 'a.sexe') }}
+                </th>
 
             </tr>
         </thead>
