@@ -164,6 +164,16 @@ foreach ($list as $ls)
             'delete_form' => $deleteForm->createView(),
         ));
     }
+    public function index1Action()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $evenements = $em->getRepository('AppBundle:Evenement')->findAll();
+
+        return $this->render('@Emna/evenement/index.html.twig', array(
+            'evenements' => $evenements,
+        ));
+    }
 
     /**
      * Deletes a evenement entity.
