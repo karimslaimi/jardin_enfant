@@ -30,7 +30,7 @@ class TuteurController extends Controller
         if($request->isMethod("post"))
         {
 
-            $tuteurs=$em->getRepository(Tuteur::class)->searchTuteurs($request->get('search'),$user->getJardin());
+            $tuteurs=$em->getRepository(Tuteur::class)->searchTuteurs($request->get('search'),$user->getJardin(),$request->get('tri'));
         }
         return $this->render('@Sami/tuteur/index.html.twig', array(
             'tuteurs' => $tuteurs,

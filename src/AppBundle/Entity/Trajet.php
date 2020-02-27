@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Trajet
@@ -30,7 +32,7 @@ class Trajet
 
     /**
      * @var string
-     *
+     * @Assert\Regex(pattern="/[0-9]{1,2}h[0-9]{1,2}/")
      * @ORM\Column(name="heure", type="string", length=255)
      */
     private $heure;
