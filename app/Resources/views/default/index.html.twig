@@ -452,7 +452,7 @@
         <div class="auto-container">
             <div class="sec-title light text-center">
                 <span class="title">Upcoming Events</span>
-                <h2>Join Our Events</h2>
+                <h2>Rejoindre nos évenements</h2>
             </div>
 
             <div class="row">
@@ -460,14 +460,14 @@
                 <div class="event-block col-xl-6 col-md-12 col-sm-12 wow fadeInUp">
                     <div class="inner-box">
                         <div class="image-box">
-                            <figure class="image"><img src="images/resource/event-1.jpg" alt=""></figure>
+                            <figure class="image"><img src="{{ asset('images/resource/'~events[0].image) }}" alt=""></figure>
                         </div>
                         <div class="content-box">
-                            <div class="date">5 March 2019</div>
-                            <h4><a href="event-detail.html">Work together in summer</a></h4>
+                            <div class="date">{{events[0].date|date('d F Y')}}</div>
+                            <h4><a href="{{path('evenements_show', {id: events[0].id})}}">{{events[0].titre}}</a></h4>
                             <ul class="event-info">
                                 <li><span>Time:</span> 9:00-11:00</li>
-                                <li><span>Location:</span> Clifton</li>
+                                <li><span>Location:</span> {{events[0].jardin.name}}</li>
                             </ul>
                         </div>
                     </div>
@@ -477,49 +477,47 @@
                 <div class="event-block col-xl-6 col-md-12 col-sm-12 wow fadeInUp" data-wow-delay="400ms">
                     <div class="inner-box">
                         <div class="image-box">
-                            <figure class="image"><img src="images/resource/event-2.jpg" alt=""></figure>
+                            <figure class="image"><img src="{{ asset('images/resource/'~events[1].image) }}" alt=""></figure>
                         </div>
                         <div class="content-box">
-                            <div class="date">10 March 2019</div>
-                            <h4><a href="event-detail.html">Work together in summer</a></h4>
+                            <div class="date">{{events[1].date|date('d F Y')}}</div>
+                            <h4><a href="{{path('evenements_show', {id: events[1].id})}}">{{events[1].titre}}</a></h4>
                             <ul class="event-info">
-                                <li><span>Time:</span> 9:00-11:00</li>
-                                <li><span>Location:</span> Clifton</li>
+                                <li><span>Heure :</span> 11:00-13:00</li>
+                                <li><span>Jardin :</span> {{events[1].jardin.name}}</li>
                             </ul>
                         </div>
                     </div>
                 </div>
-
 
                 <!-- Event Block -->
                 <div class="event-block col-xl-6 col-md-12 col-sm-12 wow fadeInUp">
                     <div class="inner-box">
                         <div class="image-box">
-                            <figure class="image"><img src="images/resource/event-3.jpg" alt=""></figure>
+                            <figure class="image"><img src="{{ asset('images/resource/'~events[2].image) }}" alt=""></figure>
                         </div>
                         <div class="content-box">
-                            <div class="date">18 March 2019</div>
-                            <h4><a href="event-detail.html">Work together in summer</a></h4>
+                            <div class="date">{{events[2].date|date('d F Y')}}</div>
+                            <h4><a href="{{path('evenements_show', {id: events[2].id})}}">{{events[2].titre}}</a></h4>
                             <ul class="event-info">
-                                <li><span>Time:</span> 9:00-11:00</li>
-                                <li><span>Location:</span> Clifton</li>
+                                <li><span>Heure :</span> 9:00-11:00</li>
+                                <li><span>Jardin :</span> {{events[2].jardin.name}}</li>
                             </ul>
                         </div>
                     </div>
                 </div>
-
                 <!-- Event Block -->
                 <div class="event-block col-xl-6 col-md-12 col-sm-12 wow fadeInUp" data-wow-delay="400ms">
                     <div class="inner-box">
                         <div class="image-box">
-                            <figure class="image"><img src="images/resource/event-4.jpg" alt=""></figure>
+                            <figure class="image"><img src="{{ asset('images/resource/'~events[3].image) }}" alt=""></figure>
                         </div>
                         <div class="content-box">
-                            <div class="date">27 March 2019</div>
-                            <h4><a href="event-detail.html">Work together in summer</a></h4>
+                            <div class="date">{{events[3].date|date('d F Y')}}</div>
+                            <h4><a href="{{path('evenements_show', {id: events[3].id})}}">{{events[3].titre}}</a></h4>
                             <ul class="event-info">
-                                <li><span>Time:</span> 9:00-11:00</li>
-                                <li><span>Location:</span> Clifton</li>
+                                <li><span>Heure :</span> 12:00-14:00</li>
+                                <li><span>Jardin :</span> {{events[3].jardin.name}}</li>
                             </ul>
                         </div>
                     </div>
@@ -527,7 +525,7 @@
             </div>
 
             <div class="btn-box text-center">
-                <a href="events.html" class="theme-btn btn-style-one">View All Programs</a>
+                <a href="{{path('evenements')}}" class="theme-btn btn-style-one">Voir tous les évenements</a>
             </div>
         </div>
     </section>
