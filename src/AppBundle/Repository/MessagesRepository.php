@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping\ClassMetadata;
  */
 class MessagesRepository extends \Doctrine\ORM\EntityRepository
 {
+
+
     public function getmessages($id)
     {
         $q=$this->getEntityManager()->createQuery("SELECT m from AppBundle:Parents p , AppBundle:Messages m where m.parent=p AND m.parent=:id ")
@@ -31,10 +33,16 @@ class MessagesRepository extends \Doctrine\ORM\EntityRepository
 
     }
 
+    public  function getmessag($id){
+
+        //for parent
+
+    }
     public function getmine($id,$jar)
     {
+        //for parent
         $q=$this->getEntityManager()->createQuery("SELECT m from AppBundle:Messages m 
-         LEFT JOIN m.parent p where m.parent=:id AND  m.jardin=:jar  
+         LEFT JOIN m.parent p where m.parent=:id AND  m.jardin in (:jar)  
             ")->setParameter('id',$id)->setParameter('jar',$jar);
 
         return $query=$q->getResult();

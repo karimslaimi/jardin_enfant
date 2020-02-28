@@ -19,9 +19,10 @@ class JardinRepository extends \Doctrine\ORM\EntityRepository
     }
     public function getme($id){
 
+        //liste jardin pour un parent donné dans lesquelles ses enfants sont inscrit
         $q=$this->getEntityManager()->createQuery("SELECT m from AppBundle:Jardin m join m.abonnements ab 
         Join  ab.enfant e 
-          where e.parent=:id")
+          where e.parent=:id ")
             ->setParameter('id',$id);
         return $query=$q->getResult();
     }

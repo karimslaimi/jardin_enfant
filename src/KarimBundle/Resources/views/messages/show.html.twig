@@ -15,9 +15,47 @@
     </div>
 </section>
 
+
     <div class="container">
         <div class="messaging">
-            <div class="inbox_msg"></div>
+            <div class="inbox_msg">
+                <div class="inbox_people">
+                    <div class="headind_srch">
+                        <div class="recent_heading">
+                            <h4>Recent</h4>
+                        </div>
+
+                    </div>
+                    <div class="inbox_chat">
+
+                        {% for jar in jardin %}
+                            <a href="{{ url('messages_index',{'id': jar.id}) }}">
+                                <div class="chat_list ">
+                                    <div class="chat_people">
+                                        <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                                        <div class="chat_ib">
+
+                                           {% set match_mess=[] %}
+                                            {% set messa=jar.messages %}
+
+                                            {% for m in messa %}
+                                                {% if m.parent.id == app.user.id %}
+                                                    {% set match_mess = match_mess|merge([m]) %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            {% set messa=match_mess|last  %}
+                                            <h5>{{ jar.name}}<span class="chat_date">{{messa.date|date('Y-m-d ') }}</span></h5>
+                                            <p>{{messa.msg }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+                        {% endfor %}
+                    </div>
+                </div>
+
+
 
                 {% if messages is defined %}
                     <div class="mesgs">
@@ -53,10 +91,13 @@
                         </div>
                     </div>
                 {% endif %}
-            </div>
+            </div>    </div>
 
         </div>
-    </div>
+
+
+
+
 
 
 

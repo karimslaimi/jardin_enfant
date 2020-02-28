@@ -34,7 +34,7 @@ class MessagesController extends Controller
 
 
                 $time=new \DateTime();
-                $message->setMsg($request->query->getAlnum("msg"));
+                $message->setMsg($request->get("msg"));
                 $message->setDate($time->format('Y-m-d H:i:s'));
 
                 $user = $this->container->get('security.token_storage')->getToken()->getUser();
@@ -57,22 +57,26 @@ class MessagesController extends Controller
      *
      * @Route("/{id}", name="messages_index",defaults={"id" = null},methods={"GET","POST-"})
      */
-    public function indexAction()
+    public function indexAction($id)
     {
         //this action is for the parent to see the message from the admin
 
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $jardin=array();
         $jardin=$this->getDoctrine()->getManager()->getRepository(Jardin::class)->getme($user->getId());
-        $messages=$this->getDoctrine()->getManager()->getRepository(Messages::class)->getmine($user->getId(),$jardin);
+        //$messages=$this->getDoctrine()->getManager()->getRepository(Messages::class)->getmine($user->getId(),$jardin);
 
+        if($id!=null){
+            $mess=$this->getDoctrine()->getManager()->getRepository(Messages::class)->getmine($user->getId(),$id);
+            return $this->render('@Karim/messages/show.html.twig',array("jardin"=>$jardin,"messages"=>$mess));
+        }
 
 
 
 
 
         return $this->render('@Karim/messages/show.html.twig', array(
-            'messages' => $messages,
+            "jardin"=>$jardin,
 
         ));
     }
@@ -81,12 +85,18 @@ class MessagesController extends Controller
     /**
      * Lists all message entities.
      *
-     * @Route("/msg", name="messages_i",methods={"GET","HEAD"})
+     * @Route("/msg/{id}", name="messages_i",defaults={"id"=null},methods={"GET","HEAD"})
      */
-    public function lsAction(){
+    public function lsAction($id){
         //this action is for the responsable jardin to see the incoming messages
 
-        $tab=$this->getDoctrine()->getManager()->getRepository(Messages::class)->getallmess(2);
+
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $tab=$this->getDoctrine()->getManager()->getRepository(Messages::class)->getallmess($user->getJardin()->getId());
+        if($id!=null){
+            $mess=$this->getDoctrine()->getManager()->getRepository(Messages::class)->getmessages($id);
+            return $this->render('@Karim/messages/index.html.twig',array("messages"=>$tab,"mess"=>$mess));
+        }
        return $this->render('@Karim/messages/index.html.twig',array("messages"=>$tab));
     }
 
