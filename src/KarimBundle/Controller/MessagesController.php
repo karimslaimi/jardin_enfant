@@ -18,7 +18,23 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class MessagesController extends Controller
 {
+    /**
+     * Lists all message entities responsable.
+     *
+     * @Route("/msgs/{id}", name="messages_resp",defaults={"id"=null},methods={"GET","POST"})
+     */
+    public function lsAction($id){
+        //this action is for the responsable jardin to see the incoming messages
 
+
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $tab=$this->getDoctrine()->getManager()->getRepository(Messages::class)->getallmess($user->getJardin()->getId());
+        if($id!=null){
+            $mess=$this->getDoctrine()->getManager()->getRepository(Messages::class)->getmessages($id);
+            return $this->render('@Karim/messages/index.html.twig',array("messages"=>$tab,"mess"=>$mess));
+        }
+        return $this->render('@Karim/messages/index.html.twig',array("messages"=>$tab));
+    }
 
     /**
      * Lists all message entities.
@@ -82,23 +98,7 @@ class MessagesController extends Controller
     }
 
 
-    /**
-     * Lists all message entities.
-     *
-     * @Route("/msg/{id}", name="messages_i",defaults={"id"=null},methods={"GET","HEAD"})
-     */
-    public function lsAction($id){
-        //this action is for the responsable jardin to see the incoming messages
 
-
-        $user = $this->container->get('security.token_storage')->getToken()->getUser();
-        $tab=$this->getDoctrine()->getManager()->getRepository(Messages::class)->getallmess($user->getJardin()->getId());
-        if($id!=null){
-            $mess=$this->getDoctrine()->getManager()->getRepository(Messages::class)->getmessages($id);
-            return $this->render('@Karim/messages/index.html.twig',array("messages"=>$tab,"mess"=>$mess));
-        }
-       return $this->render('@Karim/messages/index.html.twig',array("messages"=>$tab));
-    }
 
 
 
@@ -154,13 +154,13 @@ class MessagesController extends Controller
                 ),
                 'text/html'
             );
-        $mailer->send($ms);
+       // $mailer->send($ms);
 
 
 
 
 
-        return $this->redirectToRoute('messages_index',array("id"=>$parid));
+        return $this->redirectToRoute('messages_resp',array("id"=>$parid));
     }
 
     /**

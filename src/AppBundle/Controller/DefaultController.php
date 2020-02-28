@@ -113,7 +113,7 @@ class DefaultController extends Controller
 
             if ($this->container->get('security.authorization_checker')->isGranted("ROLE_RESPONSABLE")) {
                 // SUPER_ADMIN roles go to the `admin_home` route
-                return $this->redirectToRoute("tuteur_index");
+                return $this->redirectToRoute("dashboard");
             }elseif($this->container->get('security.authorization_checker')->isGranted('ROLE_PARENT')) {
                 // Everyone else goes to the `home` route
                 return $this->redirect("/");
