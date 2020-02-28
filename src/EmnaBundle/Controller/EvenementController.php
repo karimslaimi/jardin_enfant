@@ -55,14 +55,17 @@ class EvenementController extends Controller
     /**
      * Lists all evenement entities.
      *
-     * @Route("/index", name="evenement_index",methods={"GET"})
+     * @Route("/index", name="evenement_index",methods={"GET","POST"})
      */
-    public function indexAction()
-    {
+    public function indexAction(Request $request)
+    {$user = $this->container->get('security.token_storage')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
 
-        $evenements = $em->getRepository('AppBundle:Evenement')->findAll();
-
+        $evenements = $em->getRepository('AppBundle:Evenement')->findBy(array('jardin'=>$user->getJardin()));
+if ($request->isMethod("post"))
+{
+    $evenements = $em->getRepository('AppBundle:Evenement')->searchEvents($request->get('search'),$user->getJardin());
+}
         return $this->render('@Emna/evenement/index.html.twig', array(
             'evenements' => $evenements,
         ));
