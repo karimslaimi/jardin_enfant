@@ -17,16 +17,12 @@ class EvenementType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('titre')->add('date')->add('description')->add('categorie', EntityType::class,[
+        $builder->add('titre')->add('description')
+            ->add('categorie', EntityType::class,[
             'class' => Categorie::class,
             'choice_label' => 'libelle',
             'expanded' => false,
-            'multiple' => false,])->add('jardin', EntityType::class,[
-            'class' => Jardin::class,
-            'choice_label' => 'name',
-            'expanded' => false,
-            'multiple' => false
-        ]) ;
+            'multiple' => false,]) ;
     }/**
      * {@inheritdoc}
      */

@@ -147,7 +147,13 @@ foreach ($list as $ls)
         $form->handleRequest($request);
 
             if ($form->isSubmitted() ) {
+                $user = $this->container->get('security.token_storage')->getToken()->getUser();
+                $jardin=$this->getDoctrine()->getManager()->getRepository(Jardin::class)->find($user->getJardin());
 
+                $evenement->setJardin($jardin);
+                $date=$request->get("date");
+
+                $evenement->setDate(new \DateTime($date));
             $em = $this->getDoctrine()->getManager();
             $em->persist($evenement);
             $em->flush();
