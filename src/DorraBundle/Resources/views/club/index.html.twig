@@ -7,8 +7,20 @@
 {% endblock nav %}
 
 {% block body %}
-   <center>
-
+<form method="post">
+<div class="form-row" style="margin-left: 50px">
+    <div class="form-group col-md-2 right" >
+        <select class="form-control " name="tri">
+            <option value="asc">Par noms A-Z</option>
+            <option value="desc">Par noms Z-A</option>
+        </select>
+    </div>
+    <div class="form-group col-md-1">
+        <button class="btn btn-outline-info" type="submit" >Trier</button>
+    </div>
+</div>
+</form>
+    <center>
 
 
 

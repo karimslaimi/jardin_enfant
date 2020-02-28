@@ -34,7 +34,7 @@ class ClubController extends Controller
         if($request->isMethod("post"))
         {
 
-            $clubs=$em->getRepository(Club::class)->RechercheClub($request->get('search'));
+            $clubs=$em->getRepository(Club::class)->RechercheClub($request->get('search'),$request->get('tri'));
         }
 
         return $this->render('@Dorra/club/index.html.twig', array(

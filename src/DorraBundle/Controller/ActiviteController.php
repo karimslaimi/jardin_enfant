@@ -23,7 +23,7 @@ class ActiviteController extends Controller
     /**
      * Lists all activite entities.
      *
-     * @Route("/backactivite/", name="activite_indexback" , methods={"GET"})
+     * @Route("/backactivite/", name="activite_indexback" , methods={"GET","POST"})
      *
      */
     public function indexAction(Request $request)
@@ -35,7 +35,7 @@ class ActiviteController extends Controller
         if($request->isMethod("post"))
         {
 
-            $activites=$em->getRepository(Activite::class)->RechercheActivite($request->get('search'));
+            $activites=$em->getRepository(Activite::class)->RechercheActivite($request->get('search'),$request->get('tri'));
         }
 
 
