@@ -10,4 +10,12 @@ namespace AppBundle\Repository;
  */
 class EvenementRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function searchEvents($search,$id)
+{
+    $q=$this->getEntityManager()->createQuery("SELECT m from AppBundle:Evenement m where m.titre like :motcle and m.jardin=:id")
+        ->setParameter('motcle','%'.$search.'%')
+        ->setParameter('id',$id);
+    return $query=$q->getResult();
+
+}
 }
