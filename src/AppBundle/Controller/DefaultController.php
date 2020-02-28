@@ -2,7 +2,9 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Evenement;
 use AppBundle\Entity\Reclamation;
+use Doctrine\Common\EventManager;
 use KarimBundle\Form\ReclamationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +21,7 @@ class DefaultController extends Controller
     {
         // replace this example code with whatever you need
 
-
+      $events=$this->getDoctrine()->getManager()->getRepository(Evenement::class)->findAll();
         $reclamation = new Reclamation();
         $form = $this->createForm(ReclamationType::class, $reclamation);
         $form->handleRequest($request);
@@ -43,7 +45,7 @@ class DefaultController extends Controller
         return $this->render('default/index.html.twig', array(
             'reclamation' => $reclamation,
             'form' => $form->createView(),
-        ));
+      'events'=>$events  ));
 
 
 
