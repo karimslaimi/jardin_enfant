@@ -23,12 +23,7 @@ class Participer
      */
     private $id;
 
-    /**
-     * @var /DateTime
-     * @Assert\GreaterThanOrEqual(value = "today UTC")
-     * @ORM\Column(name="date_E", type="datetime")
-     */
-    private $dateE;
+
 
 
 
@@ -54,29 +49,8 @@ class Participer
         return $this->id;
     }
 
-    /**
-     * Set dateE
-     *
-     * @param DateTime $dateE
-     *
-     * @return Participer
-     */
-    public function setDateE($dateE)
-    {
-        $this->dateE = $dateE;
 
-        return $this;
-    }
 
-    /**
-     * Get dateE
-     *
-     * @return DateTime
-     */
-    public function getDateE()
-    {
-        return $this->dateE;
-    }
 
     /**
      * @return mixed

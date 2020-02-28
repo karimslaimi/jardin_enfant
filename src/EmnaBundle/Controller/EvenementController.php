@@ -111,7 +111,7 @@ foreach ($list as $ls)
        $event = $this->getDoctrine()->getManager()->getRepository(Evenement::class)->find($id);
        $participe =new Participer();
        $participe->setEvenement($event);
-       $q=$this->getDoctrine()->getManager()->getRepository(Enfant::class)->getmesenfqnt($user->getId(),$event->getJardin());
+       $q=$this->getDoctrine()->getManager()->getRepository(Enfant::class)->getmesenfant($user->getId(),$event->getJardin());
 
        $form = $this->createForm(ParticiperType::class, $participe,
            array('user'=>$q,'jardin'=>$event,));
@@ -123,7 +123,7 @@ foreach ($list as $ls)
            $em->persist($participe);
            $em->flush();
 
-           return $this->redirectToRoute('evenement_index');
+           return $this->redirectToRoute('evenements');
        }
 
        return $this->render('@Emna/evenement/participer.html.twig', array(
@@ -151,9 +151,8 @@ foreach ($list as $ls)
                 $jardin=$this->getDoctrine()->getManager()->getRepository(Jardin::class)->find($user->getJardin());
 
                 $evenement->setJardin($jardin);
-                $date=$request->get("date");
 
-                $evenement->setDate(new \DateTime($date));
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($evenement);
             $em->flush();

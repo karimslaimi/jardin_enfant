@@ -20,7 +20,7 @@ class ParticiperType extends AbstractType
     {
         $data= $options['user'];
         $jr = $options['jardin'];
-        $builder->add('dateE')->add('enfant',EntityType::class,[
+        $builder->add('enfant',EntityType::class,[
             'class'=>Enfant::class,
             'choice_label'=>'prenom',
             'choices'=>$data,

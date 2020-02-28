@@ -28,8 +28,10 @@
                         <h3>{{event.titre}}</h3>
                         <p>{{event.description}}</p>
                     </div>
+                    <a class="btn btn-primary" href="{{ path('evenement_participe', { 'id': event.id }) }}">Participer</a>
 
-<div class="post-share-options clearfix">
+
+                    <div class="post-share-options clearfix">
     <div class="float-left">
         <ul class="event-info">
             <li><span>Time:</span> 9:00-11:00</li>
