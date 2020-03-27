@@ -19,7 +19,7 @@ class ReclamationType extends AbstractType
         $builder->add('titre',TextType::class,array(
 
             'attr' => array(
-                'placeholder' => "Ecrivez un message"
+                'placeholder' => "Ecrivez un titre"
             )))
             ->add('nom',TextType::class,array(
 

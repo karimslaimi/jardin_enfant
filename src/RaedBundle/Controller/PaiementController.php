@@ -55,12 +55,12 @@ class PaiementController extends Controller
             return $this->render('@Raed/paiement/new.html.twig');
         }else {
 
-            $prix=1000;
+
 
             \Stripe\Stripe::setApiKey("sk_test_4JsTkhR1jl9inK7aFCOIB2R200xZ1BTW3D");
 
             $charge = \Stripe\Charge::create([
-                "amount" => $prix,
+                "amount" => 1000,
                 "currency" => "eur",
                 "source" => "tok_mastercard", // obtained with Stripe.js
                 "description" => "My First Test Charge (created for API docs)"
@@ -68,7 +68,14 @@ class PaiementController extends Controller
                 "idempotency_key" =>"session_order_reference",
             ]);
 
-
+            $user = $this->container->get('security.token_storage')->getToken()->getUser();
+            $p=new Paiement();
+            $p->setDate(new \DateTime());
+            $p->setJardin($this->getDoctrine()->getRepository(Jardin::class)->find($user->getId()));
+            $p->setMontant(1000);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($p);
+            $em->flush();
 
             return $this->redirect("https://dashboard.stripe.com/test/dashboard");
 

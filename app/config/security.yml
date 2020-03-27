@@ -47,4 +47,4 @@ security:
         - { path: ^/parent/, role: ROLE_PARENT }
         - { path: ^/messages/ajouter, role: ROLE_PARENT }
         - { path: ^/messages/msgs, role: ROLE_RESPONSABLE }
-        - { path: ^/messages/, role: ROLE_PARENT }
+       # - { path: ^/messages/, role: ROLE_PARENT }
