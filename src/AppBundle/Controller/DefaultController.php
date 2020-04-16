@@ -4,13 +4,17 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Evenement;
 use AppBundle\Entity\Reclamation;
-use Doctrine\Common\EventManager;
+use AppBundle\Entity\User;
 use KarimBundle\Form\ReclamationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+
 
 class DefaultController extends Controller
 {
@@ -124,6 +128,32 @@ class DefaultController extends Controller
 
 
 
+    /**
+     * @Route("/Api/login/{username}/{password}", name="java_login")
+     */
+    public function signinAction($username,$password){
+
+        $user_manager = $this->get('fos_user.user_manager');
+        $factory = $this->get('security.encoder_factory');
+        $user = $user_manager->findUserByUsername($username);
+        $encoder = $factory->getEncoder($user);
+
+        $users = $this->getDoctrine()->getRepository(User::class)->findBy(array('username'=>$username));
+        $bool = ($encoder->isPasswordValid($user->getPassword(),$password,$user->getSalt())) ? "true" : "false";
+
+
+        $serializer = new Serializer([new ObjectNormalizer()]);
+            if($bool){
+                $formatted = $serializer->normalize("Success");
+            }else{
+                $formatted = $serializer->normalize("Error");
+
+            }
+
+
+            return new JsonResponse($formatted);
+
+    }
 
 
 }
