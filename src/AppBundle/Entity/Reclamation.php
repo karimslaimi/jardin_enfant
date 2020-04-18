@@ -57,6 +57,15 @@ class Reclamation
      * @ORM\Column(name="numtel", type="string", length=255)
      */
     private $numtel;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="etat", type="string", length=255)
+     */
+    private $etat;
+
     /**
      * @var string
      *
@@ -223,5 +232,24 @@ class Reclamation
     {
         return $this->titre;
     }
+
+    /**
+     * @return string
+     */
+    public function getEtat()
+    {
+        return $this->etat;
+    }
+
+    /**
+     * @param string $etat
+     */
+    public function setEtat($etat)
+    {
+        $this->etat = $etat;
+    }
+
+
+
 }
 
