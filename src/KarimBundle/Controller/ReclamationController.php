@@ -56,6 +56,7 @@ class ReclamationController extends Controller
             $em = $this->getDoctrine()->getManager();
             $time=new \DateTime();
             $reclamation->setDate($time);
+            $reclamation->setEtat("en attente");
             $em->persist($reclamation);
             $em->flush();
 
