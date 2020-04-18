@@ -44,7 +44,7 @@ class Messages
     private $jardin;
     /**
      * @ORM\ManyToOne(targetEntity="Parents", inversedBy="messages", fetch="EAGER")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $parent;
 

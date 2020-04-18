@@ -88,7 +88,7 @@ class Activite extends FullCalendarEvent
     /**
      * @param mixed $userid
      */
-    public function setUserid($userid): void
+    public function setUserid($userid)
     {
         $this->userid = $userid;
     }
