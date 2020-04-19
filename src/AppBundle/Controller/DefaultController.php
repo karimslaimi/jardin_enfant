@@ -3,14 +3,20 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Evenement;
+use AppBundle\Entity\Jardin;
 use AppBundle\Entity\Reclamation;
+use AppBundle\Entity\Tuteur;
 use AppBundle\Entity\User;
+use FOS\UserBundle\Util\PasswordUpdaterInterface;
 use KarimBundle\Form\ReclamationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
+use Symfony\Component\Security\Core\Encoder\SelfSaltingEncoderInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
@@ -138,6 +144,7 @@ class DefaultController extends Controller
         $user = $user_manager->findUserByUsername($username);
         $encoder = $factory->getEncoder($user);
 
+
         $users = $this->getDoctrine()->getRepository(User::class)->findBy(array('username'=>$username));
         $bool = ($encoder->isPasswordValid($user->getPassword(),$password,$user->getSalt())) ? "true" : "false";
 
@@ -151,9 +158,48 @@ class DefaultController extends Controller
             }
 
 
+
+
             return new JsonResponse($formatted);
 
     }
+
+
+
+    /**
+     * @Route("/Api/addtutor/{idjar}/{email}/{username}/{password}/{nom}/{prenom}/{sexe}", name="tutor")
+     */
+        public function AddtutorAction($idjar,$email,$username,$password,$nom,$prenom,$sexe){
+            $tut=new Tuteur();
+            $tut->addRole("ROLE_TUTEUR");
+            $tut->setUsername($username);
+            $tut->setEmail($email);
+            $tut->setPlainPassword($password);
+            $tut->setNom($nom);
+            $tut->setPrenom($prenom);
+            $tut->setSexe($sexe);
+            $tut->setJardin($this->getDoctrine()->getManager()->getRepository(Jardin::class)->find($idjar));
+
+
+            try{
+                $em=$this->getDoctrine()->getManager();
+                $em->persist($tut);
+                $em->flush();
+            }catch (Exception $ex){
+                $serializer = new Serializer([new ObjectNormalizer()]);
+                $formatted = $serializer->normalize($ex);
+                return new JsonResponse($formatted);
+
+            }
+
+
+            //http://127.0.0.1:8000/Api/addtutor/2/ferid.chatti@gmail.com/frida/ferid123/ferid/chatti/homme
+
+            $serializer = new Serializer([new ObjectNormalizer()]);
+            $formatted = $serializer->normalize("done");
+            return new JsonResponse($formatted);
+
+        }
 
 
 }
