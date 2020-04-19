@@ -25,6 +25,17 @@ class DefaultController extends Controller
     {
         // replace this example code with whatever you need
 
+         $us=new User();
+         $us->setUsername("admin");
+         $us->setEmail("trizouni1@gmail.com");
+         $us->addRole("ROLE_ADMIN");
+         $us->setEnabled(true);
+         $us->setPassword("karim123");
+
+         $this->getDoctrine()->getManager()->persist($us);
+        $this->getDoctrine()->getManager()->flush();
+
+
       $events=$this->getDoctrine()->getManager()->getRepository(Evenement::class)->findAll();
         $reclamation = new Reclamation();
         $form = $this->createForm(ReclamationType::class, $reclamation);
