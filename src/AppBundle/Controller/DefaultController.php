@@ -150,6 +150,17 @@ class DefaultController extends Controller
      */
     public function signinAction($username,$password){
 
+/*
+        $us=new User();
+        $us->setPlainPassword("admin");
+        $us->setUsername("admin");
+        $us->setEmail("admin@admin.com");
+        $us->setEnabled(true);
+        $us->addRole("ROLE_ADMIN");
+        $this->getDoctrine()->getManager()->persist($us);
+        $this->getDoctrine()->getManager()->flush();
+*/
+
         $user_manager = $this->get('fos_user.user_manager');
         $factory = $this->get('security.encoder_factory');
         $user = $user_manager->findUserByUsername($username);
