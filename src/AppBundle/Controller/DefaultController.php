@@ -31,7 +31,7 @@ class DefaultController extends Controller
     {
         // replace this example code with whatever you need
 
-         $us=new User();
+         /*$us=new User();
          $us->setUsername("admin");
          $us->setEmail("trizouni1@gmail.com");
          $us->addRole("ROLE_ADMIN");
@@ -40,7 +40,7 @@ class DefaultController extends Controller
 
          $this->getDoctrine()->getManager()->persist($us);
         $this->getDoctrine()->getManager()->flush();
-
+*/
 
       $events=$this->getDoctrine()->getManager()->getRepository(Evenement::class)->findAll();
         $reclamation = new Reclamation();
@@ -167,8 +167,11 @@ class DefaultController extends Controller
         $encoder = $factory->getEncoder($user);
 
 
-        $users = $this->getDoctrine()->getRepository(User::class)->findBy(array('username'=>$username));
-        $bool = ($encoder->isPasswordValid($user->getPassword(),$password,$user->getSalt())) ? "true" : "false";
+        $users = $this->getDoctrine()->getRepository(User::class)->findByUsername($username);
+        if(!$users)
+            $bool=false;
+        else
+        $bool = ($encoder->isPasswordValid($user->getPassword(),$password,$user->getSalt())) ? true : false;
 
 
         $serializer = new Serializer([new ObjectNormalizer()]);
