@@ -5,6 +5,8 @@ namespace AppBundle\Entity;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
+
 
 /**
  * Participer
@@ -28,11 +30,13 @@ class Participer
 
 
     /**
+     * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity="Enfant", inversedBy="participation")
      * @ORM\JoinColumn(name="enfant_id", referencedColumnName="id",onDelete="cascade")
      */
     private $enfant;
     /**
+     * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity="Evenement", inversedBy="participation")
      * @ORM\JoinColumn(name="evenement_id", referencedColumnName="id",onDelete="cascade")
      */

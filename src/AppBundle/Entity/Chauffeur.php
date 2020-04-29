@@ -57,16 +57,19 @@ class Chauffeur extends User
     private $sexe;
 
     /**
+     * @MaxDepth(1)
      * @OneToMany(targetEntity="Pointage", mappedBy="chauffeur")
      */
     private $pointage;
 
     /**
+     * @MaxDepth(1)
      * @OneToMany(targetEntity="Trajet", mappedBy="chauffeur")
      */
     private $trajet;
 
     /**
+     * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity="Jardin", inversedBy="chauffeurs")
      * @ORM\JoinColumn(name="jardin_id", referencedColumnName="id")
      */

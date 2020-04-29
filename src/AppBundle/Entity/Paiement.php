@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
+
 
 /**
  * Paiement
@@ -36,6 +38,7 @@ class Paiement
     private $montant;
 
     /**
+     * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity="Jardin", inversedBy="paiements")
      * @ORM\JoinColumn(name="jardin_id", referencedColumnName="id")
      */

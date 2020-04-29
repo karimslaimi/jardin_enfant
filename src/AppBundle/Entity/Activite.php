@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -72,6 +73,7 @@ class Activite extends FullCalendarEvent
      */
     private $dateFin;
     /**
+     * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity="User", inversedBy="messages", fetch="EAGER")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
@@ -146,12 +148,14 @@ class Activite extends FullCalendarEvent
      */
     private $dateCreation;
     /**
+     * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity="Club", inversedBy="activites")
      * @ORM\JoinColumn(name="club_id", referencedColumnName="id", onDelete="cascade")
      */
     private $club;
 
     /**
+     * @MaxDepth(1)
      * @ORM\OneToMany(targetEntity="PartActivite", mappedBy="activite")
      */
     private $participation;

@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -58,11 +59,13 @@ class Club
         return $this->photo;
     }
     /**
+     * @MaxDepth(1)
      * @OneToMany(targetEntity="Activite", mappedBy="club" )
      */
     private $activites;
 
     /**
+     * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity="Jardin", inversedBy="clubs")
      * @ORM\JoinColumn(name="jardin_id", referencedColumnName="id")
      */

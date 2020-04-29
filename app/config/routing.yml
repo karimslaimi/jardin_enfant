@@ -21,7 +21,10 @@ app_jardin:
 app_reclamation:
     resource: "@KarimBundle/Controller/ReclamationController.php"
     type:     annotation
-
+app_WebServices:
+    resource: "@KarimBundle/Controller/WebServicesController.php"
+    type:     annotation
+    prefix: /
 app_club:
     resource: "@DorraBundle/Controller/ClubController.php"
     type:     annotation

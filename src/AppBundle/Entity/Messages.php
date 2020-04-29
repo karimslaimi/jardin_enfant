@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Entity;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -38,17 +39,20 @@ class Messages
     private $msg;
 
     /**
+     * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity="Jardin", inversedBy="messages", fetch="EAGER")
      * @ORM\JoinColumn(name="jardin_id", referencedColumnName="id")
      */
     private $jardin;
     /**
+     * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity="Parents", inversedBy="messages", fetch="EAGER")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $parent;
 
     /**
+     * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity="User", inversedBy="messages", fetch="EAGER")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
