@@ -4,6 +4,8 @@ namespace KarimBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,8 +29,17 @@ class WebServicesController extends Controller
 
         $parents = $em->getRepository('AppBundle:Parents')->findAll();
 
-        $serializer = new Serializer([new ObjectNormalizer()]);
-        $formatted = $serializer->normalize($parents);
+        $encoder = new JsonEncoder();
+        $normalizer = new ObjectNormalizer();
+
+        $normalizer->setCircularReferenceHandler(function ($object) {
+            return $object->getId(); // Change this to a valid method of your object
+        });
+
+        $serializer = new Serializer(array($normalizer), array($encoder));
+        $formatted= $serializer->serialize($parents, 'json');
+
+
         return new JsonResponse($formatted);
 
     }

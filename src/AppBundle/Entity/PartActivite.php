@@ -33,14 +33,14 @@ class PartActivite
 
     /**
      *@MaxDepth(1)
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enfant")
+     * @ORM\ManyToOne(targetEntity="Enfant")
      * @ORM\JoinColumn(name="enfant_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $enfant;
 
     /**
      *@MaxDepth(1)
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Activite")
+     * @ORM\ManyToOne(targetEntity="Activite")
      * @ORM\JoinColumn(name="activite_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $Activite;

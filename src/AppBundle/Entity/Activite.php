@@ -72,28 +72,27 @@ class Activite extends FullCalendarEvent
      * @ORM\Column(name="dateFin", type="date")
      */
     private $dateFin;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateCreation", type="date")
+     */
+    private $dateCreation;
     /**
      * @MaxDepth(1)
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="messages", fetch="EAGER")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Club", inversedBy="activites")
+     * @ORM\JoinColumn(name="club_id", referencedColumnName="id", onDelete="cascade")
      */
-    private $userid;
+    private $club;
 
     /**
-     * @return mixed
+     * @MaxDepth(1)
+     * @ORM\OneToMany(targetEntity="PartActivite", mappedBy="activite")
      */
-    public function getUserid()
-    {
-        return $this->userid;
-    }
+    private $participation;
 
-    /**
-     * @param mixed $userid
-     */
-    public function setUserid($userid)
-    {
-        $this->userid = $userid;
-    }
+
 
     /**
      * @return mixed
@@ -140,25 +139,6 @@ class Activite extends FullCalendarEvent
         return $this->photo;
     }
 
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="dateCreation", type="date")
-     */
-    private $dateCreation;
-    /**
-     * @MaxDepth(1)
-     * @ORM\ManyToOne(targetEntity="Club", inversedBy="activites")
-     * @ORM\JoinColumn(name="club_id", referencedColumnName="id", onDelete="cascade")
-     */
-    private $club;
-
-    /**
-     * @MaxDepth(1)
-     * @ORM\OneToMany(targetEntity="PartActivite", mappedBy="activite")
-     */
-    private $participation;
 
     /**
      * @return mixed

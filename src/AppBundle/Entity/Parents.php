@@ -72,19 +72,19 @@ class Parents extends User
 
     /**
      * @MaxDepth(1)
-     * @ORM\OneToMany(targetEntity="Enfant", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="Enfant", mappedBy="parent"), fetch="LAZY")
      */
     private $enfants;
 
     /**
      * @MaxDepth(1)
-     * @ORM\OneToMany(targetEntity="Messages", mappedBy="parent",fetch="EAGER")
+     * @ORM\OneToMany(targetEntity="Messages", mappedBy="parent",fetch="LAZY")
      */
     private $messages;
 
     /**
      * @MaxDepth(1)
-     * @ORM\OneToMany(targetEntity="Reclamation", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="Reclamation", mappedBy="parent", fetch="LAZY")
      */
     private $reclamations;
 
