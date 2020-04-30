@@ -29,6 +29,7 @@ class Club
      * @var string
      *@Assert\NotBlank(message="veuillez saisir le nom du club")
      * @Assert\Length(max=60)
+     *
      * @Assert\Regex(pattern="/[a-zA-Z]/")
      * @ORM\Column(name="Name", type="string", length=255)
      */

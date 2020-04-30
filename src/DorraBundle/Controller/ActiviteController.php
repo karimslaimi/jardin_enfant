@@ -281,7 +281,8 @@ class ActiviteController extends Controller
     /**
      * Deletes a activite entity.
      *
-     * @Route("/delete/{id}", name="activite_delete", methods="DELETE")
+     * @Route("/delete/{id}", name="activite_delete")
+     * @Method("DELETE")
      */
     public function deleteAction(Request $request, Activite $activite)
     {
@@ -294,7 +295,7 @@ class ActiviteController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('activite_indexs');
+        return $this->redirectToRoute('activite_indexback');
     }
 
     /**

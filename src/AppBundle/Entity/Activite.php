@@ -30,7 +30,8 @@ class Activite extends FullCalendarEvent
     /**
      * @var string
      *@Assert\NotBlank(message="veuillez saisir le type d'activite")
-     * @Assert\Length(max=10)
+     * @Assert\Length(max=60)
+     *
      * @Assert\Regex(pattern="/[a-zA-Z]/")
      * @ORM\Column(name="typeact", type="string", length=255)
      */
@@ -72,26 +73,6 @@ class Activite extends FullCalendarEvent
      * @ORM\Column(name="dateFin", type="date")
      */
     private $dateFin;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="dateCreation", type="date")
-     */
-    private $dateCreation;
-    /**
-     * @MaxDepth(1)
-     * @ORM\ManyToOne(targetEntity="Club", inversedBy="activites")
-     * @ORM\JoinColumn(name="club_id", referencedColumnName="id", onDelete="cascade")
-     */
-    private $club;
-
-    /**
-     * @MaxDepth(1)
-     * @ORM\OneToMany(targetEntity="PartActivite", mappedBy="activite")
-     */
-    private $participation;
-
 
 
     /**
@@ -139,6 +120,25 @@ class Activite extends FullCalendarEvent
         return $this->photo;
     }
 
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateCreation", type="date")
+     */
+    private $dateCreation;
+    /**
+     * @MaxDepth(1)
+     * @ORM\ManyToOne(targetEntity="Club", inversedBy="activites")
+     * @ORM\JoinColumn(name="club_id", referencedColumnName="id", onDelete="cascade")
+     */
+    private $club;
+
+    /**
+     * @MaxDepth(1)
+     * @ORM\OneToMany(targetEntity="PartActivite", mappedBy="activite")
+     */
+    private $participation;
 
     /**
      * @return mixed

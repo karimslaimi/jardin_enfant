@@ -80,6 +80,10 @@ dorrq:
     type:     annotation
     prefix:   /dorra
 
+app_WebService:
+    resource: "@DorraBundle/Controller/WebServiceController.php"
+    type:     annotation
+    prefix: /
 sami:
     resource: "@SamiBundle/Controller/"
     type:     annotation
