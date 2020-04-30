@@ -2,6 +2,8 @@
 
 namespace KarimBundle\Controller;
 
+use AppBundle\Entity\Remarque;
+use AppBundle\Repository\RemarqueRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -16,6 +18,38 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class WebServicesController extends Controller
 {
+
+
+
+
+    /**
+     * Lists my remarks entities.
+     *
+     * @Route("/listrem/{par}", name="remarques_api",methods={"GET"})
+
+     */
+    public function listremarquesAction($par)
+    {
+        //maybe usefull for reponsable jardin and the admin
+        $em = $this->getDoctrine()->getManager();
+
+        $remarques = $em->getRepository(Remarque::class)->getremarques($par);
+
+        $encoder = new JsonEncoder();
+        $normalizer = new ObjectNormalizer();
+
+        $normalizer->setCircularReferenceHandler(function ($object) {
+            return $object->getId(); // Change this to a valid method of your object
+        });
+
+        $serializer = new Serializer(array($normalizer), array($encoder));
+        $formatted= $serializer->serialize($remarques, 'json');
+
+
+        return new JsonResponse($formatted);
+
+    }
+
     /**
      * Lists all parent entities.
      *
@@ -27,7 +61,7 @@ class WebServicesController extends Controller
         //maybe usefull for reponsable jardin and the admin
         $em = $this->getDoctrine()->getManager();
 
-        $parents = $em->getRepository('AppBundle:Parents')->findAll();
+        $parents = $em->getRepository('AppBundle:Parents')->find(8);
 
         $encoder = new JsonEncoder();
         $normalizer = new ObjectNormalizer();
@@ -43,4 +77,26 @@ class WebServicesController extends Controller
         return new JsonResponse($formatted);
 
     }
+
+
+
+
+
+
+
+
+    public function Adddrem(){
+
+    }
+
+
+
+
+
+
+
+
+
+
+
 }

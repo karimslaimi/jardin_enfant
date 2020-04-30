@@ -26,7 +26,7 @@ class User extends BaseUser
     protected $id;
     /**
      * @MaxDepth(1)
-     * @ORM\OneToMany(targetEntity="Messages", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="Messages", mappedBy="parent", fetch="LAZY")
      */
     private $messages;
 
