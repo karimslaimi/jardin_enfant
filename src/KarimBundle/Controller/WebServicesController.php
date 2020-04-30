@@ -42,8 +42,8 @@ class WebServicesController extends Controller
             return $object->getId(); // Change this to a valid method of your object
         });
 
-        $serializer = new Serializer(array($normalizer), array($encoder));
-        $formatted= $serializer->serialize($remarques, 'json');
+        $serializer = new Serializer(array($normalizer));
+        $formatted= $serializer->normalize($remarques);
 
 
         return new JsonResponse($formatted);
@@ -69,9 +69,8 @@ class WebServicesController extends Controller
         $normalizer->setCircularReferenceHandler(function ($object) {
             return $object->getId(); // Change this to a valid method of your object
         });
-
-        $serializer = new Serializer(array($normalizer), array($encoder));
-        $formatted= $serializer->serialize($parents, 'json');
+        $serializer = new Serializer(array($normalizer));
+        $formatted= $serializer->normalize($parents);
 
 
         return new JsonResponse($formatted);
