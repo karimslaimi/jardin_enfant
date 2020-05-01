@@ -47,6 +47,11 @@ app_abonnement:
     type:     annotation
     prefix:   /
 
+app_servic:
+    resource: "@FeridBundle/Controller/WebServicesController.php"
+    type:     annotation
+    prefix:   /
+
 app_enfant:
         resource: "@FeridBundle/Controller/EnfantController.php"
         type:     annotation

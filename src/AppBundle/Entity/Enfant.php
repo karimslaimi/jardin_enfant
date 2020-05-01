@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 /**
  * Enfant
  *
@@ -53,11 +54,13 @@ class Enfant
 
 
     /**
+     * @MaxDepth(1)
      * @OneToMany(targetEntity="Abonnement", mappedBy="enfant")
      */
     private $abonnements;
 
     /**
+     * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity="Parents", inversedBy="enfants")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE")
      */
@@ -66,11 +69,13 @@ class Enfant
 
 
     /**
+     * @MaxDepth(1)
      * @ORM\OneToMany(targetEntity="Participer", mappedBy="enfant")
      */
     private $participation;
 
     /**
+     * @MaxDepth(1)
      * @ORM\OneToMany(targetEntity="PartActivite", mappedBy="enfant")
      */
     private $participerActivite;

@@ -56,11 +56,12 @@ class Tuteur extends User
     private $remarques;
 
 
-
+/*
     /**
      * @return mixed
      */
-    public function getUser()
+
+  /*  public function getUser()
     {
         return $this->user;
     }
@@ -68,12 +69,12 @@ class Tuteur extends User
     /**
      * @param mixed $user
      */
-    public function setUser($user)
+  /*  public function setUser($user)
     {
         $this->user = $user;
     }
 
-
+*/
     /**
      * @return string
      */
