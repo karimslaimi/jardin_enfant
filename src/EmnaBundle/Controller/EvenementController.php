@@ -147,6 +147,10 @@ foreach ($list as $ls)
         $form->handleRequest($request);
 
             if ($form->isSubmitted() ) {
+
+
+                $date = new \DateTime($request->get("date"));
+                $evenement->setDate($date);
                 $user = $this->container->get('security.token_storage')->getToken()->getUser();
                 $jardin=$this->getDoctrine()->getManager()->getRepository(Jardin::class)->find($user->getJardin());
 
@@ -193,6 +197,9 @@ foreach ($list as $ls)
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() ) {
+
+            $date = new \DateTime($request->get("date"));
+            $evenement->setDate($date);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('evenement_show', array('id' => $evenement->getId()));

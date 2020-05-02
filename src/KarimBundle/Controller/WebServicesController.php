@@ -19,9 +19,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class WebServicesController extends Controller
 {
 
-
-
-
     /**
      * Lists my remarks entities.
      *

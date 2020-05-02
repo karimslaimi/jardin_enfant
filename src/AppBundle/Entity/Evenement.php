@@ -32,7 +32,6 @@ class Evenement
 
     /**
      * @var /DateTime
-     * @Assert\GreaterThanOrEqual(value = "today UTC")
      * @ORM\Column(name="date", type="date")
      */
     private $date;

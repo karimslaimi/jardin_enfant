@@ -34,6 +34,7 @@ class Chauffeur extends User
     private $cin;
 
     /**
+     *
      * @var string
      *@Assert\NotBlank(message="veuillez saisir le nom et prenom")
      * @Assert\Regex(pattern="/^[a-z]+$/i",htmlPattern = "^[a-zA-Z]+$")

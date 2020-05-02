@@ -1,3 +1,7 @@
+app_api_trajets:
+    resource: "@SamiBundle/Controller/ApiController.php"
+    type:     annotation
+    prefix: /
 app_remarque:
     resource: "@KarimBundle/Controller/RemarqueController.php"
     type:     annotation
@@ -9,6 +13,7 @@ app_trajet:
 app_parents:
     resource: "@KarimBundle/Controller/ParentsController.php"
     type:     annotation
+
 
 app_paiement:
     resource: "@RaedBundle/Controller/PaiementController.php"
@@ -33,9 +38,12 @@ app_activite:
     resource: "@DorraBundle/Controller/ActiviteController.php"
     type:     annotation
 
-app_messages:
-    resource: "@KarimBundle/Controller/MessagesController.php"
+
+app_aswbs:
+    resource: "@DorraBundle/Controller/ActiviteController.php"
     type:     annotation
+
+
 
 app_chauffeur:
     resource: "@SamiBundle/Controller/ChauffeurController.php"
@@ -74,11 +82,16 @@ app_evenement:
     resource: "@EmnaBundle/Controller/EvenementController.php"
     type:     annotation
     prefix:   /eve
+app_evenementapi:
+    resource: "@EmnaBundle/Controller/webservicesController.php"
+    type:     annotation
+    prefix: /eve
 
 dorrq:
     resource: "@DorraBundle/Controller/"
     type:     annotation
     prefix:   /dorra
+
 
 sami:
     resource: "@SamiBundle/Controller/"
