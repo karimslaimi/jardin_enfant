@@ -1,7 +1,7 @@
-app_api_trajets:
-    resource: "@SamiBundle/Controller/ApiController.php"
-    type:     annotation
-    prefix: /
+#app_api_trajets:
+#    resource: "@SamiBundle/Controller/ApiController.php"
+ #   type:     annotation
+  #  prefix: /
 app_remarque:
     resource: "@KarimBundle/Controller/RemarqueController.php"
     type:     annotation
