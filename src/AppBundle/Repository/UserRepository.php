@@ -16,4 +16,24 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
 
         return $query=$q->getResult();
     }
-}
+
+
+    public function finduser($username)
+    {
+
+        //get user credentials
+
+
+        $q = $this->getEntityManager()
+            ->createQuery("SELECT  u.id, u.username, u.email, u.roles, (case when u.roles like '%PARENT%' then 'P'
+            when u.roles like '%RESPONSABLE%' then 'R'
+            when u.roles like '%TUTEUR%' then 'T'
+            when u.roles like '%CHAUFFEUR%' then 'C'
+             ELSE 0 END) AS type   from AppBundle:User u where u.username=:username ")
+            ->setParameter('username', $username);
+
+       $query = $q->getResult();
+        return $query;
+    }
+
+    }

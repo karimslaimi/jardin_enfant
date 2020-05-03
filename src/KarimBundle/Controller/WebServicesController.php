@@ -9,6 +9,7 @@ use AppBundle\Entity\Parents;
 use AppBundle\Entity\Reclamation;
 use AppBundle\Entity\Remarque;
 use AppBundle\Entity\Tuteur;
+use AppBundle\Entity\User;
 use AppBundle\Repository\RemarqueRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -202,6 +203,28 @@ class WebServicesController extends Controller
 
     }
 
+
+    /**
+     *user credentials
+     *
+     * @Route("/usercred", name="user_credential_api")
+     */
+    public function usercredential(Request $request){
+
+        $em=$this->getDoctrine()->getManager();
+        $username=$request->get("username");
+        $user=$em->getRepository(User::class)->finduser($username);
+        $normalizer = new ObjectNormalizer();
+
+        $normalizer->setCircularReferenceHandler(function ($object) {
+            return $object->getId(); // Change this to a valid method of your object
+        });
+        $serializer = new Serializer(array($normalizer));
+        $formatted= $serializer->normalize($user);
+
+
+        return new JsonResponse($formatted);
+    }
 
 
 
