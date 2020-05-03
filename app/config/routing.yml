@@ -90,7 +90,7 @@ app_evenement:
 app_evenementapi:
     resource: "@EmnaBundle/Controller/webservicesController.php"
     type:     annotation
-    prefix: /eve
+    prefix: /eveapi
 
 dorrq:
     resource: "@DorraBundle/Controller/"
