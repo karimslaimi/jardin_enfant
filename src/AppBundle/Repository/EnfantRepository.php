@@ -21,7 +21,7 @@ class EnfantRepository extends \Doctrine\ORM\EntityRepository
 
     public function getsEnfant($id)
     {
-        $q=$this->getEntityManager()->createQuery("SELECT m.id,m.nom,m.prenom,p.id AS pid from AppBundle:Enfant m ,AppBundle:Parents p where m.parent=p.id and  m.parent=:id")
+        $q=$this->getEntityManager()->createQuery("SELECT m.id,m.nom,m.prenom,p.id,m.datenaiss AS pid from AppBundle:Enfant m ,AppBundle:Parents p where m.parent=p.id and  m.parent=:id")
             ->setParameter('id',$id);
         return $query=$q->getResult();
 
