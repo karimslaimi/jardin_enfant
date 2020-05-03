@@ -4,6 +4,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
+
 
 
 /**
@@ -45,33 +47,21 @@ class Tuteur extends User
     private $sexe;
 
     /**
+     * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity="Jardin", inversedBy="tureurs")
      * @ORM\JoinColumn(name="jardin_id", referencedColumnName="id")
      */
     private $jardin;
 
     /**
+     * @MaxDepth(1)
      * @ORM\OneToMany(targetEntity="Remarque", mappedBy="tuteur")
      */
     private $remarques;
 
 
 
-    /**
-     * @return mixed
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
 
-    /**
-     * @param mixed $user
-     */
-    public function setUser($user)
-    {
-        $this->user = $user;
-    }
 
 
     /**

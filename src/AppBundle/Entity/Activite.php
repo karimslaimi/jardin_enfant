@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -29,7 +30,8 @@ class Activite extends FullCalendarEvent
     /**
      * @var string
      *@Assert\NotBlank(message="veuillez saisir le type d'activite")
-     * @Assert\Length(max=10)
+     * @Assert\Length(max=60)
+     *
      * @Assert\Regex(pattern="/[a-zA-Z]/")
      * @ORM\Column(name="typeact", type="string", length=255)
      */
@@ -71,27 +73,7 @@ class Activite extends FullCalendarEvent
      * @ORM\Column(name="dateFin", type="date")
      */
     private $dateFin;
-    /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="messages", fetch="EAGER")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     */
-    private $userid;
 
-    /**
-     * @return mixed
-     */
-    public function getUserid()
-    {
-        return $this->userid;
-    }
-
-    /**
-     * @param mixed $userid
-     */
-    public function setUserid($userid)
-    {
-        $this->userid = $userid;
-    }
 
     /**
      * @return mixed
@@ -146,12 +128,14 @@ class Activite extends FullCalendarEvent
      */
     private $dateCreation;
     /**
+     * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity="Club", inversedBy="activites")
      * @ORM\JoinColumn(name="club_id", referencedColumnName="id", onDelete="cascade")
      */
     private $club;
 
     /**
+     * @MaxDepth(1)
      * @ORM\OneToMany(targetEntity="PartActivite", mappedBy="activite")
      */
     private $participation;

@@ -10,5 +10,22 @@ namespace AppBundle\Repository;
  */
 class RemarqueRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getremarques($id)
+    {
+        $q=$this->getEntityManager()->createQuery("SELECT r.id,  ab.id as ab_id, tut.nom as tutnom,tut.prenom as tutprenom,
+         r.description, r.date ,e.nom as enfantnom, e.prenom as enfantprenom
+         
+        from AppBundle:Parents p , AppBundle:Remarque r, AppBundle:Enfant e, AppBundle:Tuteur tut ,AppBundle:Abonnement ab
+        where r.abonnement=ab.id AND ab.enfant=e.id AND e.parent=p.id AND r.tuteur=tut.id 
+        
+        AND e.parent=:id ")
+            ->setParameter('id',$id);
+        return $query=$q->getResult();
 
+        //        String req="Select r.*, t.nom as tutnom,t.prenom as tutprenom, e.nom as enfantnom,
+        //          e.prenom as enfantprenom from enfant as e
+        //          JOIN abonnement as a on a.enfant_id=e.id  JOIN remarque as r on r.abonnement_id=a.id
+        //           JOIN tuteur as t on t.id=r.tuteur_id";
+
+    }
 }

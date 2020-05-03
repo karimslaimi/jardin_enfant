@@ -4,6 +4,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
+
 
 /**
  * Reclamation
@@ -74,6 +76,7 @@ class Reclamation
     private $mail;
 
     /**
+     * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity="Parents", inversedBy="reclamations", fetch="EAGER")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id",nullable=true)
      */

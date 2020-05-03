@@ -4,6 +4,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
+
 
 
 /**
@@ -37,6 +39,7 @@ class Trajet
      */
     private $heure;
     /**
+     * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity="Chauffeur", inversedBy="trajet")
      * @ORM\JoinColumn(name="chauffeur_id", referencedColumnName="id")
      */

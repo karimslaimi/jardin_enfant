@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Entity;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -31,7 +32,6 @@ class Evenement
 
     /**
      * @var /DateTime
-     * @Assert\GreaterThanOrEqual(value = "today UTC")
      * @ORM\Column(name="date", type="date")
      */
     private $date;
@@ -50,6 +50,7 @@ class Evenement
 
 
     /**
+     * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity="Categorie", inversedBy="evenements")
      * @ORM\JoinColumn(name="categorie_id", referencedColumnName="id",onDelete="cascade")
      */
@@ -57,11 +58,13 @@ class Evenement
 
 
     /**
+     * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity="Jardin", inversedBy="evenements")
      * @ORM\JoinColumn(name="jardin_id", referencedColumnName="id")
      */
     private $jardin;
     /**
+     * @MaxDepth(1)
      * @ORM\OneToMany(targetEntity="Participer", mappedBy="evenement",cascade={"remove"})
      */
     private $participation;

@@ -4,6 +4,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
+
 /**
  * Parent
  *
@@ -69,17 +71,20 @@ class Parents extends User
     private $sexe;
 
     /**
-     * @ORM\OneToMany(targetEntity="Enfant", mappedBy="parent")
+     * @MaxDepth(1)
+     * @ORM\OneToMany(targetEntity="Enfant", mappedBy="parent"), fetch="LAZY")
      */
     private $enfants;
 
     /**
-     * @ORM\OneToMany(targetEntity="Messages", mappedBy="parent",fetch="EAGER")
+     * @MaxDepth(1)
+     * @ORM\OneToMany(targetEntity="Messages", mappedBy="parent",fetch="LAZY")
      */
     private $messages;
 
     /**
-     * @ORM\OneToMany(targetEntity="Reclamation", mappedBy="parent")
+     * @MaxDepth(1)
+     * @ORM\OneToMany(targetEntity="Reclamation", mappedBy="parent", fetch="LAZY")
      */
     private $reclamations;
 

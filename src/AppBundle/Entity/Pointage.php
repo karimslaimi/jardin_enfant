@@ -4,6 +4,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
+
 
 /**
  * Pointage
@@ -36,6 +38,7 @@ class Pointage
      */
     private $type;
     /**
+     * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity="Chauffeur", inversedBy="pointage")
      * @JoinColumn(name="chauffeur_id", referencedColumnName="id")
      */
