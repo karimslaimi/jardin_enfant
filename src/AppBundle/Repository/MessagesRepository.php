@@ -82,8 +82,8 @@ class MessagesRepository extends \Doctrine\ORM\EntityRepository
 
 
         $q=$this->getEntityManager()
-            ->createQuery("SELECT  m.id as mid, m.msg ,m.date ,s.id as sid  from AppBundle:Messages m  LEFT JOIN m.sender s 
-                  where m.parent=:id AND m.jardin=:jar ")
+            ->createQuery("SELECT  m.id as mid, m.msg ,m.date ,s.id as sid ,j.name as jardin , p.nom as parenom ,p.prenom as pareprenom from AppBundle:Parents p, AppBundle:Jardin j JOIN j.messages m  LEFT JOIN m.sender s 
+                  where m.parent=:id AND m.jardin=:jar AND m.parent=p")
             ->setParameter('id',$id)->setParameter("jar",$jar);
 
         return $query=$q->getResult();
