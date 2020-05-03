@@ -18,12 +18,4 @@ class ClubRepository extends \Doctrine\ORM\EntityRepository
         return $query=$q->getResult();
 
     }
-
-    public function getsClub()
-    {
-        $q=$this->getEntityManager()->createQuery("SELECT m.id , m.name , m.description from AppBundle:Club m ");
-
-        return $query=$q->getResult();
-
-    }
 }

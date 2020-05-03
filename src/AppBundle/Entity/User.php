@@ -4,8 +4,6 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
-use Symfony\Component\Serializer\Annotation\MaxDepth;
-
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
@@ -25,8 +23,7 @@ class User extends BaseUser
      */
     protected $id;
     /**
-     * @MaxDepth(1)
-     * @ORM\OneToMany(targetEntity="Messages", mappedBy="parent", fetch="LAZY")
+     * @ORM\OneToMany(targetEntity="Enfant", mappedBy="parent")
      */
     private $messages;
 

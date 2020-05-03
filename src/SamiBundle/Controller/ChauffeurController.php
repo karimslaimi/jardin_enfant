@@ -153,7 +153,4 @@ $chauffeurs=$em->getRepository(Chauffeur::class)->searchChauffeurs($request->get
         // uniqid(), which is based on timestamps
         return md5(uniqid());
     }
-
-
-
 }

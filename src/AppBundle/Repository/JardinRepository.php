@@ -26,5 +26,12 @@ class JardinRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter('id',$id);
         return $query=$q->getResult();
     }
+    public function getsMontant($id)
+    {
+        $q=$this->getEntityManager()->createQuery("SELECT e.tarif from AppBundle:Jardin e where e.id=:id")
+            ->setParameter('id',$id);
+        return $query=$q->getResult();
+
+    }
 }
 

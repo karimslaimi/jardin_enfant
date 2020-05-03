@@ -4,7 +4,6 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
-use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -29,7 +28,6 @@ class Club
      * @var string
      *@Assert\NotBlank(message="veuillez saisir le nom du club")
      * @Assert\Length(max=60)
-     *
      * @Assert\Regex(pattern="/[a-zA-Z]/")
      * @ORM\Column(name="Name", type="string", length=255)
      */
@@ -60,13 +58,11 @@ class Club
         return $this->photo;
     }
     /**
-     * @MaxDepth(1)
      * @OneToMany(targetEntity="Activite", mappedBy="club" )
      */
     private $activites;
 
     /**
-     * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity="Jardin", inversedBy="clubs")
      * @ORM\JoinColumn(name="jardin_id", referencedColumnName="id")
      */

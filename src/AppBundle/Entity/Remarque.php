@@ -3,8 +3,6 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\MaxDepth;
-
 
 /**
  * Remarque
@@ -38,14 +36,12 @@ class Remarque
     private $date;
 
     /**
-     * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity="Abonnement", inversedBy="remarques")
      * @ORM\JoinColumn(name="abonnement_id", referencedColumnName="id")
      */
     private $abonnement;
 
     /**
-     * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity="Tuteur", inversedBy="remarques")
      * @ORM\JoinColumn(name="tuteur_id", referencedColumnName="id")
      */

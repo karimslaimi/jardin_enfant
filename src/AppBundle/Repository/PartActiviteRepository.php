@@ -10,5 +10,4 @@ namespace AppBundle\Repository;
  */
 class PartActiviteRepository extends \Doctrine\ORM\EntityRepository
 {
-
 }

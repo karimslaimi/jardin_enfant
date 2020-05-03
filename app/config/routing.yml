@@ -1,7 +1,7 @@
-app_api_trajets:
-    resource: "@SamiBundle/Controller/ApiController.php"
-    type:     annotation
-    prefix: /
+#app_api_trajets:
+#    resource: "@SamiBundle/Controller/ApiController.php"
+ #   type:     annotation
+  #  prefix: /
 app_remarque:
     resource: "@KarimBundle/Controller/RemarqueController.php"
     type:     annotation
@@ -58,6 +58,11 @@ app_abonnement:
     type:     annotation
     prefix:   /
 
+app_servic:
+    resource: "@FeridBundle/Controller/WebServicesController.php"
+    type:     annotation
+    prefix:   /
+
 app_enfant:
         resource: "@FeridBundle/Controller/EnfantController.php"
         type:     annotation
@@ -85,7 +90,7 @@ app_evenement:
 app_evenementapi:
     resource: "@EmnaBundle/Controller/webservicesController.php"
     type:     annotation
-    prefix: /eve
+    prefix: /eveapi
 
 dorrq:
     resource: "@DorraBundle/Controller/"

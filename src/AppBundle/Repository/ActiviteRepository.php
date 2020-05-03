@@ -27,20 +27,4 @@ class ActiviteRepository extends \Doctrine\ORM\EntityRepository
 
 
     }
-
-    public function getsActivite()
-    {
-        $q=$this->getEntityManager()->createQuery("SELECT m.id , m.typeact , m.detailles from AppBundle:Activite m ");
-
-        return $query=$q->getResult();
-
-    }
-    public function getActivite($id)
-    {
-        $q=$this->getEntityManager()->createQuery("SELECT m.id , m.typeact , m.detailles from AppBundle:Activite m where m.id=:id")
-            ->setParameter('id',$id);
-
-        return $query=$q->getResult();
-
-    }
 }

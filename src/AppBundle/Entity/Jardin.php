@@ -1,7 +1,6 @@
 <?php
 
 namespace AppBundle\Entity;
-use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
@@ -65,7 +64,6 @@ class Jardin
     private $etat;
 
     /**
-     * @MaxDepth(1)
      * @OneToMany(targetEntity="Abonnement", mappedBy="jardin")
      */
     private $abonnements;
@@ -76,36 +74,30 @@ class Jardin
     private $responsable;
 
     /**
-     * @MaxDepth(1)
      * @OneToMany(targetEntity="Paiement", mappedBy="jardin")
      */
     private $paiements;
 
     /**
-     * @MaxDepth(1)
      * @OneToMany(targetEntity="Messages", mappedBy="jardin")
      */
     private $messages;
 
     /**
-     * @MaxDepth(1)
      * @OneToMany(targetEntity="Club", mappedBy="jardin")
      */
     private $clubs;
 
     /**
-     * @MaxDepth(1)
      * @OneToMany(targetEntity="Tuteur", mappedBy="jardin")
      */
     private $tureurs;
     /**
-     * @MaxDepth(1)
      * @OneToMany(targetEntity="Evenement", mappedBy="jardin")
      */
     private $evenements;
 
     /**
-     * @MaxDepth(1)
      * @OneToMany(targetEntity="Chauffeur", mappedBy="jardin")
      */
     private $chauffeurs;

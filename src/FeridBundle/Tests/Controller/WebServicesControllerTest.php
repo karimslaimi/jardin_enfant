@@ -1,6 +1,6 @@
 <?php
 
-namespace KarimBundle\Tests\Controller;
+namespace FeridBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
