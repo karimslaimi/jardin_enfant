@@ -30,18 +30,19 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         // replace this example code with whatever you need
+/*
+         $us=new User();
+         $us->setUsername("admin");
+         $us->setEmail("trizouni1@gmail.com");
+         $us->addRole("ROLE_ADMIN");
+         $us->setEnabled(true);
+         $us->setPassword("karim123");
 
-     /*   $us=new User();
-        $us->setPlainPassword("admin");
-        $us->setUsername("admin");
-        $us->setEmail("admin@admin.com");
-        $us->setEnabled(true);
-        $us->addRole("ROLE_ADMIN");
-        $this->getDoctrine()->getManager()->persist($us);
+         $this->getDoctrine()->getManager()->persist($us);
         $this->getDoctrine()->getManager()->flush();
 */
 
-        $events=$this->getDoctrine()->getManager()->getRepository(Evenement::class)->findAll();
+      $events=$this->getDoctrine()->getManager()->getRepository(Evenement::class)->findAll();
         $reclamation = new Reclamation();
         $form = $this->createForm(ReclamationType::class, $reclamation);
         $form->handleRequest($request);
@@ -149,8 +150,16 @@ class DefaultController extends Controller
      */
     public function signinAction($username,$password){
 
-
-
+/*
+        $us=new User();
+        $us->setPlainPassword("admin");
+        $us->setUsername("admin");
+        $us->setEmail("admin@admin.com");
+        $us->setEnabled(true);
+        $us->addRole("ROLE_ADMIN");
+        $this->getDoctrine()->getManager()->persist($us);
+        $this->getDoctrine()->getManager()->flush();
+*/
 
         $user_manager = $this->get('fos_user.user_manager');
         $factory = $this->get('security.encoder_factory');
@@ -158,11 +167,8 @@ class DefaultController extends Controller
         $encoder = $factory->getEncoder($user);
 
 
-        $users = $this->getDoctrine()->getRepository(User::class)->findByUsername($username);
-        if(!$users)
-            $bool=false;
-        else
-        $bool = ($encoder->isPasswordValid($user->getPassword(),$password,$user->getSalt())) ? true : false;
+        $users = $this->getDoctrine()->getRepository(User::class)->findBy(array('username'=>$username));
+        $bool = ($encoder->isPasswordValid($user->getPassword(),$password,$user->getSalt())) ? "true" : "false";
 
 
         $serializer = new Serializer([new ObjectNormalizer()]);
