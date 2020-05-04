@@ -42,17 +42,9 @@ class WebServicesController extends Controller
         $remarques = $em->getRepository(Remarque::class)->getremarques($par);
 
         $encoder = new JsonEncoder();
-        $normalizer = new ObjectNormalizer();
-
-        $normalizer->setCircularReferenceHandler(function ($object) {
-            return $object->getId(); // Change this to a valid method of your object
-        });
-
-        $serializer = new Serializer(array($normalizer));
-        $formatted= $serializer->normalize($remarques);
 
 
-        return new JsonResponse($formatted);
+        return new JsonResponse($remarques);
 
     }
 
