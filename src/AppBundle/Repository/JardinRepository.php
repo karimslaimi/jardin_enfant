@@ -36,9 +36,19 @@ class JardinRepository extends \Doctrine\ORM\EntityRepository
 
     public function getJardins()
     {
-        $q=$this->getEntityManager()->createQuery("SELECT e.name from AppBundle:Jardin e ");
+        $q=$this->getEntityManager()->createQuery("SELECT e.name,e.tarif,e.numtel,e.description ,e.adresse from AppBundle:Jardin e ");
         return $query=$q->getResult();
 
     }
+
+    public function getPaiement()
+    {
+        $q=$this->getEntityManager()->createQuery("SELECT e.montant from AppBundle:Paiement e ");
+        $q=$this->getEntityManager()->createQuery("SELECT e.montant from AppBundle:Paiement e ");
+        return $query=$q->getResult();
+
+    }
+
+
 }
 

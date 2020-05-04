@@ -20,7 +20,7 @@ class WebservicesController extends Controller
      * @Route("/listjardin", name="java_listjardin",methods={"GET"})
      */
 
-    public function indexAction(Request $request)
+    public function indexAction()
     {
 
 
@@ -46,7 +46,6 @@ class WebservicesController extends Controller
         $jardin->setNumtel($numtel);
         $jardin-> setTarif($tarif);
         $jardin->setAdresse($adresse);
-        $jardin->setEtat($etat);
 
         $ex="succes";
         $em=$this->getDoctrine()->getManager();
@@ -58,6 +57,19 @@ class WebservicesController extends Controller
         return new JsonResponse($formatted);
 
 
+    }
+    /**
+     * @Route("/listpaiement", name="java_listpaiement",methods={"GET"})
+     */
+
+    public function jardnPaimentAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $paiment = $em->getRepository('AppBundle:Paiement')->getPaiement();
+
+
+
+        return new JsonResponse($paiment);
     }
 
 }
