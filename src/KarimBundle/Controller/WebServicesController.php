@@ -47,6 +47,25 @@ class WebServicesController extends Controller
         return new JsonResponse($remarques);
 
     }
+    /**
+     * Lists tut my remarks entities.
+     *
+     * @Route("/listmyrem/{tut}", name="myremarques_api",methods={"GET"})
+
+     */
+    public function listtutremarquesAction($tut)
+    {
+        //maybe usefull for reponsable jardin and the admin
+        $em = $this->getDoctrine()->getManager();
+
+        $remarques = $em->getRepository(Remarque::class)->gettutremarques($tut);
+
+        $encoder = new JsonEncoder();
+
+
+        return new JsonResponse($remarques);
+
+    }
 
     /**
      * Lists all parent entities.
