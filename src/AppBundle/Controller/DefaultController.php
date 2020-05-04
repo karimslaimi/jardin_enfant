@@ -30,19 +30,18 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         // replace this example code with whatever you need
-/*
-         $us=new User();
-         $us->setUsername("admin");
-         $us->setEmail("trizouni1@gmail.com");
-         $us->addRole("ROLE_ADMIN");
-         $us->setEnabled(true);
-         $us->setPassword("karim123");
 
-         $this->getDoctrine()->getManager()->persist($us);
+     /*   $us=new User();
+        $us->setPlainPassword("admin");
+        $us->setUsername("admin");
+        $us->setEmail("admin@admin.com");
+        $us->setEnabled(true);
+        $us->addRole("ROLE_ADMIN");
+        $this->getDoctrine()->getManager()->persist($us);
         $this->getDoctrine()->getManager()->flush();
 */
 
-      $events=$this->getDoctrine()->getManager()->getRepository(Evenement::class)->findAll();
+        $events=$this->getDoctrine()->getManager()->getRepository(Evenement::class)->findAll();
         $reclamation = new Reclamation();
         $form = $this->createForm(ReclamationType::class, $reclamation);
         $form->handleRequest($request);
@@ -149,40 +148,37 @@ class DefaultController extends Controller
      * @Route("/Api/login/{username}/{password}", name="java_login")
      */
     public function signinAction($username,$password){
-
-/*
-        $us=new User();
-        $us->setPlainPassword("admin");
-        $us->setUsername("admin");
-        $us->setEmail("admin@admin.com");
-        $us->setEnabled(true);
-        $us->addRole("ROLE_ADMIN");
-        $this->getDoctrine()->getManager()->persist($us);
-        $this->getDoctrine()->getManager()->flush();
-*/
-
+        $serializer = new Serializer([new ObjectNormalizer()]);
         $user_manager = $this->get('fos_user.user_manager');
         $factory = $this->get('security.encoder_factory');
         $user = $user_manager->findUserByUsername($username);
+        if(!$user){
+            $formatted = $serializer->normalize("Error");
+            return new JsonResponse($formatted);
+        }
         $encoder = $factory->getEncoder($user);
 
 
-        $users = $this->getDoctrine()->getRepository(User::class)->findBy(array('username'=>$username));
-        $bool = ($encoder->isPasswordValid($user->getPassword(),$password,$user->getSalt())) ? "true" : "false";
-
-
-        $serializer = new Serializer([new ObjectNormalizer()]);
-            if($bool){
-                $formatted = $serializer->normalize("Success");
-            }else{
-                $formatted = $serializer->normalize("Error");
-
-            }
+        //$user = $this->getDoctrine()->getRepository(User::class)->findByUsername($username);
+        if(!$user)
+            $bool=false;
+        else
+            $bool = ($encoder->isPasswordValid($user->getPassword(),$password,$user->getSalt())) ? true : false;
 
 
 
+        if($bool){
+            $formatted = $serializer->normalize("Success");
+        }else{
+            $formatted = $serializer->normalize("Error");
 
-            return new JsonResponse($formatted);
+        }
+
+
+
+
+        return new JsonResponse($formatted);
+
 
     }
 
@@ -218,6 +214,7 @@ class DefaultController extends Controller
             //http://127.0.0.1:8000/Api/addtutor/2/ferid.chatti@gmail.com/frida/ferid123/ferid/chatti/homme
 
             $serializer = new Serializer([new ObjectNormalizer()]);
+
             $formatted = $serializer->normalize("done");
             return new JsonResponse($formatted);
 

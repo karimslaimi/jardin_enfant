@@ -10,9 +10,13 @@ use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
+
+//use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 
 /**
@@ -189,7 +193,7 @@ class webservicesController extends Controller
 
         $evenement->setTitre($titre);
         $evenement->setDescription($description);
-        $evenement->setDate(New DateTime($date));
+        $evenement->setDate(New \DateTime($date));
 
 
         $ex = "succes";
