@@ -42,4 +42,20 @@ class AbonnementRepository extends \Doctrine\ORM\EntityRepository
         return $query=$q->getResult();
 
     }
+
+    public function getsAbonnement($id)
+    {
+        $q=$this->getEntityManager()->createQuery("SELECT j.name,e.nom,e.prenom,a.type,a.etat,a.date from AppBundle:Enfant e ,AppBundle:Abonnement a ,AppBundle:Jardin j where a.enfant=e.id and a.jardin=j.id and e.parent=:id")
+            ->setParameter('id',$id);
+        return $query=$q->getResult();
+
+    }
+    public function getsAbonnementjardin($id)
+    {
+        $q=$this->getEntityManager()->createQuery("SELECT e.nom,e.prenom,a.type,a.etat,a.date from AppBundle:Enfant e ,AppBundle:Abonnement a ,AppBundle:Jardin j where a.enfant=e.id and a.jardin=j.id and a.jardin=:id")
+            ->setParameter('id',$id);
+        return $query=$q->getResult();
+
+    }
+
 }

@@ -148,35 +148,37 @@ class DefaultController extends Controller
      * @Route("/Api/login/{username}/{password}", name="java_login")
      */
     public function signinAction($username,$password){
-
-
-
-
+        $serializer = new Serializer([new ObjectNormalizer()]);
         $user_manager = $this->get('fos_user.user_manager');
         $factory = $this->get('security.encoder_factory');
         $user = $user_manager->findUserByUsername($username);
+        if(!$user){
+            $formatted = $serializer->normalize("Error");
+            return new JsonResponse($formatted);
+        }
         $encoder = $factory->getEncoder($user);
 
 
-        $users = $this->getDoctrine()->getRepository(User::class)->findByUsername($username);
-        if(!$users)
+        //$user = $this->getDoctrine()->getRepository(User::class)->findByUsername($username);
+        if(!$user)
             $bool=false;
         else
-        $bool = ($encoder->isPasswordValid($user->getPassword(),$password,$user->getSalt())) ? true : false;
-
-
-        $serializer = new Serializer([new ObjectNormalizer()]);
-            if($bool){
-                $formatted = $serializer->normalize("Success");
-            }else{
-                $formatted = $serializer->normalize("Error");
-
-            }
+            $bool = ($encoder->isPasswordValid($user->getPassword(),$password,$user->getSalt())) ? true : false;
 
 
 
+        if($bool){
+            $formatted = $serializer->normalize("Success");
+        }else{
+            $formatted = $serializer->normalize("Error");
 
-            return new JsonResponse($formatted);
+        }
+
+
+
+
+        return new JsonResponse($formatted);
+
 
     }
 

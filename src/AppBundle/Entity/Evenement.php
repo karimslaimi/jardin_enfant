@@ -1,10 +1,10 @@
 <?php
 
 namespace AppBundle\Entity;
-use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * Evenement
@@ -32,7 +32,6 @@ class Evenement
 
     /**
      * @var /DateTime
-     * @Assert\GreaterThanOrEqual(value = "today UTC")
      * @ORM\Column(name="date", type="date")
      */
     private $date;

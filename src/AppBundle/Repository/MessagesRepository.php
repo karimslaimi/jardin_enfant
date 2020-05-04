@@ -51,4 +51,75 @@ class MessagesRepository extends \Doctrine\ORM\EntityRepository
     }
 
 
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// /////////////////////////////////////   WEB SERVICE METHODE //////////////////////////////////////////////////////////////////
+
+
+
+    //for parent
+
+
+    public function getlistjard($id){
+
+        //get jard list to contact
+        $q=$this->getEntityManager()
+            ->createQuery("SELECT DISTINCT m.id, m.name from AppBundle:Jardin m join m.abonnements ab 
+        Join  ab.enfant e 
+          where e.parent=:id ")
+            ->setParameter('id',$id);
+
+        return $query=$q->getResult();
+
+    }
+
+    //
+    public function getjardmess($id,$jar){
+
+        //get the messages for a specific kindergarten
+        //id as parent id and jar as kindergarten id
+
+
+        $q=$this->getEntityManager()
+            ->createQuery("SELECT  m.id as mid, m.msg ,m.date ,s.id as sid ,j.name as jardin , p.nom as parenom ,p.prenom as pareprenom from AppBundle:Parents p, AppBundle:Jardin j JOIN j.messages m  LEFT JOIN m.sender s 
+                  where m.parent=:id AND m.jardin=:jar AND m.parent=p")
+            ->setParameter('id',$id)->setParameter("jar",$jar);
+
+        return $query=$q->getResult();
+
+    }
+
+
+
+
+
+
+
+
+
+
+    // for responsable
+
+
+
+
+
+    public function getusermlist($id){
+
+        //get user list the users who contacted the jardin
+        $q=$this->getEntityManager()
+            ->createQuery("SELECT p.nom, p.prenom, m.msg from AppBundle:Messages m 
+         LEFT JOIN m.parent p where m.date in(select MAX(l.date) from AppBundle:Messages l Group by l.parent) AND  m.jardin=:id   ORDER BY m.date DESC  ")
+            ->setParameter('id',$id);
+
+        return $query=$q->getResult();
+
+    }
+
+
+
+
+
+
 }

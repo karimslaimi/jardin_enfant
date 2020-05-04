@@ -3,8 +3,6 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\MaxDepth;
-
 
 /**
  * PartActivite
@@ -32,15 +30,15 @@ class PartActivite
 
 
     /**
-     *@MaxDepth(1)
-     * @ORM\ManyToOne(targetEntity="Enfant")
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enfant")
      * @ORM\JoinColumn(name="enfant_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $enfant;
 
     /**
-     *@MaxDepth(1)
-     * @ORM\ManyToOne(targetEntity="Activite")
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Activite")
      * @ORM\JoinColumn(name="activite_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $Activite;

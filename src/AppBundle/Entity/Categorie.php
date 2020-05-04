@@ -5,7 +5,6 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * Categorie
@@ -32,7 +31,6 @@ class Categorie
     private $libelle;
 
     /**
-     * @MaxDepth(1)
      * @OneToMany(targetEntity="Evenement", mappedBy="categorie")
      */
     private $evenements;
