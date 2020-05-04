@@ -33,5 +33,12 @@ class JardinRepository extends \Doctrine\ORM\EntityRepository
         return $query=$q->getResult();
 
     }
+
+    public function getJardins()
+    {
+        $q=$this->getEntityManager()->createQuery("SELECT e.name from AppBundle:Jardin e ");
+        return $query=$q->getResult();
+
+    }
 }
 

@@ -22,6 +22,10 @@ app_paiement:
 app_jardin:
     resource: "@RaedBundle/Controller/jardinController.php"
     type:     annotation
+app_wsraed:
+    resource: "@RaedBundle/Controller/WebServicesController.php"
+    type:     annotation
+    prefix: /
 
 app_reclamation:
     resource: "@KarimBundle/Controller/ReclamationController.php"
