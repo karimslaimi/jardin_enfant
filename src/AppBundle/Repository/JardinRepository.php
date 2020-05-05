@@ -40,14 +40,5 @@ class JardinRepository extends \Doctrine\ORM\EntityRepository
         return $query=$q->getResult();
 
     }
-
-    public function getPaiement()
-    {
-        $q=$this->getEntityManager()->createQuery("SELECT e.montant from AppBundle:Paiement e ");
-        return $query=$q->getResult();
-
-    }
-
-
 }
 
