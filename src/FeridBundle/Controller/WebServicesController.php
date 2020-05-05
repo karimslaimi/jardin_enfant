@@ -42,6 +42,26 @@ class WebServicesController extends Controller
         return new JsonResponse($enfants);
     }
 
+    /**
+     * @Route("/getenfa/{id}", name="java_genf",methods={"GET"})
+     */
+
+    public function enfAction(Request $request,$id)
+    {
+
+
+
+        // $user = $this->container->get('security.token_storage')->getToken()->getUser();
+
+        $em = $this->getDoctrine()->getManager();
+        $enfants = $em->getRepository('AppBundle:Enfant')->getEnfantenf($id);
+
+
+
+        return new JsonResponse($enfants);
+    }
+
+
 
 
 

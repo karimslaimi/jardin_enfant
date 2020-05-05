@@ -35,6 +35,7 @@ class webservicesController extends Controller
 
     public function categoriesAPiAction()
     {
+        //ît works
         $cat = $this->getDoctrine()->getManager();
 
         $cat = $this->getDoctrine()->getManager();
