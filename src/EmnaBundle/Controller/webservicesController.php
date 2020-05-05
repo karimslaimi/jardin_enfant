@@ -8,7 +8,7 @@ use AppBundle\Entity\Jardin;
 use DateTime;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -16,17 +16,15 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
 //use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 
 /**
  * WebServices controller.
  *
- * @Route("Api")
+ * @Route("/Api")
  */
 class webservicesController extends Controller
 {
-
 
     /**
      *@Route("/categories", name="categories_api")
