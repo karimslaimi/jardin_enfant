@@ -305,7 +305,20 @@ class WebServicesController extends Controller
 
 
 
+    /**
+     * @Route("/listeenfjar/{id}", name="enfjar",methods={"GET"})
+     */
 
+    public function listenfjardinAction(Request $request,$id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $tut=$em->getRepository(Tuteur::class)->find($id);
+
+        $abonnement = $em->getRepository(Enfant::class)->getenfantjardin($tut->getJardin()->getId());
+
+        return new JsonResponse($abonnement);
+    }
 
 
 
