@@ -44,4 +44,11 @@ class EnfantRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter('parent',$id)->setParameter('jardin',$jar);
         return $query=$q->getResult();
     }
+
+    public function getenfantjardin($jar){
+        $q=$this->getEntityManager()->createQuery("select m.id,m.nom,m.prenom,m.datenaiss AS naiss,m.sexe from AppBundle:Enfant m
+        Join AppBundle:Abonnement ab with m=ab.enfant  where   ab.jardin=:jardin")
+            ->setParameter('jardin',$jar);
+        return $query=$q->getResult();
+    }
 }
