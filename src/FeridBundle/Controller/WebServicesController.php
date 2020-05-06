@@ -265,6 +265,18 @@ class WebServicesController extends Controller
         return new JsonResponse($abonnement);
     }
 
+    /**
+     * @Route("/listeenfjardin/{id}", name="listenfjardi",methods={"GET"})
+     */
+
+    public function listenfjardinAction(Request $request,$id)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $abonnement = $em->getRepository('AppBundle:Enfant')->getenfantjardin($id);
+
+        return new JsonResponse($abonnement);
+    }
 
 
 }

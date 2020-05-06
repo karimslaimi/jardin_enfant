@@ -6,6 +6,7 @@ use AppBundle\Entity\Jardin;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 /**
@@ -59,13 +60,13 @@ class WebservicesController extends Controller
 
     }
     /**
-     * @Route("/listpaiement", name="java_listpaiement",methods={"GET"})
+     * @Route("/listpaiement/{id}", name="java_listpaiement",methods={"GET"})
      */
 
-    public function jardnPaimentAction()
+    public function ListePaimentAction(Request $request,$id)
     {
         $em = $this->getDoctrine()->getManager();
-        $paiment = $em->getRepository('AppBundle:Paiement')->getPaiement();
+        $paiment = $em->getRepository('AppBundle:Paiement')->getPaiement($id);
 
 
 

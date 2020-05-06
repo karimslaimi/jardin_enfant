@@ -24,6 +24,25 @@ class ApiController extends Controller
     /**
      * Lists all parent entities.
      *
+     * @Route("/listtrajets/{id}", name="trajetsparjardin_api")
+     */
+    public function allTrajetsAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery(
+            'SELECT t.id,t.heure,t.adresse,c.id as chauffeur_id
+    FROM AppBundle:Trajet t,AppBundle:Chauffeur c WHERE t.chauffeur=c.id and c.jardin=:id'
+        )
+            ->setParameter('id',$id);
+
+        $list = $query->getArrayResult();
+
+        return new JsonResponse($list);
+    }
+
+    /**
+     * Lists all parent entities.
+     *
      * @Route("/listpar/{id}", name="trajets_api")
      */
     public function trajetsAction($id)
@@ -82,6 +101,24 @@ $this->getDoctrine()->getManager()->flush();
         {
             return new JsonResponse(false);
         }
+    }
+
+    /**
+     * Lists all parent entities.
+     *
+     * @Route("/chauffeurs/{id}", name="chauffeurs_api")
+     */
+    public function chauffeursAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery(
+            'SELECT c
+    FROM AppBundle:Chauffeur c WHERE c.jardin=:id'
+        )->setParameter('id',$id);
+
+        $list = $query->getArrayResult();
+
+        return new JsonResponse($list);
     }
 
 }
