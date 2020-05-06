@@ -152,7 +152,7 @@ class Activite extends FullCalendarEvent
     private $club;
 
     /**
-     * @ORM\OneToMany(targetEntity="PartActivite", mappedBy="activite")
+     * @ORM\OneToMany(targetEntity="PartActivite", mappedBy="Activite")
      */
     private $participation;
 
