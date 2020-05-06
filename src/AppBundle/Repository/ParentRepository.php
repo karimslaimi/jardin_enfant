@@ -10,5 +10,16 @@ namespace AppBundle\Repository;
  */
 class ParentRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getParent($id)
+    {
+        $q=$this->getEntityManager()->createQuery("Select p.nom,p.prenom,p.numtel,p.adresse  from AppBundle:Parents p where 
+        p.id=:id ")
+            ->setParameter('id',$id);
+        return $query=$q->getResult();
+
+
+
+    }
+
 
 }

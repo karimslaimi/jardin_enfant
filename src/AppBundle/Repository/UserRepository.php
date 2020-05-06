@@ -18,6 +18,18 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
     }
 
 
+    public function testuser($username,$email)
+    {
+        $q=$this->getEntityManager()->createQuery("Select u.id ,u.username,u.email from AppBundle:User u where 
+        u.username=:username OR u.email=:email ")
+            ->setParameter('username',$username)->setParameter("email",$email);
+        return $query=$q->getResult();
+
+
+
+    }
+
+
     public function finduser($username)
     {
 

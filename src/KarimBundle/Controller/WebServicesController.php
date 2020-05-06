@@ -36,7 +36,7 @@ class WebServicesController extends Controller
      */
     public function listremarquesAction($par)
     {
-        //maybe usefull for reponsable jardin and the admin
+        //the parent to check his children remarks
         $em = $this->getDoctrine()->getManager();
 
         $remarques = $em->getRepository(Remarque::class)->getremarques($par);
@@ -55,7 +55,8 @@ class WebServicesController extends Controller
      */
     public function listtutremarquesAction($tut)
     {
-        //maybe usefull for reponsable jardin and the admin
+
+        //get the remarks that have been added by a given tutor (tut is the id of the tutor)
         $em = $this->getDoctrine()->getManager();
 
         $remarques = $em->getRepository(Remarque::class)->gettutremarques($tut);
@@ -75,6 +76,7 @@ class WebServicesController extends Controller
      */
     public function indexAction()
     {
+        //list parent but i don't think it s usefull
         //maybe usefull for reponsable jardin and the admin
         $em = $this->getDoctrine()->getManager();
 
@@ -106,6 +108,9 @@ class WebServicesController extends Controller
 
      */
     public function Adddrem(Request $request){
+
+        //for the tutor to add a remar while the remarks are binded to abonnement i had to put the abonnement id in the request
+
         $em=$this->getDoctrine()->getManager();
         $tut=$em->getRepository(Tuteur::class)->find($request->get("tut"));
         $abo=$em->getRepository(Abonnement::class)->find($request->get("abo"));
@@ -141,6 +146,8 @@ class WebServicesController extends Controller
      */
     public function sendreclamAction(Request $request){
 
+        //send reclam will take most of data from db
+
         $em=$this->getDoctrine()->getManager();
         $parent=$em->getRepository(Parents::class)->find($request->get("par"));
         $reclam=new Reclamation();
@@ -169,6 +176,83 @@ class WebServicesController extends Controller
 
 
     }
+    /**
+     *getparent
+     *
+     * @Route("/getparent", name="get_parent_api")
+
+     */
+    public function getParentAction(Request $request){
+        $em=$this->getDoctrine()->getManager();
+        $parent=$em->getRepository(Parents::class)->getparent($request->get("par"));
+
+        //get the parent object to edit his profile
+        return  new JsonResponse($parent);
+    }
+
+
+    /**
+     *edit profile
+     *
+     * @Route("/editparent", name="edit_parent_api")
+
+     */
+    //edit prodile parent
+    public function editparentAction(Request $request){
+
+        $parent=new Parents();
+        $em=$this->getDoctrine()->getManager();
+        $username=$request->get("username");
+        $email=$request->get("email");
+        $password=$request->get("password");
+        $nom=$request->get("nom");
+        $prenom=$request->get("prenom");
+        $numtel=$request->get("numtel");
+        $adresse=$request->get("adresse");
+        //got all request param
+
+        $parent=$em->getRepository(Parents::class)->find($request->get("par"));
+        //let s take the parent by id and change the what should be changer
+
+        $parent->setUsername($username);
+        $parent->setEmail($email);
+
+        if(!empty ($password)||$password!=null){
+            $parent->setPlainPassword($password);
+        }
+        $parent->setNom($nom);
+        $parent->setPrenom($prenom);
+        $parent->setNumtel($numtel);
+        $parent->setAdresse($adresse);
+
+        $parent->setEnabled(true);
+        $userManager = $this->get('fos_user.user_manager');
+        $userManager->updateUser($parent);
+        //i ve tested it and it works
+
+
+        return  new JsonResponse($parent);
+    }
+
+
+    /**
+     * testuser
+     * @Route("/testuser",name="test_user_api")
+     */
+//to test if username or mail exist
+//needed for every prodile editing
+    public function testuserAction(Request $request){
+        $em=$this->getDoctrine()->getManager();
+        $user=$em->getRepository(User::class)->testuser($request->get("username"),$request->get("email"));
+        if($user!=null){
+            return new JsonResponse("Exist");
+        }else{
+            return new JsonResponse("OK");
+        }
+
+    }
+
+
 
 
     // for parent
@@ -182,6 +266,7 @@ class WebServicesController extends Controller
 
      */
     public function jardlistAction(Request $request){
+        //for the parent to get the kindergartens where his child have a subscription
         $em=$this->getDoctrine()->getManager();
         $jars=$em->getRepository(Messages::class)->getlistjard($request->get("par"));
 
@@ -205,6 +290,7 @@ class WebServicesController extends Controller
      */
     public function message(Request $request){
         //get messages sent filter in the mobile
+
         $em=$this->getDoctrine()->getManager();
         $messages=$em->getRepository(Messages::class)->getjardmess($request->get("par"),$request->get("jar"));
         $normalizer = new ObjectNormalizer();
@@ -276,6 +362,8 @@ class WebServicesController extends Controller
      */
     public function sendmsg(Request $request){
 
+        //send message valid for both resp and parent have just to change the sender id depending of the user
+
         $em=$this->getDoctrine()->getManager();
         $message=new Messages();
         $parent=$em->getRepository(Parents::class)->find($request->get("par"));
@@ -305,7 +393,21 @@ class WebServicesController extends Controller
 
 
 
+    /**
+     * @Route("/listeenfjar/{id}", name="enfjar",methods={"GET"})
+     */
 
+    public function listenfjardinAction(Request $request,$id)
+    {
+        //for the tutor when his going to add remarks he will get the childrend subscribed in his kindergarten
+        $em = $this->getDoctrine()->getManager();
+
+        $tut=$em->getRepository(Tuteur::class)->find($id);
+
+        $abonnement = $em->getRepository(Enfant::class)->getenfantjardin($tut->getJardin()->getId());
+
+        return new JsonResponse($abonnement);
+    }
 
 
 
