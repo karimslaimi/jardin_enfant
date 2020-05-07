@@ -12,6 +12,8 @@ use AppBundle\Entity\Remarque;
 use AppBundle\Entity\Tuteur;
 use AppBundle\Entity\User;
 use AppBundle\Repository\RemarqueRepository;
+use DateTime;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,6 +22,7 @@ use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Routing\Annotation\Route;
+
 /**
  * WebService controller.
  *
@@ -32,7 +35,6 @@ class WebServicesController extends Controller
      * Lists my remarks entities.
      *
      * @Route("/listrem/{par}", name="remarques_api",methods={"GET"})
-
      */
     public function listremarquesAction($par)
     {
@@ -47,11 +49,11 @@ class WebServicesController extends Controller
         return new JsonResponse($remarques);
 
     }
+
     /**
      * Lists tut my remarks entities.
      *
      * @Route("/listmyrem/{tut}", name="myremarques_api",methods={"GET"})
-
      */
     public function listtutremarquesAction($tut)
     {
@@ -72,7 +74,6 @@ class WebServicesController extends Controller
      * Lists all parent entities.
      *
      * @Route("/listpar", name="parents_index_api")
-
      */
     public function indexAction()
     {
@@ -89,7 +90,7 @@ class WebServicesController extends Controller
             return $object->getId(); // Change this to a valid method of your object
         });
         $serializer = new Serializer(array($normalizer));
-        $formatted= $serializer->normalize($parents);
+        $formatted = $serializer->normalize($parents);
 
 
         return new JsonResponse($formatted);
@@ -97,30 +98,26 @@ class WebServicesController extends Controller
     }
 
 
-
-
-
-
     /**
      *add remarks
      *
      * @Route("/addrem", name="add_remark_api")
-
      */
-    public function Adddrem(Request $request){
+    public function Adddrem(Request $request)
+    {
 
         //for the tutor to add a remar while the remarks are binded to abonnement i had to put the abonnement id in the request
 
-        $em=$this->getDoctrine()->getManager();
-        $tut=$em->getRepository(Tuteur::class)->find($request->get("tut"));
-        $abo=$em->getRepository(Abonnement::class)->find($request->get("abo"));
+        $em = $this->getDoctrine()->getManager();
+        $tut = $em->getRepository(Tuteur::class)->find($request->get("tut"));
+        $abo = $em->getRepository(Abonnement::class)->find($request->get("abo"));
 
 
-        $date=new \DateTime("now");
+        $date = new DateTime("now");
 
-        $desc=$request->get("descr");
+        $desc = $request->get("descr");
 
-        $remark=new Remarque();
+        $remark = new Remarque();
         $remark->setAbonnement($abo);
         $remark->setDate($date);
         $remark->setDescription($desc);
@@ -129,9 +126,9 @@ class WebServicesController extends Controller
         $em->flush();
 
 
-        if($em->contains($remark)){
+        if ($em->contains($remark)) {
             return new JsonResponse("success");
-        }else{
+        } else {
             return new JsonResponse("error");
         }
 
@@ -142,22 +139,22 @@ class WebServicesController extends Controller
      *add reclam
      *
      * @Route("/addreclam", name="add_reclam_api")
-
      */
-    public function sendreclamAction(Request $request){
+    public function sendreclamAction(Request $request)
+    {
 
         //send reclam will take most of data from db
 
-        $em=$this->getDoctrine()->getManager();
-        $parent=$em->getRepository(Parents::class)->find($request->get("par"));
-        $reclam=new Reclamation();
+        $em = $this->getDoctrine()->getManager();
+        $parent = $em->getRepository(Parents::class)->find($request->get("par"));
+        $reclam = new Reclamation();
 
         $reclam->setParent($parent);
 
         $reclam->setDescription($request->get("description"));
-        $reclam->setDate(new \DateTime());
+        $reclam->setDate(new DateTime());
         $reclam->setTitre($request->get("titre"));
-        $reclam->setNom($parent->getNom()." ".$parent->getPrenom());
+        $reclam->setNom($parent->getNom() . " " . $parent->getPrenom());
         $reclam->setNumtel($parent->getNumtel());
         $reclam->setEtat("en attente");
         $reclam->setMail($parent->getEmail());
@@ -165,29 +162,27 @@ class WebServicesController extends Controller
         $em->persist($reclam);
         $em->flush();
 
-        if($em->contains($reclam)){
+        if ($em->contains($reclam)) {
             return new JsonResponse("success");
-        }else{
+        } else {
             return new JsonResponse("error");
         }
 
 
-
-
-
     }
+
     /**
      *getparent
      *
      * @Route("/getparent", name="get_parent_api")
-
      */
-    public function getParentAction(Request $request){
-        $em=$this->getDoctrine()->getManager();
-        $parent=$em->getRepository(Parents::class)->getparent($request->get("par"));
+    public function getParentAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $parent = $em->getRepository(Parents::class)->getparent($request->get("par"));
 
         //get the parent object to edit his profile
-        return  new JsonResponse($parent);
+        return new JsonResponse($parent);
     }
 
 
@@ -195,29 +190,29 @@ class WebServicesController extends Controller
      *edit profile
      *
      * @Route("/editparent", name="edit_parent_api")
-
      */
     //edit prodile parent
-    public function editparentAction(Request $request){
+    public function editparentAction(Request $request)
+    {
 
-        $parent=new Parents();
-        $em=$this->getDoctrine()->getManager();
-        $username=$request->get("username");
-        $email=$request->get("email");
-        $password=$request->get("password");
-        $nom=$request->get("nom");
-        $prenom=$request->get("prenom");
-        $numtel=$request->get("numtel");
-        $adresse=$request->get("adresse");
+        $parent = new Parents();
+        $em = $this->getDoctrine()->getManager();
+        $username = $request->get("username");
+        $email = $request->get("email");
+        $password = $request->get("password");
+        $nom = $request->get("nom");
+        $prenom = $request->get("prenom");
+        $numtel = $request->get("numtel");
+        $adresse = $request->get("adresse");
         //got all request param
 
-        $parent=$em->getRepository(Parents::class)->find($request->get("par"));
+        $parent = $em->getRepository(Parents::class)->find($request->get("par"));
         //let s take the parent by id and change the what should be changer
 
         $parent->setUsername($username);
         $parent->setEmail($email);
 
-        if(!empty ($password)||$password!=null){
+        if (!empty ($password) || $password != null) {
             $parent->setPlainPassword($password);
         }
         $parent->setNom($nom);
@@ -226,27 +221,50 @@ class WebServicesController extends Controller
         $parent->setAdresse($adresse);
 
         $parent->setEnabled(true);
-        $userManager = $this->get('fos_user.user_manager');
-        $userManager->updateUser($parent);
+        try {
+            $userManager = $this->get('fos_user.user_manager');
+            $userManager->updateUser($parent);
+        } catch (Exception $ex) {
+            return new JsonResponse(false);
+        }
+
         //i ve tested it and it works
 
 
-        return  new JsonResponse($parent);
+        return new JsonResponse(true);
     }
 
 
     /**
-     * testuser
-     * @Route("/testuser",name="test_user_api")
+     * testusername
+     * @Route("/testusername",name="test_user_api")
      */
-//to test if username or mail exist
-//needed for every prodile editing
-    public function testuserAction(Request $request){
-        $em=$this->getDoctrine()->getManager();
-        $user=$em->getRepository(User::class)->testuser($request->get("username"),$request->get("email"));
-        if($user!=null){
+        //to test if username or mail exist
+        //needed for every prodile editing
+    public function testuserAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository(User::class)->findBy(array("username"=>$request->get("username")));
+        if ($user != null) {
             return new JsonResponse("Exist");
-        }else{
+        } else {
+            return new JsonResponse("OK");
+        }
+
+    }
+    /**
+     * testmail
+     * @Route("/testemail",name="test_mail_api")
+     */
+    //to test if username or mail exist
+    //needed for every prodile editing
+    public function testusermailAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository(User::class)->findBy(array("email"=> $request->get("email")));
+        if ($user != null) {
+            return new JsonResponse("Exist");
+        } else {
             return new JsonResponse("OK");
         }
 
@@ -258,17 +276,16 @@ class WebServicesController extends Controller
     // for parent
 
 
-
     /**
      *listjars
      *
      * @Route("/jardmess", name="listjarsmess_api")
-
      */
-    public function jardlistAction(Request $request){
+    public function jardlistAction(Request $request)
+    {
         //for the parent to get the kindergartens where his child have a subscription
-        $em=$this->getDoctrine()->getManager();
-        $jars=$em->getRepository(Messages::class)->getlistjard($request->get("par"));
+        $em = $this->getDoctrine()->getManager();
+        $jars = $em->getRepository(Messages::class)->getlistjard($request->get("par"));
 
 
         $normalizer = new ObjectNormalizer();
@@ -277,7 +294,7 @@ class WebServicesController extends Controller
             return $object->getId(); // Change this to a valid method of your object
         });
         $serializer = new Serializer(array($normalizer));
-        $formatted= $serializer->normalize($jars);
+        $formatted = $serializer->normalize($jars);
         return new JsonResponse($formatted);
 
     }
@@ -286,22 +303,21 @@ class WebServicesController extends Controller
      *listmessages
      *
      * @Route("/mymsg", name="list_messages_api")
-
      */
-    public function message(Request $request){
+    public function message(Request $request)
+    {
         //get messages sent filter in the mobile
 
-        $em=$this->getDoctrine()->getManager();
-        $messages=$em->getRepository(Messages::class)->getjardmess($request->get("par"),$request->get("jar"));
+        $em = $this->getDoctrine()->getManager();
+        $messages = $em->getRepository(Messages::class)->getjardmess($request->get("par"), $request->get("jar"));
         $normalizer = new ObjectNormalizer();
 
         $normalizer->setCircularReferenceHandler(function ($object) {
             return $object->getId(); // Change this to a valid method of your object
         });
         $serializer = new Serializer(array($normalizer));
-        $formatted= $serializer->normalize($messages);
+        $formatted = $serializer->normalize($messages);
         return new JsonResponse($formatted);
-
 
 
     }
@@ -311,20 +327,20 @@ class WebServicesController extends Controller
      *listmessages
      *
      * @Route("/usermlist", name="list_muser_api")
-
      */
-    public function userlist(Request $request){
+    public function userlist(Request $request)
+    {
 
         //user list for resp jar
-        $em=$this->getDoctrine()->getManager();
-        $messages=$em->getRepository(Messages::class)->getusermlist($request->get("jar"));
+        $em = $this->getDoctrine()->getManager();
+        $messages = $em->getRepository(Messages::class)->getusermlist($request->get("jar"));
         $normalizer = new ObjectNormalizer();
 
         $normalizer->setCircularReferenceHandler(function ($object) {
             return $object->getId(); // Change this to a valid method of your object
         });
         $serializer = new Serializer(array($normalizer));
-        $formatted= $serializer->normalize($messages);
+        $formatted = $serializer->normalize($messages);
         return new JsonResponse($formatted);
 
 
@@ -336,18 +352,19 @@ class WebServicesController extends Controller
      *
      * @Route("/usercred", name="user_credential_api")
      */
-    public function usercredential(Request $request){
+    public function usercredential(Request $request)
+    {
 
-        $em=$this->getDoctrine()->getManager();
-        $username=$request->get("username");
-        $user=$em->getRepository(User::class)->finduser($username);
+        $em = $this->getDoctrine()->getManager();
+        $username = $request->get("username");
+        $user = $em->getRepository(User::class)->finduser($username);
         $normalizer = new ObjectNormalizer();
 
         $normalizer->setCircularReferenceHandler(function ($object) {
             return $object->getId(); // Change this to a valid method of your object
         });
         $serializer = new Serializer(array($normalizer));
-        $formatted= $serializer->normalize($user);
+        $formatted = $serializer->normalize($user);
 
 
         return new JsonResponse($formatted);
@@ -358,19 +375,19 @@ class WebServicesController extends Controller
      *listmessages
      *
      * @Route("/sendmsg", name="send_msg_api")
-
      */
-    public function sendmsg(Request $request){
+    public function sendmsg(Request $request)
+    {
 
         //send message valid for both resp and parent have just to change the sender id depending of the user
 
-        $em=$this->getDoctrine()->getManager();
-        $message=new Messages();
-        $parent=$em->getRepository(Parents::class)->find($request->get("par"));
-        $sender=$em->getRepository(User::class)->find($request->get("sender"));
-        $jardin=$em->getRepository(Jardin::class)->find($request->get("jard"));
+        $em = $this->getDoctrine()->getManager();
+        $message = new Messages();
+        $parent = $em->getRepository(Parents::class)->find($request->get("par"));
+        $sender = $em->getRepository(User::class)->find($request->get("sender"));
+        $jardin = $em->getRepository(Jardin::class)->find($request->get("jard"));
         $message->setJardin($jardin);
-        $time=new \DateTime();
+        $time = new DateTime();
         $message->setDate($time->format('Y-m-d H:i:s'));
         $message->setSender($sender);
         $message->setParent($parent);
@@ -380,36 +397,31 @@ class WebServicesController extends Controller
         $em->persist($message);
         $em->flush();
 
-        if($em->contains($message)){
+        if ($em->contains($message)) {
             return new JsonResponse("success");
-        }else{
+        } else {
             return new JsonResponse("error");
         }
 
 
-
     }
-
-
 
 
     /**
      * @Route("/listeenfjar/{id}", name="enfjar",methods={"GET"})
      */
 
-    public function listenfjardinAction(Request $request,$id)
+    public function listenfjardinAction(Request $request, $id)
     {
         //for the tutor when his going to add remarks he will get the childrend subscribed in his kindergarten
         $em = $this->getDoctrine()->getManager();
 
-        $tut=$em->getRepository(Tuteur::class)->find($id);
+        $tut = $em->getRepository(Tuteur::class)->find($id);
 
         $abonnement = $em->getRepository(Enfant::class)->getenfantjardin($tut->getJardin()->getId());
 
         return new JsonResponse($abonnement);
     }
-
-
 
 
 }

@@ -62,6 +62,52 @@ class WebServicesController extends Controller
     }
 
 
+    /**
+     *
+     *
+     * @Route("/deleteenf/{id}", name="enfs_deletes")
+
+     */
+
+    public function deleteenfsAction(Request $request, $id)
+    {
+
+
+
+
+            $em = $this->getDoctrine()->getManager();
+        $enfan = $em->getRepository(Enfant::class)->find($id);
+            $em->remove($enfan);
+            $em->flush();
+
+
+        return new JsonResponse("succés");
+    }
+
+    /**
+     *
+     *
+     * @Route("/deleteabons/{id}", name="abons_deletes")
+
+     */
+
+    public function deleteabonsAction(Request $request, $id)
+    {
+
+
+
+
+        $em = $this->getDoctrine()->getManager();
+        $abonn = $em->getRepository(Abonnement::class)->find($id);
+        $em->remove($abonn);
+        $em->flush();
+
+
+        return new JsonResponse("succés");
+    }
+
+
+
 
 
 

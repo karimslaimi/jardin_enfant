@@ -45,14 +45,14 @@ class AbonnementRepository extends \Doctrine\ORM\EntityRepository
 
     public function getsAbonnement($id)
     {
-        $q=$this->getEntityManager()->createQuery("SELECT j.name,e.nom,e.prenom,a.type,a.etat,a.date from AppBundle:Enfant e ,AppBundle:Abonnement a ,AppBundle:Jardin j where a.enfant=e.id and a.jardin=j.id and e.parent=:id")
+        $q=$this->getEntityManager()->createQuery("SELECT a.id,j.name,j.id AS idj,e.nom,e.prenom,a.type,a.etat,a.date AS dateab  from AppBundle:Enfant e ,AppBundle:Abonnement a ,AppBundle:Jardin j where a.enfant=e.id and a.jardin=j.id and e.parent=:id")
             ->setParameter('id',$id);
         return $query=$q->getResult();
 
     }
     public function getsAbonnementjardin($id)
     {
-        $q=$this->getEntityManager()->createQuery("SELECT e.nom,e.prenom,a.type,a.etat,a.date from AppBundle:Enfant e ,AppBundle:Abonnement a ,AppBundle:Jardin j where a.enfant=e.id and a.jardin=j.id and a.jardin=:id")
+        $q=$this->getEntityManager()->createQuery("SELECT e.nom,e.prenom,a.type,a.etat,a.date AS dateab from AppBundle:Enfant e ,AppBundle:Abonnement a ,AppBundle:Jardin j where a.enfant=e.id and a.jardin=j.id and a.jardin=:id")
             ->setParameter('id',$id);
         return $query=$q->getResult();
 

@@ -43,11 +43,6 @@ app_activite:
     type:     annotation
 
 
-app_aswbs:
-    resource: "@DorraBundle/Controller/WebServiceController.php"
-    type:     annotation
-    prefix: /
-
 
 
 app_chauffeur:
