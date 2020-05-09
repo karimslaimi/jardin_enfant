@@ -133,6 +133,23 @@ public function ListeParticipationAction(){
 }
 
 
+    /**
+     * afficher une activité.
+     *
+     * @Route("/verif/{id}/{ida}")
+
+     */
+public function Verifier($id, $ida){
+
+    $em = $this->getDoctrine()->getManager();
+    $veri = $em->getRepository('AppBundle:PartActivite')->verifier($id,$ida);
+
+
+
+    return new JsonResponse($veri);
+}
+
+
 
 
 }
