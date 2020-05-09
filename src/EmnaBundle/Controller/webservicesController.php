@@ -5,6 +5,7 @@ namespace EmnaBundle\Controller;
 use AppBundle\Entity\Categorie;
 use AppBundle\Entity\Evenement;
 use AppBundle\Entity\Jardin;
+use AppBundle\Entity\Participer;
 use DateTime;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -25,6 +26,7 @@ use Symfony\Component\Serializer\Serializer;
  */
 class webservicesController extends Controller
 {
+    //liste des catégories pour le resp jardin
 
     /**
      *@Route("/categories", name="categories_api")
@@ -58,6 +60,36 @@ class webservicesController extends Controller
     }
 
 
+    /**
+     *@Route("/categorieslib", name="categorieslib_api")
+
+     */
+
+    public function categorieslibAction()
+    {
+        //ît works
+        $cat = $this->getDoctrine()->getManager();
+
+        $cat = $this->getDoctrine()->getManager();
+        $query = $cat->createQuery(
+            'SELECT c.libelle
+            FROM AppBundle:Categorie c');
+
+
+        $list = $query->getArrayResult();
+        $encoder = new JsonEncoder();
+        $normalizer = new ObjectNormalizer();
+
+        $normalizer->setCircularReferenceHandler(function ($object) {
+            return $object->getId();
+        });
+
+        $serializer = new Serializer(array($normalizer), array($encoder));
+        $formatted = $serializer->normalize($list, 'json');
+
+
+        return new JsonResponse($formatted);
+    }
 
 
 
@@ -132,20 +164,21 @@ class webservicesController extends Controller
 //ajouter événement pour le resp jardin
 
     /**
-     * @Route("/ajouteve/{idj}/{titre}/{description}/{idc}", name="ajouteve")
-     * @throws Exception
+     * @Route("/ajoutevent/{idj}/{titre}/{description}/{date}/{idc}", name="ajouteve_api",methods={"GET"})
+
      */
 
-    public function AjoutereventAction(Request $request, $idj, $titre, $description,$idc)
+    public function AjoutereventAction(Request $request, $idj, $titre, $description,$date,$idc)
     {
         $ev = new Evenement();
         $ev->setJardin($this->getDoctrine()->getManager()->getRepository(Jardin::class)->find($idj));
         $ev->setCategorie($this->getDoctrine()->getManager()->getRepository(Categorie::class)->find($idc));
 
+        $ev->setDate(New \DateTime($date));
+
         $ev->setTitre($titre);
         $ev->setDescription($description);
         //$ev->setImage($image);
-        $ev->setDate(New \DateTime());
 
 
         $ex = "succes";
@@ -205,10 +238,74 @@ class webservicesController extends Controller
         return new JsonResponse($formatted);
     }
 
+// supprimer catégorie
+    /**
+     *
+     *
+     * @Route("/suppcat/{id}", name="suppcat_api")
+     */
+    public function supprimercatAction($id)
+    {
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($em->getRepository(Categorie::class)->find($id));
+            $em->flush();
+            return new JsonResponse(true);
 
-    //liste des catégories pour le resp jardin
+        } catch (Exception $exception) {
+            return new JsonResponse(false);
+        }
+    }
+
+//Ajouter catégorie
+
+    /**
+     * @Route("/ajoutercat/{libelle}", name="ajouteve")
+     * @throws Exception
+     */
+
+    public function AjoutercatAction(Request $request, $libelle)
+    {
+        $ca = new Categorie();
+        //$ca->setJardin($this->getDoctrine()->getManager()->getRepository(Jardin::class)->find($idj));
+
+        $ca->setLibelle($libelle);
+
+        $ex = "succes";
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($ca);
+        $em->flush();
+
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($ex);
+        return new JsonResponse($formatted);
+    }
 
 
-}
+//participer
+    /**
+     * @Route("/participerevent/{ide}/{idev}", name="parteve")
+     * @throws Exception
+     */
+
+    public function ParticiperAction(Request $request, $ide,$idev)
+    {
+        $part = new Participer();
+
+        $part->setEnfant($this->getDoctrine()->getManager()->getRepository(Categorie::class)->find($ide));
+        $part->setEvenement($this->getDoctrine()->getManager()->getRepository(Categorie::class)->find($idev));
+
+        $evp = "succes";
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($part);
+        $em->flush();
+
+
+    }
+
+
+
+    }
 
 
