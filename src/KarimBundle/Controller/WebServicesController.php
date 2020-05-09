@@ -243,8 +243,8 @@ class WebServicesController extends Controller
         //needed for every prodile editing
     public function testuserAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $user = $em->getRepository(User::class)->findBy(array("username"=>$request->get("username")));
+        $user_manager = $this->get('fos_user.user_manager');
+        $user = $user_manager->findUserByUsername($request->get("username"));
         if ($user != null) {
             return new JsonResponse("Exist");
         } else {
