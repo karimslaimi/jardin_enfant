@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Evenement;
 use AppBundle\Entity\Jardin;
 use AppBundle\Entity\Reclamation;
+use AppBundle\Entity\Responsable;
 use AppBundle\Entity\Tuteur;
 use AppBundle\Entity\User;
 use FOS\UserBundle\Util\PasswordUpdaterInterface;
@@ -220,5 +221,19 @@ class DefaultController extends Controller
 
         }
 
+    /**
+     * @Route("/Api/jardin/{id}", name="jardin_connecte")
+     */
+    public function jardinAction($id){
+     $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery(
+            'SELECT t
+    FROM AppBundle:Jardin t,AppBundle:Responsable c WHERE t.id=c.jardin and c.id=:id'
+        )
+            ->setParameter('id',$id);
 
+        $jardin = $query->getArrayResult();
+
+        return new JsonResponse($jardin[0]);
+    }
 }

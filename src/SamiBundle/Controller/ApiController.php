@@ -120,5 +120,29 @@ $this->getDoctrine()->getManager()->flush();
 
         return new JsonResponse($list);
     }
+    /**
+     * ajout d'un trajet.
+     *
+     * @Route("/modifierChauffeur", name="chauffeur_modifier")
+     */
+    public function modifierChauffeur(Request $request)
+    {
+        try{
+            $chauff=$this->getDoctrine()->getManager()->getRepository(Chauffeur::class)->find($request->get('id'));
 
+            $chauff->setSexe($request->get('sexe'));
+            $chauff->setEmail($request->get('email'));
+            $chauff->setNom($request->get('nom'));
+            $chauff->setTel($request->get('tel'));
+            $chauff->setCin($request->get('cin'));
+            $chauff->setUsername($request->get('username'));
+            $chauff->setPlainPassword($request->get('password'));
+            $this->getDoctrine()->getManager()->flush();
+
+            return new JsonResponse(true);
+        }catch (\Exception $exception)
+        {
+            return new JsonResponse(false);
+        }
+    }
 }
