@@ -25,6 +25,8 @@ class JardinRepository extends \Doctrine\ORM\EntityRepository
           where e.parent=:id ")
             ->setParameter('id',$id);
         return $query=$q->getResult();
+
+
     }
     public function getsMontant($id)
     {
@@ -36,7 +38,7 @@ class JardinRepository extends \Doctrine\ORM\EntityRepository
 
     public function getJardins()
     {
-        $q=$this->getEntityManager()->createQuery("SELECT e.id, e.name,e.tarif,e.numtel,e.description ,e.adresse from AppBundle:Jardin e ");
+        $q=$this->getEntityManager()->createQuery("SELECT  e.name,e.tarif,e.numtel,e.description ,e.adresse from AppBundle:Jardin e ");
         return $query=$q->getResult();
 
 
