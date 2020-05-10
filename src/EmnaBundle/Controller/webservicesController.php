@@ -128,6 +128,39 @@ class webservicesController extends Controller
     }
 
 
+
+
+
+    /**
+     *
+     *
+     * @Route("/listeventsJar/{idj}", name="lisevenementJar_api")
+     */
+    //liste des événements d'un jardin
+
+    public function evenemenetJarAction($idj)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery(
+            'SELECT e
+            FROM AppBundle:Evenement e
+            Where e.jardin=:idj')
+
+
+        ->setParameter('idj',$idj);
+
+        $list = $query->getArrayResult();
+
+
+
+        return new JsonResponse($list);
+    }
+
+
+
     /**
      *
      *
