@@ -20,4 +20,13 @@ class PartActiviteRepository extends \Doctrine\ORM\EntityRepository
         return $query=$q->getResult();
 
     }
+
+    public function verifier($id, $ida){
+        $q=$this->getEntityManager()->createQuery("SELECT m.date , a.id, e.id AS d from AppBundle:PartActivite m , AppBundle:Enfant e , AppBundle:Activite a where m.enfant=e.id and m.Activite=a.id and m.enfant=:id and m.Activite=:ida")
+            ->setParameter('id',$id)
+            ->setParameter('ida',$ida);
+
+        return $query=$q->getResult();
+
+}
 }
