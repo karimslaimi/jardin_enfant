@@ -10,4 +10,6 @@ namespace AppBundle\Repository;
  */
 class ResponsableRepository extends \Doctrine\ORM\EntityRepository
 {
+
+
 }

@@ -2,6 +2,7 @@
 
 namespace RaedBundle\Controller;
 
+use AppBundle\AppBundle;
 use AppBundle\Entity\Jardin;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -72,5 +73,7 @@ class WebservicesController extends Controller
 
         return new JsonResponse($paiment);
     }
+
+
 
 }
