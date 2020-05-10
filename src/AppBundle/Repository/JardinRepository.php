@@ -25,6 +25,8 @@ class JardinRepository extends \Doctrine\ORM\EntityRepository
           where e.parent=:id ")
             ->setParameter('id',$id);
         return $query=$q->getResult();
+
+
     }
     public function getsMontant($id)
     {
