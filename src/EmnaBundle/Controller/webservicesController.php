@@ -5,6 +5,7 @@ namespace EmnaBundle\Controller;
 use AppBundle\Entity\Categorie;
 use AppBundle\Entity\Evenement;
 use AppBundle\Entity\Jardin;
+use AppBundle\Entity\Parents;
 use AppBundle\Entity\Participer;
 use DateTime;
 use Exception;
@@ -145,9 +146,9 @@ class webservicesController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery(
-            'SELECT e
-            FROM AppBundle:Evenement e
-            Where e.jardin=:idj')
+            'SELECT e,c.libelle
+            FROM AppBundle:Evenement e,AppBundle:Categorie c
+            Where e.jardin=:idj and e.categorie=c.id')
 
 
         ->setParameter('idj',$idj);
@@ -170,15 +171,18 @@ class webservicesController extends Controller
 
     public function evenemenetsAction($id)
     {
+
+
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery(
-            'SELECT e
-    FROM AppBundle:Evenement e WHERE e.id=:id'
-        )
+            'SELECT ev from AppBundle:Evenement ev where ev.jardin IN (SELECT DISTINCT m.id from AppBundle:Jardin m join m.abonnements ab 
+        Join  ab.enfant e 
+          where e.parent=:id)'
+)
+
             ->setParameter('id', $id);
 
         $list = $query->getArrayResult();
-
 
         $encoder = new JsonEncoder();
         $normalizer = new ObjectNormalizer();
@@ -339,6 +343,30 @@ class webservicesController extends Controller
 
 
 
+    /**
+     *
+     * @Route("/modifierEvenement", name="event_modifier")
+     */
+    public function modifierEvenement(Request $request)
+    {
+        try{
+            $ev=$this->getDoctrine()->getManager()->getRepository(Evenement::class)->find($request->get('id'));
+
+            $ev->setTitre($request->get('titre'));
+            $ev->setDescription($request->get('description'));
+            $ev->setDate($request->get('date'));
+            $ev->setCategorie($request->get('categorie'));
+            $ev->getDoctrine()->getManager()->flush();
+
+            return new JsonResponse(true);
+
+        }catch (\Exception $exception)
+        {
+            return new JsonResponse(false);
+        }
     }
+
+
+}
 
 
