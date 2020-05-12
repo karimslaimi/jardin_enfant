@@ -48,10 +48,37 @@ class Club
      */
     private $photo;
 
+    /**
+     * @var int
+     *
+     *
+     * @ORM\Column(name="rank", type="integer")
+     */
+    private $rank;
+
     public function setPhoto( $file )
     {
         $this->photo = $file;
     }
+
+    /**
+     * @return int
+     */
+    public function getRank()
+    {
+        return $this->rank;
+    }
+
+    /**
+     * @param int $rank
+     */
+    public function setRank($rank)
+    {
+        $this->rank = $rank;
+    }
+
+
+
 
     public function getPhoto()
     {
