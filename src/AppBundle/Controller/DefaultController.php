@@ -226,6 +226,7 @@ class DefaultController extends Controller
      */
     public function jardinAction($id){
      $em = $this->getDoctrine()->getManager();
+
         $query = $em->createQuery(
             'SELECT t
     FROM AppBundle:Jardin t,AppBundle:Responsable c WHERE t.id=c.jardin and c.id=:id'
