@@ -65,9 +65,9 @@ class MessagesRepository extends \Doctrine\ORM\EntityRepository
 
         //get jard list to contact
         $q=$this->getEntityManager()
-            ->createQuery("SELECT DISTINCT m.id, m.name from AppBundle:Jardin m join m.abonnements ab 
-        Join  ab.enfant e 
-          where e.parent=:id ")
+            ->createQuery("SELECT DISTINCT m.id, m.name,r.nom from AppBundle:Jardin m join m.abonnements ab 
+        Join  ab.enfant e , AppBundle:Responsable r 
+          where e.parent=:id AND r.jardin=m  ")
             ->setParameter('id',$id);
 
         return $query=$q->getResult();
@@ -82,7 +82,8 @@ class MessagesRepository extends \Doctrine\ORM\EntityRepository
 
 
         $q=$this->getEntityManager()
-            ->createQuery("SELECT  m.id as mid, m.msg ,m.date ,s.id as sid ,j.name as jardin , p.nom as parenom ,p.prenom as pareprenom from AppBundle:Parents p, AppBundle:Jardin j JOIN j.messages m  LEFT JOIN m.sender s 
+            ->createQuery("SELECT  m.id as mid, m.msg ,m.date ,s.id as sid ,j.name as jardin,j.id as jardid , p.nom as parenom ,p.prenom as pareprenom 
+            from AppBundle:Parents p, AppBundle:Jardin j JOIN j.messages m  LEFT JOIN m.sender s 
                   where m.parent=:id AND m.jardin=:jar AND m.parent=p")
             ->setParameter('id',$id)->setParameter("jar",$jar);
 

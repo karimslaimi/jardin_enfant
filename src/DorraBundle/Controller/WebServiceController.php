@@ -2,7 +2,9 @@
 
 namespace DorraBundle\Controller;
 
+use AppBundle\Entity\Abonnement;
 use AppBundle\Entity\Activite;
+use AppBundle\Entity\Club;
 use AppBundle\Entity\Enfant;
 use AppBundle\Entity\PartActivite;
 use DorraBundle\Form\PartActiviteType;
@@ -149,6 +151,27 @@ public function Verifier($id, $ida){
     return new JsonResponse($veri);
 }
 
+
+    /**
+     * @Route("/addrank/{id}/{rank}", name="addrank")
+     */
+
+public function addRankAction(Request $request, $id, $rank){
+    $club=$this->getDoctrine()->getManager()->getRepository(Club::class)->findOneBy(array('id' => $id));
+
+    $club->setRank($rank);
+
+
+
+    $ex="succes";
+    $em=$this->getDoctrine()->getManager();
+
+    $em->flush();
+
+    $serializer = new Serializer([new ObjectNormalizer()]);
+    $formatted = $serializer->normalize($ex);
+    return new JsonResponse($formatted);
+}
 
 
 
