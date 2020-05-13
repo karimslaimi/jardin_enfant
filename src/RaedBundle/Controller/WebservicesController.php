@@ -61,19 +61,20 @@ class WebservicesController extends Controller
 
     }
     /**
-     * @Route("/listpaiement/{id}", name="java_listpaiement",methods={"GET"})
+     * @Route("/listpaiement/{id}", name="java_paiementJardin conct",methods={"GET"})
      */
 
-    public function ListePaimentAction(Request $request,$id)
+    public function PaimentJardinAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $paiment = $em->getRepository('AppBundle:Paiement')->getPaiement($id);
+        $paiment = $em->createQuery('SELECT p.id ,p.montant ,p.date
+    FROM AppBundle:Paiement p ,AppBundle:Jardin t,AppBundle:Responsable c WHERE t.id=c.jardin and p.jardin=t.id and p.jardin=:id'
+        )
+            ->setParameter('id',$id);
+        $jardin = $paiment->getResult();
 
-
-
-        return new JsonResponse($paiment);
+        return new JsonResponse($jardin);
     }
-
 
 
 }
