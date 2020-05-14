@@ -398,9 +398,9 @@ class WebServicesController extends Controller
         $em->flush();
 
         if ($em->contains($message)) {
-            return new JsonResponse("success");
+            return new JsonResponse("true");
         } else {
-            return new JsonResponse("error");
+            return new JsonResponse("false");
         }
 
 
