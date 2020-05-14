@@ -37,16 +37,26 @@ class WebservicesController extends Controller
         return new JsonResponse($jardin);
     }
     /**
-     * @Route("/modifjardin/{ide}/{name}/{description}/{numtel}/{tarif}/{adresse}/{etat]", name="modijardin")
+     * @Route("/modifjardin", name="modijardin")
      */
-    public function ModifierjardinfAction(Request $request,$ide,$name,$description,$numtel,$tarif ,$adresse)
+    public function ModifierjardinfAction(Request $request)
+
     {
+
+        $ide=$request->get("id");
+        $name=$request->get("name");
+        $description=$request->get("description");
+        $numtel=$request->get("numtel");
+        $adresse=$request->get("adresse");
+        $tarif=$request->get("tarif");
+
 
         $jardin=$this->getDoctrine()->getManager()->getRepository(Jardin::class)->find($ide) ;
         $jardin->setName($name);
         $jardin->setDescription($description);
         $jardin->setNumtel($numtel);
-        $jardin-> setTarif($tarif);
+        $jardin->setTarif($tarif);
+
         $jardin->setAdresse($adresse);
 
         $ex="succes";
