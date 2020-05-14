@@ -110,8 +110,8 @@ class MessagesRepository extends \Doctrine\ORM\EntityRepository
 
         //get user list the users who contacted the jardin
         $q=$this->getEntityManager()
-            ->createQuery("SELECT p.nom, p.prenom, m.msg from AppBundle:Messages m 
-         LEFT JOIN m.parent p where m.date in(select MAX(l.date) from AppBundle:Messages l Group by l.parent) AND  m.jardin=:id   ORDER BY m.date DESC  ")
+            ->createQuery("SELECT  p.id as parid,p.nom, p.prenom, m.msg ,m.date as mdate from AppBundle:Messages m 
+         LEFT JOIN m.parent p where m.date in(select MAX(l.date) from AppBundle:Messages l where l.parent=p AND m.jardin=l.jardin Group by l.parent) AND  m.jardin=:id   ORDER BY m.date DESC  ")
             ->setParameter('id',$id);
 
         return $query=$q->getResult();

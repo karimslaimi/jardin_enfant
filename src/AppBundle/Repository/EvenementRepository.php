@@ -18,4 +18,22 @@ class EvenementRepository extends \Doctrine\ORM\EntityRepository
     return $query=$q->getResult();
 
 }
+
+    public function getEvenement($id)
+    {
+        $q=$this->getEntityManager()->createQuery("SELECT m.id , m.titre , m.description, m.date, c.libelle from AppBundle:Evenement m , AppBundle:Categorie c where m.categorie=c.id and m.id=:id")
+            ->setParameter('id',$id);
+
+        return $query=$q->getResult();
+
+    }
+
+
+    public function evenement($id){
+        $q=$this->getEntityManager()->createQuery("SELECT m.id  from AppBundle:Evenement m  where  m.id=:id")
+            ->setParameter('id',$id);
+
+        return $query=$q->getResult();
+
+    }
 }

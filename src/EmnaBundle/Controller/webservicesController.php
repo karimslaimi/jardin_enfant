@@ -3,6 +3,7 @@
 namespace EmnaBundle\Controller;
 
 use AppBundle\Entity\Categorie;
+use AppBundle\Entity\Enfant;
 use AppBundle\Entity\Evenement;
 use AppBundle\Entity\Jardin;
 use AppBundle\Entity\Parents;
@@ -167,7 +168,6 @@ class webservicesController extends Controller
      *
      * @Route("/event/{id}", name="evenement_api")
      */
-    //détails événement: pour parents et resp jardin
 
     public function evenemenetsAction($id)
     {
@@ -175,6 +175,7 @@ class webservicesController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery(
+
             'SELECT ev from AppBundle:Evenement ev where ev.jardin IN (SELECT DISTINCT m.id from AppBundle:Jardin m join m.abonnements ab 
         Join  ab.enfant e 
           where e.parent=:id)'
@@ -319,34 +320,12 @@ class webservicesController extends Controller
     }
 
 
-//participer
-    /**
-     * @Route("/participerevent/{ide}/{idev}", name="parteve")
-     * @throws Exception
-     */
-
-    public function ParticiperAction(Request $request, $ide,$idev)
-    {
-        $part = new Participer();
-
-        $part->setEnfant($this->getDoctrine()->getManager()->getRepository(Categorie::class)->find($ide));
-        $part->setEvenement($this->getDoctrine()->getManager()->getRepository(Categorie::class)->find($idev));
-
-        $evp = "succes";
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($part);
-        $em->flush();
 
 
-    }
-
-
-
-    /**
-     *
-     * @Route("/modifierEvenement", name="event_modifier")
-     */
+        /**
+         *
+         * @Route("/modifierEvenement", name="event_modifier")
+         */
     public function modifierEvenement(Request $request)
     {
         try{
@@ -364,6 +343,86 @@ class webservicesController extends Controller
         {
             return new JsonResponse(false);
         }
+    }
+
+
+
+
+    /**
+     * participer à un event
+     *
+     * @Route("/partEvent/{idev}/{idenf}", name="part_ev")
+
+     */
+    public function ParticiperEvenetAction(Request $request ,$idev,  $idenf)
+    {
+
+        $part=new Participer();
+        $part->setEvenement($this->getDoctrine()->getManager()->getRepository(Evenement::class)->findOneBy(array('id' => $idev)));
+        $part->setEnfant($this->getDoctrine()->getManager()->getRepository(Enfant::class)->find($idenf));
+
+        $ex="succes";
+        $em=$this->getDoctrine()->getManager();
+        $em->persist($part);
+        $em->flush();
+
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($ex);
+        return new JsonResponse($formatted);}
+
+
+// liste des participation aux evenements par jardin
+
+    /**
+     * lister toutes les participations
+     *
+     * @Route("/listePart")
+
+     */
+    public function ListeParticipationAction(){
+
+        $em = $this->getDoctrine()->getManager();
+        $part = $em->getRepository('AppBundle:Participer')->getsParticipations();
+
+
+
+        return new JsonResponse($part);
+
+    }
+
+
+
+    /**
+     *
+     * @Route("/affEv/{id}")
+
+     */
+    public function AfficherEvAction($id)
+    {
+
+
+        $em = $this->getDoctrine()->getManager();
+        $event = $em->getRepository('AppBundle:Evenement')->getEvenement($id);
+
+
+
+        return new JsonResponse($event);
+    }
+
+
+    /**
+     *
+     * @Route("/verifierr/{id}/{ide}")
+
+     */
+    public function Verifier($id, $ide){
+
+        $em = $this->getDoctrine()->getManager();
+        $veri = $em->getRepository('AppBundle:Participer')->verifier($id,$ide);
+
+
+
+        return new JsonResponse($veri);
     }
 
 

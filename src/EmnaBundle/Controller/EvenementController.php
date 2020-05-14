@@ -101,7 +101,6 @@ foreach ($list as $ls)
     }
 
     /**
-     * Creates a new evenement entity.
      *
      * @Route("/participer/{id}", name="evenement_participe",methods={"GET","POST"})
      */
@@ -247,5 +246,18 @@ foreach ($list as $ls)
             ->getForm()
         ;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
