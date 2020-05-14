@@ -39,7 +39,7 @@ class WebservicesController extends Controller
     /**
      * @Route("/modifjardin/{ide}/{name}/{description}/{numtel}/{tarif}/{adresse}/{etat]", name="modijardin")
      */
-    public function ModifierjardinfAction(Request $request,$ide,$name,$description,$numtel,$tarif ,$adresse, $etat)
+    public function ModifierjardinfAction(Request $request,$ide,$name,$description,$numtel,$tarif ,$adresse)
     {
 
         $jardin=$this->getDoctrine()->getManager()->getRepository(Jardin::class)->find($ide) ;
