@@ -11,4 +11,27 @@ namespace AppBundle\Repository;
 class ParticiperRepository extends \Doctrine\ORM\EntityRepository
 {
 
+
+
+
+    public function getsParticipations()
+    {
+        $q=$this->getEntityManager()->createQuery("SELECT  c.titre , e.nom from AppBundle:Participer m , AppBundle:Evenement c , AppBundle:Enfant e where m.evenement=c.id and m.enfant=e.id")
+        ;
+
+        return $query=$q->getResult();
+
+    }
+
+    public function verifier($id, $ide){
+        $q=$this->getEntityManager()->createQuery("SELECT  a.id, e.id AS d from AppBundle:Participer m , AppBundle:Enfant e , AppBundle:Evenement a where m.enfant=e.id and m.evenement=a.id and m.enfant=:id and m.evenement=:ide")
+            ->setParameter('id',$id)
+            ->setParameter('ide',$ide);
+
+        return $query=$q->getResult();
+
+    }
+
+
+
 }
