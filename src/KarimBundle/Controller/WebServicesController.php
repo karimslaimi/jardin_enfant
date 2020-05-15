@@ -2,6 +2,7 @@
 
 namespace KarimBundle\Controller;
 
+use AppBundle\AppBundle;
 use AppBundle\Entity\Abonnement;
 use AppBundle\Entity\Enfant;
 use AppBundle\Entity\Jardin;
@@ -112,7 +113,6 @@ class WebServicesController extends Controller
         $tut = $em->getRepository(Tuteur::class)->find($request->get("tut"));
         $abo = $em->getRepository(Abonnement::class)->find($request->get("abo"));
 
-
         $date = new DateTime("now");
 
         $desc = $request->get("descr");
@@ -124,6 +124,8 @@ class WebServicesController extends Controller
         $remark->setTuteur($tut);
         $em->persist($remark);
         $em->flush();
+       // $this->sendmail($request->get(enf),tut,$desc);
+
 
 
         if ($em->contains($remark)) {
@@ -132,6 +134,32 @@ class WebServicesController extends Controller
             return new JsonResponse("error");
         }
 
+
+    }
+
+
+    public function sendmail($enf,$tut,$desc,Request $request){
+
+        $em=$this->getDoctrine()->getManager();
+
+        $parent=$em->getRepository(Enfant::class)->find($enf)->getParent();
+        //$tut=$em->getRepository(Tuteur::class)->find($request->get("tut"));
+        $nomtut=$tut->getNom()." ".$tut->getPrenom();
+        $transport = \Swift_SmtpTransport::newInstance('smtp.gmail.com', 587, 'tls')
+            ->setUsername('trizouni1@gmail.com')
+            ->setPassword('tmdpbiphihxcgyqy');
+        $mailer = new \Swift_Mailer($transport);
+
+        $ms=(new \Swift_Message('Vous avez une nouvelle remarque pour votre enfant'))
+            ->setFrom('raed.bahri@esprit.tn')
+            ->setTo($parent->getMail())
+
+            ->setBody("<h3>".$request->get("enf")." a recu une nouvelle remarque de la part M/Mme ".$nomtut."</h3>".
+                "<br>".$request->get("remarque")."<br>Attribué le :".$request-$this->get("date")."",'text/html');
+
+
+        $mailer->send($ms);
+        return new JsonResponse($ms->getBody());
 
     }
 
@@ -422,6 +450,9 @@ class WebServicesController extends Controller
 
         return new JsonResponse($abonnement);
     }
+
+
+
 
 
 }
