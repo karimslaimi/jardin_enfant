@@ -204,4 +204,26 @@ $this->getDoctrine()->getManager()->flush();
         }
     }
 
+    /**
+     *
+     *
+     * @Route("/trajetspar/{id}", name="trajetsPar_api")
+     */
+
+    public function trajetsParAction($id)
+    {
+
+
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery(
+
+            'SELECT tr from AppBundle:Trajet tr,AppBundle:Chauffeur ev where ev.jardin   IN (SELECT DISTINCT m.id from AppBundle:Jardin m join m.abonnements ab 
+        Join  ab.enfant e 
+          where e.parent=:id)'
+        )->setParameter('id',$id);
+        $list = $query->getArrayResult();
+return new JsonResponse($list);
+
+    }
+
 }
