@@ -7,6 +7,7 @@ use AppBundle\Entity\Activite;
 use AppBundle\Entity\Club;
 use AppBundle\Entity\Enfant;
 use AppBundle\Entity\PartActivite;
+use AppBundle\Entity\Rank;
 use DorraBundle\Form\PartActiviteType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -153,20 +154,27 @@ public function Verifier($id, $ida){
 
 
     /**
-     * @Route("/addrank/{id}/{rank}", name="addrank")
+     * @Route("/addrank/{id}/{rank}/{idp}", name="addrank")
      */
 
-public function addRankAction(Request $request, $id, $rank){
-    $club=$this->getDoctrine()->getManager()->getRepository(Club::class)->findOneBy(array('id' => $id));
+public function addRankAction(Request $request, $id, $rank, $idp){
 
-    $club->setRank($rank);
+
+    $ranke= new Rank();
+
+    $ranke->setIdClub($id);
+
+    $ranke->setRank($rank);
+    $ranke->setIdParent($idp);
 
 
 
     $ex="succes";
     $em=$this->getDoctrine()->getManager();
 
+    $em->persist($ranke);
     $em->flush();
+
 
     $serializer = new Serializer([new ObjectNormalizer()]);
     $formatted = $serializer->normalize($ex);
