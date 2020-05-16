@@ -124,7 +124,7 @@ class WebServicesController extends Controller
         $remark->setTuteur($tut);
         $em->persist($remark);
         $em->flush();
-       // $this->sendmail($request->get(enf),tut,$desc);
+        $this->sendmail($request->get("enf"),$tut->getId(),$desc,$date);
 
 
 
@@ -138,27 +138,39 @@ class WebServicesController extends Controller
     }
 
 
-    public function sendmail($enf,$tut,$desc,Request $request){
+    public function sendmail($enf,$tutid,$desc,$date){
 
         $em=$this->getDoctrine()->getManager();
 
-        $parent=$em->getRepository(Enfant::class)->find($enf)->getParent();
-        //$tut=$em->getRepository(Tuteur::class)->find($request->get("tut"));
+        $enfant=$em->getRepository(Enfant::class)->find($enf);
+        $parid=$enfant->getParent()->getId();
+        $par=$em->getRepository(Parents::class)->findOneBy(["id"=>$parid]);
+
+        $tut=$em->getRepository(Tuteur::class)->find($tutid);
         $nomtut=$tut->getNom()." ".$tut->getPrenom();
+
+
         $transport = \Swift_SmtpTransport::newInstance('smtp.gmail.com', 587, 'tls')
             ->setUsername('trizouni1@gmail.com')
             ->setPassword('tmdpbiphihxcgyqy');
-        $mailer = new \Swift_Mailer($transport);
 
-        $ms=(new \Swift_Message('Vous avez une nouvelle remarque pour votre enfant'))
-            ->setFrom('raed.bahri@esprit.tn')
-            ->setTo($parent->getMail())
+        try{
+            $mailer = new \Swift_Mailer($transport);
 
-            ->setBody("<h3>".$request->get("enf")." a recu une nouvelle remarque de la part M/Mme ".$nomtut."</h3>".
-                "<br>".$request->get("remarque")."<br>Attribué le :".$request-$this->get("date")."",'text/html');
+            $ms=(new \Swift_Message('Vous avez une nouvelle remarque pour votre enfant'))
+                ->setFrom('raed.bahri@esprit.tn')
+                ->setTo($par->getEmail())
+
+                ->setBody("<h3>".$enfant->getNom()." ".$enfant->getPrenom()." a recu une nouvelle remarque de la part M/Mme ".$nomtut."</h3>".
+                    "<br>".$desc."<br>Attribué le :".$date->format('Y-m-d H:i:s')."",'text/html');
 
 
-        $mailer->send($ms);
+            $mailer->send($ms);
+        }catch (Exception $ex){
+            return new JsonResponse($ex);
+
+        }
+
         return new JsonResponse($ms->getBody());
 
     }
