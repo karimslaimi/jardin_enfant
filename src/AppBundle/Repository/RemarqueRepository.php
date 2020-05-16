@@ -19,7 +19,7 @@ class RemarqueRepository extends \Doctrine\ORM\EntityRepository
         from AppBundle:Parents p , AppBundle:Remarque r, AppBundle:Enfant e, AppBundle:Tuteur tut ,AppBundle:Abonnement ab
         where r.abonnement=ab.id AND ab.enfant=e.id AND e.parent=p.id AND r.tuteur=tut.id 
         
-        AND e.parent=:id ")
+        AND e.parent=:id Order by r.date")
             ->setParameter('id',$id);
         return $query=$q->getResult();
 
@@ -36,7 +36,7 @@ class RemarqueRepository extends \Doctrine\ORM\EntityRepository
         from AppBundle:Parents p , AppBundle:Remarque r, AppBundle:Enfant e, AppBundle:Tuteur tut ,AppBundle:Abonnement ab
         where r.abonnement=ab.id AND ab.enfant=e.id AND e.parent=p.id AND r.tuteur=tut.id 
         
-        AND r.tuteur=:id ")
+        AND r.tuteur=:id Order by r.date")
             ->setParameter('id',$id);
         return $query=$q->getResult();
 

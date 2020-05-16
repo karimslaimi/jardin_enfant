@@ -137,7 +137,7 @@ class MessagesController extends Controller
 
         $transport = \Swift_SmtpTransport::newInstance('smtp.gmail.com', 587, 'tls')
             ->setUsername('trizouni1@gmail.com')
-            ->setPassword('karims123');
+            ->setPassword('tmdpbiphihxcgyqy');
         $mailer = new \Swift_Mailer($transport);
 
         $ms=(new \Swift_Message('Votre Message a eté envoyée avec success '))

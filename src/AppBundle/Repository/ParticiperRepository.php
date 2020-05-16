@@ -33,5 +33,16 @@ class ParticiperRepository extends \Doctrine\ORM\EntityRepository
     }
 
 
+    public function getenfantsParents($idp)
+    {
+        $q=$this->getEntityManager()->createQuery("SELECT  c.prenom from AppBundle:Enfant c , AppBundle:Parent e where c.parent=e.id")
+            ->setParameter('ide',$idp);
+
+
+        return $query=$q->getResult();
+
+    }
+
+
 
 }
