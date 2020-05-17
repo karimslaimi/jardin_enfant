@@ -60,7 +60,7 @@ class Enfant
     private $abonnements;
 
     /**
-     * @MaxDepth(1)
+     *
      * @ORM\ManyToOne(targetEntity="Parents", inversedBy="enfants")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE")
      */

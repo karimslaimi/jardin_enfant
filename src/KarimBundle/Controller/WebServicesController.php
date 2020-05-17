@@ -2,6 +2,7 @@
 
 namespace KarimBundle\Controller;
 
+use AppBundle\AppBundle;
 use AppBundle\Entity\Abonnement;
 use AppBundle\Entity\Enfant;
 use AppBundle\Entity\Jardin;
@@ -112,7 +113,6 @@ class WebServicesController extends Controller
         $tut = $em->getRepository(Tuteur::class)->find($request->get("tut"));
         $abo = $em->getRepository(Abonnement::class)->find($request->get("abo"));
 
-
         $date = new DateTime("now");
 
         $desc = $request->get("descr");
@@ -124,6 +124,8 @@ class WebServicesController extends Controller
         $remark->setTuteur($tut);
         $em->persist($remark);
         $em->flush();
+        $this->sendmail($request->get("enf"),$tut->getId(),$desc,$date);
+
 
 
         if ($em->contains($remark)) {
@@ -132,6 +134,44 @@ class WebServicesController extends Controller
             return new JsonResponse("error");
         }
 
+
+    }
+
+
+    public function sendmail($enf,$tutid,$desc,$date){
+
+        $em=$this->getDoctrine()->getManager();
+
+        $enfant=$em->getRepository(Enfant::class)->find($enf);
+        $parid=$enfant->getParent()->getId();
+        $par=$em->getRepository(Parents::class)->findOneBy(["id"=>$parid]);
+
+        $tut=$em->getRepository(Tuteur::class)->find($tutid);
+        $nomtut=$tut->getNom()." ".$tut->getPrenom();
+
+
+        $transport = \Swift_SmtpTransport::newInstance('smtp.gmail.com', 587, 'tls')
+            ->setUsername('trizouni1@gmail.com')
+            ->setPassword('tmdpbiphihxcgyqy');
+
+        try{
+            $mailer = new \Swift_Mailer($transport);
+
+            $ms=(new \Swift_Message('Vous avez une nouvelle remarque pour votre enfant'))
+                ->setFrom('raed.bahri@esprit.tn')
+                ->setTo($par->getEmail())
+
+                ->setBody("<h3>".$enfant->getNom()." ".$enfant->getPrenom()." a recu une nouvelle remarque de la part M/Mme ".$nomtut."</h3>".
+                    "<br>".$desc."<br>Attribué le :".$date->format('Y-m-d H:i:s')."",'text/html');
+
+
+            $mailer->send($ms);
+        }catch (Exception $ex){
+            return new JsonResponse($ex);
+
+        }
+
+        return new JsonResponse($ms->getBody());
 
     }
 
@@ -422,6 +462,9 @@ class WebServicesController extends Controller
 
         return new JsonResponse($abonnement);
     }
+
+
+
 
 
 }

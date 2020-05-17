@@ -147,7 +147,7 @@ class webservicesController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery(
-            'SELECT e,c.libelle
+            'SELECT e.id, e.titre,e.description,e.date,e.image,c.libelle
             FROM AppBundle:Evenement e,AppBundle:Categorie c
             Where e.jardin=:idj and e.categorie=c.id')
 
@@ -161,7 +161,7 @@ class webservicesController extends Controller
         return new JsonResponse($list);
     }
 
-
+//liste des events du jardin auquel l'enf est inscrit
 
     /**
      *
@@ -185,20 +185,38 @@ class webservicesController extends Controller
 
         $list = $query->getArrayResult();
 
-        $encoder = new JsonEncoder();
-        $normalizer = new ObjectNormalizer();
 
-        $normalizer->setCircularReferenceHandler(function ($object) {
-            return $object->getId(); // Change this to a valid method of your object
-        });
-
-        $serializer = new Serializer(array($normalizer), array($encoder));
-        $formatted = $serializer->normalize($list, 'json');
-
-
-        return new JsonResponse($formatted);
+        return new JsonResponse($list);
     }
 
+
+    //get event
+    /**
+     *
+     *
+     * @Route("/getevent/{ide}", name="oneevent_api")
+     */
+
+    public function geteventAction($ide)
+    {
+
+
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery(
+
+            'SELECT ev from AppBundle:Evenement ev where ev.id=:id'
+        )
+
+            ->setParameter('id', $ide);
+
+        $event = $query->getArrayResult();
+
+
+        return new JsonResponse($event[0]);
+
+
+
+    }
 //ajouter événement pour le resp jardin
 
     /**
@@ -254,27 +272,32 @@ class webservicesController extends Controller
 //modifier événement pour resp jardin
 
     /**
-     * @Route("/editevent/{id}/{titre}/{description}/{date}", name="modeve")
+     * @Route("/editevent/{id}/{titre}/{description}/{date}/{idc}", name="modeve")
      */
 
-    public function ModifierevefAction(Request $request, $id, $titre, $description, $date)
+    public function ModifierevefAction(Request $request, $id, $titre, $description, $date,$idc)
     {
-        $evenement = $this->getDoctrine()->getManager()->getRepository(Evenement::class)->find($id);
+        try {
+            $evenement = $this->getDoctrine()->getManager()->getRepository(Evenement::class)->find($id);
+            $evenement->setCategorie($this->getDoctrine()->getManager()->getRepository(Categorie::class)->find($idc));
 
-        $evenement->setTitre($titre);
-        $evenement->setDescription($description);
-        $evenement->setDate(New \DateTime($date));
+            $evenement->setTitre($titre);
+            $evenement->setDescription($description);
+            $evenement->setDate(New \DateTime($date));
 
 
-        $ex = "succes";
-        $em = $this->getDoctrine()->getManager();
+            $em = $this->getDoctrine()->getManager();
 
-        $em->flush();
+            $em->flush();
 
-        $serializer = new Serializer([new ObjectNormalizer()]);
-        $formatted = $serializer->normalize($ex);
-        return new JsonResponse($formatted);
+
+            return new JsonResponse(true);
+
+        } catch (Exception $ex) { return JsonResponse(false);
+        }
     }
+
+
 
 // supprimer catégorie
     /**
@@ -282,7 +305,7 @@ class webservicesController extends Controller
      *
      * @Route("/suppcat/{id}", name="suppcat_api")
      */
-    public function supprimercatAction($id)
+   /* public function supprimercatAction($id)
     {
         try {
             $em = $this->getDoctrine()->getManager();
@@ -294,14 +317,14 @@ class webservicesController extends Controller
             return new JsonResponse(false);
         }
     }
-
+*/
 //Ajouter catégorie
 
     /**
      * @Route("/ajoutercat/{libelle}", name="ajouteve")
      * @throws Exception
      */
-
+/*
     public function AjoutercatAction(Request $request, $libelle)
     {
         $ca = new Categorie();
@@ -319,7 +342,7 @@ class webservicesController extends Controller
         return new JsonResponse($formatted);
     }
 
-
+*/
 
 
         /**
