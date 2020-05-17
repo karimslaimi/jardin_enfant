@@ -4,6 +4,7 @@ namespace RaedBundle\Controller;
 
 use AppBundle\AppBundle;
 use AppBundle\Entity\Jardin;
+use AppBundle\Entity\Paiement;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -85,6 +86,39 @@ class WebservicesController extends Controller
 
         return new JsonResponse($jardin);
     }
+
+
+    /**
+     * @Route("/paiement1", name="java_paiementJardin conct",methods={"GET"})
+     */
+    public function testPaimentAction(Request $request)
+    {
+        $mont=250;
+
+        $id=$request->get("id1");
+
+        if($request->isXmlHttpRequest()) {
+
+            $paiment = new Paiement();
+
+
+
+
+            $paiment->setJardin($id);
+            $paiment->setDate(new \DateTime(now));
+            $paiment->setMontant($mont);
+
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($paiment);
+            $entityManager->flush();
+
+
+            return new JsonResponse(true);
+        }
+        return new JsonResponse(false);
+    }
+
 
 
 }

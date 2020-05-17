@@ -72,7 +72,7 @@ class PaiementController extends Controller
             $p=new Paiement();
             $p->setDate(new \DateTime());
             $p->setJardin($this->getDoctrine()->getRepository(Jardin::class)->find($user->getId()));
-            $p->setMontant(1000);
+            $p->setMontant(250);
             $em = $this->getDoctrine()->getManager();
             $em->persist($p);
             $em->flush();
