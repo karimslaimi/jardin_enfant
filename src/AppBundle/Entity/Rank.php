@@ -44,6 +44,31 @@ class Rank
 
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="comment")
+     */
+    private $comment ;
+
+    /**
+     * @return string
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param string $comment
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+    }
+
+
+
+    /**
      * Get id
      *
      * @return int
