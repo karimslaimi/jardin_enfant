@@ -43,6 +43,20 @@ class ParticiperRepository extends \Doctrine\ORM\EntityRepository
 
     }
 
+    public function GetEventParticipants()
+    {
+        $q=$this->getEntityManager()->createQuery("SELECT c.id,count(t.id) as nb_part
+    FROM AppBundle:Evenement c LEFT JOIN AppBundle:Participer t where c.id=t.evenement GROUP BY c.titre");
+
+
+        return $query=$q->getResult();
+
+
+
+
+
+    }
+
 
 
 }

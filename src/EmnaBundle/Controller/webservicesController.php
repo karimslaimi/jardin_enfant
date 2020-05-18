@@ -449,6 +449,28 @@ class webservicesController extends Controller
     }
 
 
+
+    /**
+     *
+     * @Route("/EventParticipants")
+
+     */
+    public function EventParticipantsAction(){
+
+        $em = $this->getDoctrine()->getManager();
+        $part = $em->getRepository('AppBundle:Participer')->GetEventParticipants();
+
+
+
+        return new JsonResponse($part);
+
+    }
+
+
+
+
+
+
 }
 
 

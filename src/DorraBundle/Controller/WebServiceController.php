@@ -6,6 +6,7 @@ use AppBundle\Entity\Abonnement;
 use AppBundle\Entity\Activite;
 use AppBundle\Entity\Club;
 use AppBundle\Entity\Enfant;
+use AppBundle\Entity\Jardin;
 use AppBundle\Entity\PartActivite;
 use AppBundle\Entity\Rank;
 use DorraBundle\Form\PartActiviteType;
@@ -154,16 +155,17 @@ public function Verifier($id, $ida){
 
 
     /**
-     * @Route("/addrank/{id}/{rank}/{idp}", name="addrank")
+     * @Route("/addrank/{id}/{rank}/{idp}/{comment}", name="addrank")
      */
 
-public function addRankAction(Request $request, $id, $rank, $idp){
+public function addRankAction(Request $request, $id, $rank, $idp, $comment){
 
 
     $ranke= new Rank();
 
     $ranke->setIdClub($id);
 
+    $ranke->setComment($comment);
     $ranke->setRank($rank);
     $ranke->setIdParent($idp);
 
@@ -180,6 +182,36 @@ public function addRankAction(Request $request, $id, $rank, $idp){
     $formatted = $serializer->normalize($ex);
     return new JsonResponse($formatted);
 }
+
+
+
+    /**
+     * @Route("/addact/{idc}/{type}/{det}/{date}", name="addact")
+     */
+public function AddActAction(Request $request,$idc,$type,$det,$date)
+    {
+        $act=new Activite('', New \DateTime('now'));
+        $act->setClub($this->getDoctrine()->getManager()->getRepository(Club::class)->find($idc));
+
+        $act->setDateDebut(New \DateTime('now'));
+        $act->setDateFin(New \DateTime('now'));
+        $act->setDateCreation(New \DateTime('now'));
+        $act->setTypeact($type);
+        $act->setDetailles($det);
+        $act->setDate(New \DateTime($date));
+
+
+
+
+        $ex="succes";
+        $em=$this->getDoctrine()->getManager();
+        $em->persist($act);
+        $em->flush();
+
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($ex);
+        return new JsonResponse($formatted);}
+
 
 
 

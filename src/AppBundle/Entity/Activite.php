@@ -58,6 +58,7 @@ class Activite extends FullCalendarEvent
 
 
     /**
+     *
      * @var \DateTime
      * @Assert\DateTime()
      * @ORM\Column(name="dateDebut", type="date")
