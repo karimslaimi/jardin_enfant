@@ -116,6 +116,7 @@ class WebservicesController extends Controller
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($paiment);
+
             $entityManager->flush();
 
             if($entityManager->contains($paiment))
