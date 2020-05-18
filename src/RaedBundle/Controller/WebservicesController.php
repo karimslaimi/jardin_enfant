@@ -71,8 +71,12 @@ class WebservicesController extends Controller
 
 
     }
+
+
+
+
     /**
-     * @Route("/listpaiement/{id}", name="java_paiementJardin conct",methods={"GET"})
+     * @Route("/listpaiement/{id}", name="java_paiementJardin",methods={"GET"})
      */
 
     public function PaimentJardinAction($id)
@@ -97,7 +101,7 @@ class WebservicesController extends Controller
 
         $id=$request->get("id1");
 
-        if($request->isXmlHttpRequest()) {
+
 
             $paiment = new Paiement();
 
@@ -105,7 +109,7 @@ class WebservicesController extends Controller
 
 
             $paiment->setJardin($id);
-            $paiment->setDate(new \DateTime(now));
+            $paiment->setDate(new \DateTime("now"));
             $paiment->setMontant($mont);
 
 
@@ -114,11 +118,13 @@ class WebservicesController extends Controller
             $entityManager->persist($paiment);
             $entityManager->flush();
 
+            if($entityManager->contains($paiment))
+            { return new JsonResponse(true);
 
-            return new JsonResponse(true);
+            }
+            return new JsonResponse(false);
 
-        }
-        return new JsonResponse(false);
+
     }
 
 
