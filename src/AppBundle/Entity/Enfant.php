@@ -70,7 +70,7 @@ class Enfant
 
     /**
      * @MaxDepth(1)
-     * @ORM\OneToMany(targetEntity="Participer", mappedBy="enfant")
+     * @ORM\OneToMany(targetEntity="Participer", mappedBy="enfant" )
      */
     private $participation;
 

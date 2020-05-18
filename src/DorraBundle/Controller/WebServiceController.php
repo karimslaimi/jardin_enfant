@@ -193,6 +193,7 @@ public function AddActAction(Request $request,$idc,$type,$det,$date)
         $act=new Activite('', New \DateTime('now'));
         $act->setClub($this->getDoctrine()->getManager()->getRepository(Club::class)->find($idc));
 
+        $act->setPhoto("aaaa");
         $act->setDateDebut(New \DateTime('now'));
         $act->setDateFin(New \DateTime('now'));
         $act->setDateCreation(New \DateTime('now'));

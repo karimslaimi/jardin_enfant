@@ -37,7 +37,7 @@ class Remarque
 
     /**
      * @ORM\ManyToOne(targetEntity="Abonnement", inversedBy="remarques")
-     * @ORM\JoinColumn(name="abonnement_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="abonnement_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $abonnement;
 
