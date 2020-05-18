@@ -108,7 +108,7 @@ class WebservicesController extends Controller
 
 
 
-            $paiment->setJardin($id);
+            $paiment->setJardin($this->getDoctrine()->getRepository(Jardin::class)->find($id));
             $paiment->setDate(new \DateTime("now"));
             $paiment->setMontant($mont);
 
