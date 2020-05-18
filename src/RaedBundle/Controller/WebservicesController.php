@@ -76,7 +76,7 @@ class WebservicesController extends Controller
 
 
     /**
-     * @Route("/listpaiement/{id}", name="java_paiementJardin",methods={"GET"})
+     * @Route("/listpaiement/{id}", name="java_paiementJardin1",methods={"GET"})
      */
 
     public function PaimentJardinAction($id)
@@ -93,7 +93,7 @@ class WebservicesController extends Controller
 
 
     /**
-     * @Route("/paiement1", name="java_paiementJardin conct",methods={"GET"})
+     * @Route("/paiement1", name="java_paiementJardin",methods={"GET"})
      */
     public function testPaimentAction(Request $request)
     {
