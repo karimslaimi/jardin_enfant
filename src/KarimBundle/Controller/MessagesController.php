@@ -56,14 +56,14 @@ class MessagesController extends Controller
                 $message->setDate($time->format('Y-m-d H:i:s'));
 
                 $user = $this->container->get('security.token_storage')->getToken()->getUser();
-                    $message->setJardin($this->getDoctrine()->getRepository(Jardin::class)->find(2));
+                    $message->setJardin($this->getDoctrine()->getRepository(Jardin::class)->find($request->get("jarid")));
                     $message->setParent($user);
                     $message->setSender($user);
                     $em = $this->getDoctrine()->getManager();
                     $em->persist($message);
                     $em->flush();
 
-                return $this->redirectToRoute('messages_index');
+                return $this->redirectToRoute('messages_index', array('id' =>$request->get("jarid")));
 
 
 
@@ -86,7 +86,7 @@ class MessagesController extends Controller
 
         if($id!=null){
             $mess=$this->getDoctrine()->getManager()->getRepository(Messages::class)->getmine($user->getId(),$id);
-            return $this->render('@Karim/messages/show.html.twig',array("jardin"=>$jardin,"messages"=>$mess));
+            return $this->render('@Karim/messages/show.html.twig',array("jardin"=>$jardin,"messages"=>$mess,"jarid"=>$id));
         }
 
 

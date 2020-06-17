@@ -25,7 +25,7 @@ class MessagesRepository extends \Doctrine\ORM\EntityRepository
     public function getallmess($id)
     {
         $q=$this->getEntityManager()->createQuery("SELECT m from AppBundle:Messages m 
-         LEFT JOIN m.parent p where m.date in(select MAX(l.date) from AppBundle:Messages l Group by l.parent) AND  m.jardin=:id   ORDER BY m.date DESC 
+         LEFT JOIN m.parent p where m.date in(select MAX(l.date) from AppBundle:Messages l where l.parent=p AND m.jardin=l.jardin Group by l.parent) AND  m.jardin=:id   ORDER BY m.date DESC 
             ")->setParameter('id',$id);
 
         return $query=$q->getResult();

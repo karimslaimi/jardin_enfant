@@ -42,6 +42,7 @@
                 </div>
                 <div class="inbox_chat">
 
+                    {% if messages is defined %}
                     {% for message in messages %}
                         <a href="{{ url('messages_resp',{'id': message.parent.id}) }}">
                     <div class="chat_list ">
@@ -56,6 +57,7 @@
                         </a>
 
                     {% endfor %}
+                {% endif %}
                 </div>
             </div>
             {% if mess is defined %}

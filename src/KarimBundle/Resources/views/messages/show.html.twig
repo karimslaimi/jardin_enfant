@@ -27,7 +27,7 @@
 
                     </div>
                     <div class="inbox_chat">
-
+                        {% if jardin is defined %}
                         {% for jar in jardin %}
                             <a href="{{ url('messages_index',{'id': jar.id}) }}">
                                 <div class="chat_list ">
@@ -45,13 +45,19 @@
                                             {% endfor %}
                                             {% set messa=match_mess|last  %}
                                             <h5>{{ jar.name}}
+                                                {% if messa.msg is defined and messa.msg is not null %}
                                             <p>{{messa.msg }}</p>
+                                                {% else %}
+                                                    <p>Envoyer un message</p>
+                                                    {% endif %}
                                         </div>
                                     </div>
                                 </div>
                             </a>
 
                         {% endfor %}
+
+                        {% endif %}
                     </div>
                 </div>
 
@@ -61,7 +67,10 @@
                     <div class="mesgs">
                         <div class="msg_history">
 
+
                             {% for message in messages %}
+
+
                                 {% if"ROLE_PARENT" in message.sender.roles %}
                                     <div class="outgoing_msg">
                                         <div class="sent_msg">
@@ -83,7 +92,10 @@
                         <div class="type_msg">
                             <div class="input_msg_write">
                                 <form action=" {{ path('sendmsg') }}" method="post">
+                                    {% if jarid is defined %}
+                                    <input type="hidden"   name="jarid" value="{{ jarid }}" />
 
+                                    {% endif %}
                                     <input type="text" class="write_msg" placeholder="Type a message" name="msg" />
                                     <button class="msg_send_btn" type="submit"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
                                 </form>

@@ -103,7 +103,7 @@ class DefaultController extends Controller
 
             // Check if the user exists !
             if(!$user){
-                return $this->render("default/login.html.twig",array("msg"=>"user does not exist"));
+                return $this->render("default/login.html.twig",array("msg"=>"username non trouvé"));
             }
 
             /// Start verification
@@ -111,7 +111,7 @@ class DefaultController extends Controller
             $salt = $user->getSalt();
 
             if(!$encoder->isPasswordValid($user->getPassword(), $password, $salt)) {
-                return $this->render("default/login.html.twig",array("msg"=>"username or password are incorrect"));
+                return $this->render("default/login.html.twig",array("msg"=>"username ou mot de passe incorrect"));
             }
             /// End Verification
 
