@@ -50,7 +50,7 @@
                     <div class="top-right">
                         <!-- link Box -->
                         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                            <div class="link-box"><a href="{{ path('fos_user_security_logout') }}">Profile</a></div>
+                            <div class="link-box"><a href="{{ path('parents_edit',{'id':app.user.id}) }}">Profile</a></div>
                             <div class="link-box"><a href="{{ path('fos_user_security_logout') }}">Logout</a></div>
                         {% else %}
                             <div class="link-box"><a href="{{ path('parents_new') }}">S'inscrire</a></div>

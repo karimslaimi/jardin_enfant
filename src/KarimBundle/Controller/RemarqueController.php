@@ -24,14 +24,15 @@ class RemarqueController extends Controller
     {
         //this action is so important because it containe filter, pagination and sorting using knp paginator
         $em = $this->getDoctrine()->getManager();
-
+        $user = $this->get('security.token_storage')->getToken()->getUser();
 
        // $dql="select a from AppBundle:Remarque a";
-        $qb=$em->createQueryBuilder('a')->select("a")->from("AppBundle:Remarque","a");
+        $qb=$em->createQueryBuilder('a')->select("a")->from("AppBundle:Remarque","a")->join('a.abonnement','ab')->join('ab.enfant','en')->join("en.parent",'p');
         if($request->query->getAlnum("filter")){
-            $qb=$qb->join('a.abonnement','ab')->join('ab.enfant','en')
-            ->where('en.nom like :filter or a.description like :filter')
-                ->setParameter('filter', '%' . $request->query->getAlnum('filter') . '%');
+            $qb=$qb->where('p.id=:id and (en.nom like :filter or a.description like :filter)')
+                ->setParameter('filter', '%' . $request->query->getAlnum('filter') . '%')->setParameter("id",$user->getId());
+        }else{
+            $qb=$qb->where('p.id=:id')->setParameter("id",$user->getId());
         }
         $remarques = $qb->getQuery();
 
@@ -41,7 +42,7 @@ class RemarqueController extends Controller
         $rq = $paginator->paginate(
             $remarques,
            $request->query->get('page',1) /*page number*/,
-            $request->query->get('limit',1) /*limit per page*/
+            $request->query->get('limit',5) /*limit per page*/
         );
 
 

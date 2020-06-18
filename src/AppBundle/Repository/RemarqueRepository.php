@@ -28,6 +28,16 @@ class RemarqueRepository extends \Doctrine\ORM\EntityRepository
     }
 
 
+    public  function  getremmesenf($id){
+        $q=$this->getEntityManager()->createQuery("SELECT r 
+        from AppBundle:Parents p , AppBundle:Remarque r, AppBundle:Enfant e, AppBundle:Tuteur tut ,AppBundle:Abonnement ab
+        where r.abonnement=ab.id AND ab.enfant=e.id AND e.parent=p.id AND r.tuteur=tut.id 
+        
+        AND e.parent=:id Order by r.date")
+            ->setParameter('id',$id);
+        return $query=$q->getResult();
+    }
+
     public function gettutremarques($id)
     {
         $q=$this->getEntityManager()->createQuery("SELECT r.id,  ab.id as ab_id, p.nom as parnom,p.prenom as parprenom,

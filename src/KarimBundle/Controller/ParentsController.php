@@ -166,7 +166,22 @@ class ParentsController extends Controller
         //i need it for the parent to update his profile but it must be enhanced
         $deleteForm = $this->createDeleteForm($parent);
         $editForm = $this->createForm(ParentsType::class, $parent);
+        $editForm->remove("plainPassword");
         $editForm->handleRequest($request);
+        $oldpass=$request->get('old');
+        $newpass=$request->get("new");
+        $encoder = $this->container->get('security.encoder_factory')->getEncoder($parent);
+
+        if(!strcmp($oldpass,$newpass)==0){
+            return $this->render('@Karim/parents/edit.html.twig', array(
+                'parent' => $parent,
+                'form' => $editForm->createView(),
+              'msg'=>"les mots de passe ne correspondent pas "
+            ));
+        }else if($oldpass!=null){
+            $parent->setPlainPassword($oldpass);
+        }
+
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
